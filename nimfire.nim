@@ -15,24 +15,30 @@ proc initWindow* (res: (int, int), title: string, resizable: bool = false, bg_co
     result.bg_colour = bg_colour
     result.drawBackground()
 
-# should be updated to use gl*FB 'getSize' as it is more reliable than w.res
+#TODO: should be updated to use gl*FB 'getSize' as it is more reliable than w.res
 proc getSize* (w: var Window): (int, int) {.deprecated.} =
     return w.res
 
+#[ Let you manually clean canvas by drawing background over what was drawn ]#
+proc clear* (w: var Window) =
+    w.drawBackground()
+
+#[ Returns whether Window is ticking - stops when exit event is called ]#
 proc tick* (w: var Window): bool =
     return not w.scr.close()
 
+#[ Updated the screen. Should be used on every 'tick(Window)' check ]#
 proc update* (w: var Window) =
-    # if w.bg_colour != BLACK:
-    #     w.drawBackground() # clears the window
     w.scr.update()
+    w.clear()
 
+#[ Exits the application ]#
 proc finish* (w: var Window) =
     w.scr.term()
 
 #[ ALIASES ]#
-proc ignite* (res: (int, int), title: string, resizable: bool = false, bg_colour: ColorRGBX = BLACK): Window =
+proc ignite* (res: (int, int), title: string, resizable: bool = false, bg_colour: ColorRGBX = BLACK): Window = # initWindow()
     return initWindow(res, title, resizable, bg_colour)
-proc isBurning* (w: var Window): bool = return w.tick()
-proc addWood* (w: var Window) = w.update()
-proc extinguish* (w: var Window) = w.finish()
+proc isBurning* (w: var Window): bool = return w.tick()                                                        # tick()
+proc addWood* (w: var Window) = w.update()                                                                     # update()
+proc extinguish* (w: var Window) = w.finish()                                                                  # finish()

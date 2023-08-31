@@ -14,10 +14,18 @@ type
 
 proc newButton* (pos        : (int, int),
                  size       : (int, int),
-                 text       : string,
+                 text       : string     = "",
                  button_col : ColorRGBX,
                  border     : (int, int) = (0, 0), # use 'pax' or 'pay' if you want borders to look equally w/o manual adjustment (nimfire/utils)
                  border_col : ColorRGBX  = rgbx(0, 0, 0, 0)): Button =
+    #[ Creates new Button object. Arguments:
+    - pos        : (int, int) | required         >> Initial position of the button
+    - size       : (int, int) | required         >> Size of the button (whole)
+    - text       : string     | default = ""     >> Text written on button
+    - button_col : ColorRGBX  | required         >> Colour of the button (see nimfire/colors)
+    - border     : (int, int) | default = (0, 0) >> Creates frame between button inside and border
+    - border_col : ColorRGBX  | default = INV    >> Colour of the border (default is invisible) ]#
+
     result.pos  = pos
     result.size = size
     result.text = text
@@ -48,6 +56,16 @@ proc newButton* (pos        : (int, int),
 #     for _, button in w.buttons:
 #       if button not in exclude:
 #         w.drawButton(button)
+#
+# Additionally, it'd be nice to have button that takes image instead of drawing it by itself
+
+# Changes position of button by replacing its position (absolute)
+proc moveButtonAbs* (b: var Button, new_pos: (int, int)) =
+    b.pos = new_pos
+
+# Changes position of button by moving by specific length (relatively)
+proc moveButton* (b: var Button, pos: (int, int)) =
+    b.pos = (b.pos[0] + pos[0], b.pos[1] + pos[1])
 
 proc drawButton* (w: var Window, b: Button, condition: bool = true) =
     if condition == true:

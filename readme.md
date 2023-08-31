@@ -59,6 +59,20 @@ that is not commercial in any way.
 0.1.0:
   - added basic Window handler
   - added colors
-  - added drawing of shapes
+  - added drawing shapes
   - added several utility procs
+-->
+<!-- TODO
+  - getting keyboard event
+  - getting mouse position and clicking event
+  - getting image and drawing it on screen
+    (getting image as array of pixels and doing it manually?)
+
+  - creating button (nimfire/ui) that is manageable?
+    - creating 'buttons' element in Window that button can subscribe to?
+      this way you could not need variables to be passed, as you would
+      simply manage it by calling from Window object by ID or sth
+  - getting sound and letting it play (possibly on several channels, so they
+    can be played together and managed by it?)
+    ::: https://github.com/oprypin/nim-csfml
 -->

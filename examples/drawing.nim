@@ -5,6 +5,7 @@ import nimfire
 
 # initialises Window object
 var w = initWindow((800, 600), "Nimfire", bg_colour=PURPLE)
+var counter = 0
 
 while w.tick():
   w.drawRect((150, 150), (150, 150), BLACK)   # drawRect let you create rectangle shape (takes 'pos', 'size' and 'colour' args)
@@ -14,6 +15,10 @@ while w.tick():
                                                   #   : using 'pax' in this case let you draw square shape using (X:30, Y:30ofX)
                                                   #     instead of trying to calculate Y value by yourself
 
+  counter += 1
+  w.drawRect((5, 5), (15, 15), BLACK, counter < 1000) # you can also declare condition on which drawRect renders the image
+                                                      # (by default it is always true, as you can still manage it from outside)
+                                                      #  : in this example, rectangle will disappear once 'counter' reaches 1000
   w.update()
 
 w.finish() # finish program

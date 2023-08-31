@@ -25,6 +25,21 @@ while w.tick():
 w.finish()
 ```
 
+You can also draw on canvas easily:
+```nim
+import nimfire/colors
+import nimfire/draw
+import nimfire
+
+var w = initWindow((800, 600), "Nimfire")
+
+while w.tick():
+  w.drawRect((0, 0), (250, 250), PURPLE)
+  w.update()
+
+w.finish()
+```
+
 ---
 For code examples, visit `examples` folder.
 

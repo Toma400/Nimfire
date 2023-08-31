@@ -9,3 +9,12 @@ while w.tick(): # Nimfire let you control the loop
   w.update()      # update needs to be called every tick
 
 w.finish() # after everything, you will need to exit the program
+
+
+# you can also use Nimfire aliases:
+#[
+   initWindow = ignite
+   tick (w)   = isBurning (w)
+   update (w) = addWood (w)
+   finish (w) = extinguish (w)
+]#

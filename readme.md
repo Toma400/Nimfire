@@ -8,7 +8,7 @@ anytime soon.
 ### Installation
 To install the library, simply run such command in terminal:
 ```
-nimble install https://github.com/Toma400/Nimfire@#HEAD
+nimble install https://github.com/Toma400/Nimfire
 ```
 
 ### Usage
@@ -47,3 +47,11 @@ For code examples, visit `examples` folder.
 While library is *All Rights Reserved* for now (I'm quite lazy for libraries), it will
 be changed soon. For now you are allowed to use the library for any personal project
 that is not commercial in any way.
+
+<!-- CHANGELOG
+0.1.0:
+  - added basic Window handler
+  - added colors
+  - added drawing of shapes
+  - added several utility procs
+-->

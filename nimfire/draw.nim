@@ -2,7 +2,7 @@ from chroma import ColorRGBX
 import glFB except Window
 from types import Window
 
-proc drawBackground* (w: var Window, colour: ColorRGBX) =
+proc drawBackground* (w: var Window, colour: ColorRGBX = w.bg_colour) =
     for pix in w.scr.pixels(): pix = colour
 
 proc drawRect* (w: var Window, pos: (int, int), size: (int, int), colour: ColorRGBX) =

@@ -2,7 +2,7 @@ from chroma import ColorRGBX, rgbx
 from types import Window
 from draw import drawRect
 
-
+{.push experimental.}
 type
   Button* = object
     pos*:          (int, int)
@@ -33,6 +33,22 @@ proc newButton* (pos        : (int, int),
 # proc getButton* (w: var Window, s: string): Button =
 #     return w.buttons[s]
 
+# other option: no bound window for Button (as it was funky as you saw with issues of recursivity), then maybe there should be call from
+# Window object? Like 'draw Button (var Window, ID <str>)' which would browse buttons
+# ISSUE - recursivity is still made (because ui.nim uses Window for type checking), but is not practically wrong (no type recursivity)
+#          --- example of shorthand proc ---
+# proc drawButton* (w: var Window, id: string, condition: bool = true) =
+#     if condition == true:
+#       ...
+#       operateOnButton: w.buttons[id]
+#
+# this would also allow for interesting multi-draw:
+#
+# proc drawButtons* (w: var Window, exclude: varargs[Button]) =
+#     for _, button in w.buttons:
+#       if button not in exclude:
+#         w.drawButton(button)
+
 proc drawButton* (w: var Window, b: Button, condition: bool = true) =
     if condition == true:
       if b.frame_border > (0, 0):
@@ -45,3 +61,5 @@ proc drawButton* (w: var Window, b: Button, condition: bool = true) =
                    b.col_button)                     # colour
       else:
           drawRect(w, b.pos, b.size, b.col_button)
+
+{.pop.}

@@ -12,7 +12,8 @@ proc initWindow* (res: (int, int), title: string, resizable: bool = false, bg_co
     - bg_colour : ColorRGBX  | default = BLACK >> Colour of the background ]#
     result.res = res # use gl*FB handler if possible
     result.scr = Screen.new(res[0], res[1], title, resizable)
-    result.drawBackground(bg_colour)
+    result.bg_colour = bg_colour
+    result.drawBackground()
 
 # should be updated to use gl*FB 'getSize' as it is more reliable than w.res
 proc getSize* (w: var Window): (int, int) {.deprecated.} =
@@ -22,6 +23,8 @@ proc tick* (w: var Window): bool =
     return not w.scr.close()
 
 proc update* (w: var Window) =
+    # if w.bg_colour != BLACK:
+    #     w.drawBackground() # clears the window
     w.scr.update()
 
 proc finish* (w: var Window) =

@@ -43,6 +43,13 @@ w.finish()
 ---
 For code examples, visit `examples` folder.
 
+### Note
+All files are up for testing, however following modules:
+- `nimfire/ui`
+
+are experimental and as such, their behaviour should not be reported as buggy, as
+it is very much expected, being still worked on.
+
 ### Licensing
 While library is *All Rights Reserved* for now (I'm quite lazy for libraries), it will
 be changed soon. For now you are allowed to use the library for any personal project

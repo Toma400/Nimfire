@@ -10,7 +10,7 @@ const
   WHITE*  = r(255, 255, 255)
   BLACK*  = r(  0,   0,   0)
   GREEN*  = r(  0, 192,   0)
-  # BLUE
+  BLUE*   = r(  0,   0, 255)
   RED*    = r(255,   0,   0)
   YELLOW* = r(255, 255,   0)
   PURPLE* = r(128,   0, 128)
@@ -38,8 +38,9 @@ const
   COMEX_CAOBA* = r(136,  66,  29) # -- classic
   ACAJOU*      = r( 76,  47,  39) # -- dark
   #[ Cyan-like shades ]#
-  AQUA* = r(  0, 255, 255) # -- bright
-  TEAL* = r(  0, 128, 128) # -- teal-like
+  AQUA*       = r(  0, 255, 255) # -- bright
+  AQUAMARINE* = r(127, 255, 212)
+  TEAL*       = r(  0, 128, 128) # -- teal-like
   #[ Lime-like shades ]#
 
   #[ Pink-like shades ]#

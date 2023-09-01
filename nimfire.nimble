@@ -10,6 +10,7 @@ description   = "Small GUI/game development library made using gl*FB"
 license       = "All Rights Reserved"
 
 #[--- REQUIREMENTS ------]#
-requires "nim >= 1.6.12"
-requires "chroma"
-requires "glFB"
+requires "nim    >= 1.6.12"
+requires "nglfw  >= 3.3.8.2"
+requires "chroma >= 0.2.7"
+requires "glFB   >= 0.2.9"

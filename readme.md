@@ -76,9 +76,9 @@ that is not commercial in any way.
   - added colors
   - added drawing shapes
   - added several utility procs
+  - added handling of keyboard clicking
 -->
 <!-- TODO
-  - getting keyboard event
   - getting mouse position and clicking event
   - getting image and drawing it on screen
     (getting image as array of pixels and doing it manually?)

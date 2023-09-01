@@ -1,18 +1,29 @@
 import nimfire/colors
-import nimfire/utils
+import nimfire/input
 import nimfire/draw
-import nimfire/ui
 import nimfire
 
 var w = initWindow((800, 600), "Nimfire", true, bg_colour=PURPLE)
-var b = newButton(p(w, 2, 2), p(w, 15, 10), "Some text", TEAL, pax(w, 1, 1), CREAM)
-var counter = 0
+var r = newRect((25, 25), (10, 10), COMEX_CAOBA)
 
 while w.tick():
-  w.drawRect(p(w, 50, 50), pax(w, 30, 30), BAIKO)
-  drawButton(w, b)
-  counter += 1
-  if counter == 100:
-      b.moveButton((100, 100))
+  w.drawRect(r)
+  if getKeyPressed(w, KEY.A) or getKeyPressed(w, KEY.LEFT):
+      r.pos  = (r.pos[0] - 1, r.pos[1])
+      r.size = (r.size[0] - 1, r.size[1] - 1)
+  if getKeyPressed(w, KEY.D) or getKeyPressed(w, KEY.RIGHT):
+      r.pos  = (r.pos[0] + 1, r.pos[1])
+      r.size = (r.size[0] - 1, r.size[1] - 1)
+  if getKeyPressed(w, KEY.W) or getKeyPressed(w, KEY.UP):
+      r.pos  = (r.pos[0], r.pos[1] - 1)
+      r.size = (r.size[0] - 1, r.size[1] - 1)
+  if getKeyPressed(w, KEY.S) or getKeyPressed(w, KEY.DOWN):
+      r.pos  = (r.pos[0], r.pos[1] + 1)
+      r.size = (r.size[0] - 1, r.size[1] - 1)
+  if getKeyPressed(w, KEY.SPACE):
+      r.size = (r.size[0] + 1, r.size[1] + 1)
+
+  if r.size[0] < 1 or r.size[1] < 1:
+      break
   w.update()
 w.finish()

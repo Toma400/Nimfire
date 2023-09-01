@@ -40,6 +40,21 @@ while w.tick():
 w.finish()
 ```
 
+Also, Nimfire has possibility to handle user input:
+```nim
+import nimfire/input
+import nimfire
+
+var w = initWindow((800, 600), "Nimfire")
+
+while w.tick():
+  if w.getKeyPressed(KEY.SPACE):
+    echo "Space just got used!"
+  w.update()
+  
+w.finish()
+```
+
 ---
 For code examples, visit `examples` folder.
 

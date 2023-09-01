@@ -19,16 +19,16 @@ var r = newRect((25, 25), (10, 10), COMEX_CAOBA)
 while w.tick():
     w.drawRect(r) # draws player
     if getKeyPressed(w, KEY.A) or getKeyPressed(w, KEY.LEFT): # check for keys (WASD)
-        r.pos  = (r.pos[0] - 1, r.pos[1])                       # adjusts their position
-        r.size = (r.size[0] - 1, r.size[1] - 1)                 # and shrinks size of player
+        r.move(-1, 0)                                           # adjusts Rect position
+        r.size = (r.size[0] - 1, r.size[1] - 1)                 # and shrinks size of it
     if getKeyPressed(w, KEY.D) or getKeyPressed(w, KEY.RIGHT):
-        r.pos  = (r.pos[0] + 1, r.pos[1])
+        r.move(1, 0)
         r.size = (r.size[0] - 1, r.size[1] - 1)
     if getKeyPressed(w, KEY.W) or getKeyPressed(w, KEY.UP):
-        r.pos  = (r.pos[0], r.pos[1] - 1)
+        r.move(0, -1)
         r.size = (r.size[0] - 1, r.size[1] - 1)
     if getKeyPressed(w, KEY.S) or getKeyPressed(w, KEY.DOWN):
-        r.pos  = (r.pos[0], r.pos[1] + 1)
+        r.move(0, 1)
         r.size = (r.size[0] - 1, r.size[1] - 1)
     if getKeyPressed(w, KEY.SPACE):
         r.size = (r.size[0] + 1, r.size[1] + 1)  # grows size of player (when SPACE is pressed)

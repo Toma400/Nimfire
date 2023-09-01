@@ -6,7 +6,7 @@ proc r(r: uint8, g: uint8, b: uint8): ColorRGBX =
     return rgbx(r, g, b, 255)
 
 const
-  #[ Standard colours, based on HTML colour wheel ]#
+  #[ Standard colours ]#
   WHITE*  = r(255, 255, 255)
   BLACK*  = r(  0,   0,   0)
   GREEN*  = r(  0, 192,   0)

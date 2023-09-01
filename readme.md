@@ -39,6 +39,8 @@ while w.tick():
 
 w.finish()
 ```
+You can look at `examples/drawing` and `examples/rect_management` for more detailed
+documentation on how you can use drawing with the library.
 
 Also, Nimfire has possibility to handle user input:
 ```nim
@@ -56,7 +58,8 @@ w.finish()
 ```
 
 ---
-For code examples, visit `examples` folder.
+For code examples, visit `examples` folder. You can also look at `examples/games`
+for tutorial games.
 
 ### Note
 All files are up for testing, however following modules:

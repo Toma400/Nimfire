@@ -12,7 +12,7 @@ proc newRect* (pos: (int, int), size: (int, int), colour: ColorRGBX): Rect =
 #[ Simple QoL function for moving rectangle with tuple or ints (use negative ints to substract) ]#
 proc move* (r: var Rect, pos: (int, int)) =
     r.pos = (r.pos[0] + pos[0], r.pos[1] + pos[1])
-proc move* (r: var Rect, x, y: int) =
+proc move* (r: var Rect, x: int, y: int) =
     move(r, (x, y))
 #[ Checks if specific position collides with Rect given ]#
 proc collide* (r: Rect, pos: (int, int)): bool =
@@ -20,7 +20,7 @@ proc collide* (r: Rect, pos: (int, int)): bool =
       for y in r.pos[1]..r.pos[1]+r.size[1]:
         if (x, y) == pos: return true
     return false
-proc collide* (r: Rect, x, y: int): bool =
+proc collide* (r: Rect, x: int, y: int): bool =
     return collide(r, (x, y))
 #[ Check if Rect (r2) collides with another Rect (r) ]#
 proc collide* (r: Rect, r2: Rect): bool =

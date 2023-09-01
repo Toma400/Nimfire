@@ -34,6 +34,6 @@ while w.tick():
         r.size = (r.size[0] + 1, r.size[1] + 1)  # grows size of player (when SPACE is pressed)
     # checks if size of player Rect is bigger than (0, 0)
     if r.size[0] < 1 or r.size[1] < 1:
-      break
+        break
     w.update() # updates the screen
 w.finish() # finishes the game

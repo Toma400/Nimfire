@@ -3,6 +3,7 @@ from nimfire/types import Window
 from nimfire/colors import BLACK
 from chroma import ColorRGBX
 import glFB except Window
+import vmath
 
 proc initWindow* (res: (int, int), title: string, resizable: bool = false, bg_colour: ColorRGBX = BLACK): Window =
     #[ Creates initial Window object. Arguments:
@@ -10,14 +11,13 @@ proc initWindow* (res: (int, int), title: string, resizable: bool = false, bg_co
     - title     : string     | required        >> Title of the window
     - resizable : bool       | default = false >> Whether window should be resizeable
     - bg_colour : ColorRGBX  | default = BLACK >> Colour of the background ]#
-    result.res = res # use gl*FB handler if possible
     result.scr = Screen.new(res[0], res[1], title, resizable)
     result.bg_colour = bg_colour
     result.drawBackground()
 
-#TODO: should be updated to use gl*FB 'getSize' as it is more reliable than w.res
-proc getSize* (w: var Window): (int, int) {.deprecated.} =
-    return w.res
+#[ Returns tuple with window size (using GLFW function) ]#
+proc getRes* (w: var Window): (int, int) =
+    return (w.scr.win.getSize()[0].int, w.scr.win.getSize()[1].int)
 
 #[ Let you manually clean canvas by drawing background over what was drawn ]#
 proc clear* (w: var Window) =

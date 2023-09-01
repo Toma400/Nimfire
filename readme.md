@@ -56,11 +56,11 @@ while w.tick():
   
 w.finish()
 ```
-Again, if you want to see more detailed documentation, `examples/keyboard_input` is
-great place to start!
+Again, if you want to see more detailed documentation, `examples/keyboard_input` and
+`examples/mouse_input` are great place to start!
 
 ---
-For code examples, visit `examples` folder. You can also look at `examples/games`
+For more code examples, visit `examples` folder. You can also look at `examples/games`
 for tutorial games.
 
 ### Note

@@ -1,4 +1,5 @@
-from nglfw/core import getKey
+from nglfw/core import getKey, getMouseButton, getCursorPos
+from ../nimfire import getRes
 from types import Window
 import std/tables
 
@@ -36,6 +37,15 @@ type
     LEFT   = 263
     DOWN   = 264
     UP     = 265
+  MouseButton* = enum
+    LEFT   = 1
+    RIGHT  = 2
+    MIDDLE = 3
+    UNN_4  = 4 # nglfw introduces more buttons, so they can be reached
+    UNN_5  = 5
+    UNN_6  = 6
+    UNN_7  = 7
+    UNN_8  = 8
 
 const
   keys = {"a":      A,
@@ -95,3 +105,20 @@ proc allKeysPressed* (w: Window, k: varargs[string]): bool =
     for key in k:
       if getKeyPressed(w, key) == false: return false
     return k.len > 0
+
+#[ Returns whether specific button was pressed ]#
+proc getMousePressed* (w: Window, button: MouseButton = LEFT): bool =
+    return getMouseButton(w.scr.win.ct, button.cint - 1) == 1
+
+# ---------> ------------>
+#[ Returns position of a mouse. Uses (-1, -1) as special coordinates of bug ]#
+# proc getMousePos* (w: var Window): (int, int) =
+#     for x in 0..getRes(w)[0]:
+#       for y in 0..getRes(w)[1]:
+#         if getCursorPos(w.scr.win.ct, x.cdouble, y.cdouble) == 1: return (x, y)
+#     return (-1, -1)
+#[ Returns position of a mouse. Uses (-1, -1) as special coordinates of bug, and (-9, -9) for inactivity ]#
+# proc getMousePressedPos* (w: Window, button: MouseButton = LEFT): (int, int) =
+#     if getMousePressed(w, button):
+#       return getMousePos(w)
+#     return (-9, -9)

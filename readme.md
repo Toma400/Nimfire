@@ -56,6 +56,8 @@ while w.tick():
   
 w.finish()
 ```
+Again, if you want to see more detailed documentation, `examples/keyboard_input` is
+great place to start!
 
 ---
 For code examples, visit `examples` folder. You can also look at `examples/games`

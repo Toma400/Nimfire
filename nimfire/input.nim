@@ -63,6 +63,10 @@ const
           "x":      X,
           "y":      Y,
           "z":      Z,
+          "up":     UP,
+          "down":   DOWN,
+          "left":   LEFT,
+          "right":  RIGHT,
           "space":  SPACE,
           "escape": ESCAPE}.toTable
 
@@ -71,3 +75,23 @@ proc getKeyPressed* (w: Window, k: Key): bool =
     return getKey(w.scr.win.ct, k.cint) == 1         # uses nglfw, ref path: Nimfire.Window > glFB.Screen > glFB.Window > glfw.Window
 proc getKeyPressed* (w: Window, k: string): bool =
     return getKey(w.scr.win.ct, keys[k].cint) == 1   # uses nglfw, ref path: Nimfire.Window > glFB.Screen > glFB.Window > glfw.Window
+
+#[ Returns whether any of keys listed is pressed or not. Takes Key enum or string representation ]#
+proc anyKeysPressed* (w: Window, k: varargs[Key]): bool =
+    for key in k:
+      if getKeyPressed(w, key) == true: return true
+    return false
+proc anyKeysPressed* (w: Window, k: varargs[string]): bool =
+    for key in k:
+      if getKeyPressed(w, key) == true: return true
+    return false
+
+#[ Returns whether all of keys listed is pressed or not. Takes Key enum or string representation ]#
+proc allKeysPressed* (w: Window, k: varargs[Key]): bool =
+    for key in k:
+      if getKeyPressed(w, key) == false: return false
+    return k.len > 0
+proc allKeysPressed* (w: Window, k: varargs[string]): bool =
+    for key in k:
+      if getKeyPressed(w, key) == false: return false
+    return k.len > 0

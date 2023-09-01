@@ -21,6 +21,19 @@ while w.tick():
   if getKeyPressed(w, KEY.S):
       r.pos = (r.pos[0], r.pos[1] + 1)
 
+  # you can also use shortcut functions to get key combinations
+  # 1. if all keys were pressed at the same time
+  if allKeysPressed(w, KEY.UP, KEY.DOWN):
+      echo "You clicked both -arrow up- and -arrow down- keys!"
+  # 2. if any of keys were pressed at the same time
+  if anyKeysPressed(w, KEY.W, KEY.S, KEY.A, KEY.D):
+      echo "You clicked one (or more) of WASD keys!"
+
+  # also, you can use string representation instead of KEY enum:
+    # for string IDs, look at nimfire/input 'keys' const
+  if getKeyPressed(w, "space"):
+      echo "Pressed space and recognised it using string!"
+
   w.update()
 
 w.finish() # finish program

@@ -1,4 +1,4 @@
-from nglfw/core import getKey, getMouseButton, getCursorPos
+from nglfw/core import getKey, getMouseButton
 from ../nimfire import getRes
 from types import Window
 import std/tables
@@ -6,6 +6,16 @@ import std/tables
 type
   Key* = enum # look at nglfw/core for references of numbers
     SPACE = 32
+    N0 = 48 # 0-9 numerical keys
+    N1 = 49
+    N2 = 50
+    N3 = 51
+    N4 = 52
+    N5 = 53
+    N6 = 54
+    N7 = 55
+    N8 = 56
+    N9 = 57
     A = 65
     B = 66
     C = 67
@@ -33,10 +43,37 @@ type
     Y = 89
     Z = 90
     ESCAPE = 256
+    ENTER  = 257
+    TAB    = 258
     RIGHT  = 262
     LEFT   = 263
     DOWN   = 264
     UP     = 265
+    F1     = 290
+    F2     = 291
+    F3     = 292
+    F4     = 293
+    F5     = 294
+    F6     = 295
+    F7     = 296
+    F8     = 297
+    F9     = 298
+    F10    = 299
+    F11    = 300
+    F12    = 301
+    F13    = 302
+    F14    = 303
+    F15    = 304
+    F16    = 305
+    F17    = 306
+    F18    = 307
+    F19    = 308
+    F20    = 309
+    F21    = 310
+    F22    = 311
+    F23    = 312
+    F24    = 313
+    F25    = 314
   MouseButton* = enum
     LEFT   = 1
     RIGHT  = 2
@@ -78,6 +115,53 @@ const
           "left":   LEFT,
           "right":  RIGHT,
           "space":  SPACE,
+          "enter":  ENTER,
+          "tab":    TAB,
+          "0":      N0,
+          "1":      N1,
+          "2":      N2,
+          "3":      N3,
+          "4":      N4,
+          "5":      N5,
+          "6":      N6,
+          "7":      N7,
+          "8":      N8,
+          "9":      N9,
+          "zero":   N0, # text variants
+          "one":    N1,
+          "two":    N2,
+          "three":  N3,
+          "four":   N4,
+          "five":   N5,
+          "six":    N6,
+          "seven":  N7,
+          "eight":  N8,
+          "nine":   N9,
+          "f1":     F1,
+          "f2":     F2,
+          "f3":     F3,
+          "f4":     F4,
+          "f5":     F5,
+          "f6":     F6,
+          "f7":     F7,
+          "f8":     F8,
+          "f9":     F9,
+          "f10":    F10,
+          "f11":    F11,
+          "f12":    F12,
+          "f13":    F13,
+          "f14":    F14,
+          "f15":    F15,
+          "f16":    F16,
+          "f17":    F17,
+          "f18":    F18,
+          "f19":    F19,
+          "f20":    F20,
+          "f21":    F21,
+          "f22":    F22,
+          "f23":    F23,
+          "f24":    F24,
+          "f25":    F25,
           "escape": ESCAPE}.toTable
 
 #[ Returns whether specific key is pressed or not. Takes Key enum or string representation ]#
@@ -110,12 +194,12 @@ proc allKeysPressed* (w: Window, k: varargs[string]): bool =
 proc getMousePressed* (w: Window, button: MouseButton = LEFT): bool =
     return getMouseButton(w.scr.win.ct, button.cint - 1) == 1
 
-# ---------> ------------>
+# ---------> ------------> import CursorPosFun {!}
 #[ Returns position of a mouse. Uses (-1, -1) as special coordinates of bug ]#
 # proc getMousePos* (w: var Window): (int, int) =
 #     for x in 0..getRes(w)[0]:
 #       for y in 0..getRes(w)[1]:
-#         if getCursorPos(w.scr.win.ct, x.cdouble, y.cdouble) == 1: return (x, y)
+#         if CursorPosFun(w.scr.win.ct, x.cdouble, y.cdouble) == 1: return (x, y)
 #     return (-1, -1)
 #[ Returns position of a mouse. Uses (-1, -1) as special coordinates of bug, and (-9, -9) for inactivity ]#
 # proc getMousePressedPos* (w: Window, button: MouseButton = LEFT): (int, int) =

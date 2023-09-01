@@ -1,6 +1,6 @@
 ![](banner.png)
-**Nimfire** (Nim Campfire) is small GUI/game library inspired by PyGame, using
-gl*FB library to render window and let you draw.  
+**Nimfire** (Nim Campfire) is small GUI/game library inspired by PyGame and Nigui,
+using gl*FB and GLFW libraries to render window and let you draw.  
 While it is mostly my learning project, I'd love to see it becoming something bigger
 in the future - I will try to update is regularly, so it should not be abandoned
 anytime soon.
@@ -60,15 +60,22 @@ Again, if you want to see more detailed documentation, `examples/keyboard_input`
 `examples/mouse_input` are great place to start!
 
 ---
+### Note
 For more code examples, visit `examples` folder. You can also look at `examples/games`
 for tutorial games.
 
-### Note
 All files are up for testing, however following modules:
 - `nimfire/ui`
 
 are experimental and as such, their behaviour should not be reported as buggy, as
 it is very much expected, being still worked on.
+
+---
+### Discord server
+
+<a href="https://discord.gg/GbTw9KqnrE"><center>
+<img src="https://cdn.discordapp.com/attachments/849205834830315520/863457019742519328/Discord_logo_okrage.png" width="200"></center>
+</a>
 
 ### Licensing
 While library is *All Rights Reserved* for now (I'm quite lazy for libraries), it will
@@ -81,7 +88,7 @@ that is not commercial in any way.
   - added colors
   - added drawing shapes
   - added several utility procs
-  - added handling of keyboard clicking
+  - added handling of keyboard & mouse clicking
 -->
 <!-- TODO
   - getting mouse position

@@ -3,8 +3,8 @@ import nimfire/draw # import to get Rect type and all functions related to it
 import nimfire
 
 var w = initWindow((800, 600), "Nimfire", true, bg_colour=PURPLE)
-var r = newRect((25, 25), (10, 10), COMEX_CAOBA) # creates new Rect object
-var y = newRect((50, 50), (15, 15), COMEX_CAOBA)
+var r = newRect(pos=(25, 25), size=(10, 10), colour=COMEX_CAOBA) # creates new Rect object
+var y = newRect(pos=(50, 50), size=(15, 15), colour=COMEX_CAOBA)
 
 var is_moved   = false
 

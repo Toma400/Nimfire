@@ -25,7 +25,7 @@ while w.tick():
   # 1. if all keys were pressed at the same time
   if allKeysPressed(w, KEY.UP, KEY.DOWN):
       echo "You clicked both -arrow up- and -arrow down- keys!"
-  # 2. if any of keys were pressed at the same time
+  # 2. if any of keys were pressed
   if anyKeysPressed(w, KEY.W, KEY.S, KEY.A, KEY.D):
       echo "You clicked one (or more) of WASD keys!"
 

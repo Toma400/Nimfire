@@ -19,6 +19,10 @@ while w.tick():
   w.drawRect((5, 5), (15, 15), BLACK, counter < 1000) # you can also declare condition on which drawRect renders the image
                                                       # (by default it is always true, as you can still manage it from outside)
                                                       #  : in this example, rectangle will disappear once 'counter' reaches 1000
+
+  # drawRect can also take Rect object as argument, which gives you better control over drawn rectangles
+  #  : look at 'rect_management' file for further reference
+
   w.update()
 
 w.finish() # finish program

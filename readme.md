@@ -84,7 +84,7 @@ that is not commercial in any way.
   - added handling of keyboard clicking
 -->
 <!-- TODO
-  - getting mouse position and clicking event
+  - getting mouse position
   - getting image and drawing it on screen
     (getting image as array of pixels and doing it manually?)
 

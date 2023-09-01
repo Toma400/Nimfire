@@ -13,13 +13,13 @@ while w.tick():
   w.drawRect(r)   # we draw our Rect object
 
   if getKeyPressed(w, KEY.A):            # we check if button is pressed
-      r.pos = (r.pos[0] - 1, r.pos[1])     # then move our Rect accordingly by (X, Y)
+      r.move(-1, 0)                        # then move our Rect accordingly by (X, Y)
   if getKeyPressed(w, KEY.D):
-      r.pos = (r.pos[0] + 1, r.pos[1])
+      r.move(1, 0)
   if getKeyPressed(w, KEY.W):
-      r.pos = (r.pos[0], r.pos[1] - 1)
+      r.move(0, -1)
   if getKeyPressed(w, KEY.S):
-      r.pos = (r.pos[0], r.pos[1] + 1)
+      r.move(0, 1)
 
   # you can also use shortcut functions to get key combinations
   # 1. if all keys were pressed at the same time

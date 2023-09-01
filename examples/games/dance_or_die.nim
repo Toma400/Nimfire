@@ -11,7 +11,7 @@ import nimfire
    Have fun!                                                    ]#
 
 # initialises window
-var w = initWindow((800, 600), "Nimfire", true, bg_colour=PURPLE)
+var w = initWindow((800, 600), "Dance or Die", true, bg_colour=PURPLE)
 # creates "player" rectangle
 var r = newRect((25, 25), (10, 10), PINE_GREEN)
 

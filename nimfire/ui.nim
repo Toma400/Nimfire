@@ -12,7 +12,7 @@ type
     col_button*:   ColorRGBX
     col_border*:   ColorRGBX
 
-proc newButton* (pos        : (int, int),
+proc newButton (pos        : (int, int),
                  size       : (int, int),
                  text       : string     = "",
                  button_col : ColorRGBX,
@@ -60,14 +60,14 @@ proc newButton* (pos        : (int, int),
 # Additionally, it'd be nice to have button that takes image instead of drawing it by itself
 
 # Changes position of button by replacing its position (absolute)
-proc moveButtonAbs* (b: var Button, new_pos: (int, int)) =
+proc moveButtonAbs (b: var Button, new_pos: (int, int)) =
     b.pos = new_pos
 
 # Changes position of button by moving by specific length (relatively)
-proc moveButton* (b: var Button, pos: (int, int)) =
+proc moveButton (b: var Button, pos: (int, int)) =
     b.pos = (b.pos[0] + pos[0], b.pos[1] + pos[1])
 
-proc drawButton* (w: var Window, b: Button, condition: bool = true) =
+proc drawButton (w: var Window, b: Button, condition: bool = true) =
     if condition == true:
       if b.frame_border > (0, 0):
           drawRect(w, b.pos, b.size, b.col_border)

@@ -1,17 +1,17 @@
 import nimfire/colors
-import nimfire/draw
 import nimfire/input
+import nimfire/image
 import nimfire
 
-var w = initWindow((800, 600), "Nimfire", resizable=true, bg_colour=LIME)
-var r1 = newRect((50, 50), (50, 50), LEMON_LIME)
+# initialises window
+var w = initWindow((800, 600), "Dance or Die", resizable=true, bg_colour=PULLMAN_BROWN)
+var i = newImage("nimfire.png", (10, 10))
 
-# update loop
+
 while w.tick():
-    drawRect(w, r1)
-
-    # echo $getMousePos(w)
-    # echo getMousePos(w)
+    w.drawImage(i)
+    if getKeyPressed(w, SPACE):
+      move(i, 1, 1)
 
     w.update() # updates the screen
 w.finish() # finishes the game

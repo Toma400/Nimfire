@@ -24,6 +24,10 @@ proc newImage* (path: string, pos: (int, int) = (0, 0)): Image =
     result.res = (result.png.width, result.png.height)
     result.matrix = createMatrix(result.res, result.png.data)
     echo(result.png.data)
+#[ Returns ending pos for Image as (X, Y) tuple ]#
+proc epos* (i: Image): (int, int) =
+    return (i.pos[0]+i.res[0],
+            i.pos[1]+i.res[1])
 
 proc drawImage* (w: var Window, i: Image, pos: (int, int) = i.pos, cond: bool = true) =
     var x, y: int
@@ -34,10 +38,16 @@ proc drawImage* (w: var Window, i: Image, pos: (int, int) = i.pos, cond: bool = 
         if isWithin(w, (x, y)):
           w.scr[x, y] = v
 
+#[ Simple QoL function for moving Image with tuple or ints (use negative ints to substract) ]#
 proc move* (i: var Image, pos: (int, int)) =
     i.pos = (i.pos[0] + pos[0], i.pos[1] + pos[1])
 proc move* (i: var Image, x: int, y: int) =
     move(i, (x, y))
+#[ Checks if Image is within screen range ]#
+proc isWithin* (i: Image, w: var Window): bool =
+    if isWithin(w, i.pos[0]) and isWithin(w, i.epos[0] and isWithin(w, i.pos[1]) and isWithin(w, i.epos[1])):
+        return true
+    return false
 
 proc createMatrix* (res: (int, int), pxs: seq[ColorRGBA]): Table[(int, int), ColorRGBX] =
     var x = 0

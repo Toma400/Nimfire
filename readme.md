@@ -66,11 +66,14 @@ for tutorial games. They serve as current most up-to-date and extensive
 documentation outside (a bit messily written) source code.
 
 ---
-### Discord server
+### Socials
 
-<a href="https://discord.gg/GbTw9KqnrE"><center>
-<img src="https://cdn.discordapp.com/attachments/849205834830315520/863457019742519328/Discord_logo_okrage.png" width="200"></center>
-</a>
+<tr>
+        <td colspan="2" align="center">
+            <a href="https://linktr.ee/toma400"><img src="https://img.shields.io/badge/%20-Linktree%20-108931?style=plastic&logo=appveyor"></a>
+            <a href="https://discord.gg/GbTw9KqnrE"><img src="https://img.shields.io/discord/842338281692725268?color=AA16D1&label=%20&logo=Discord&logoColor=DDD4EA&style=plastic"></a>
+        </td>
+</tr>
 
 ### Licensing
 While library is *All Rights Reserved* for now (I'm quite lazy for libraries), it will

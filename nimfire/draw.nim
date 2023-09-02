@@ -27,11 +27,16 @@ proc collide* (r: Rect, pos: (int, int)): bool =
     return false
 proc collide* (r: Rect, x: int, y: int): bool =
     return collide(r, (x, y))
-#[ Check if Rect (r2) collides with another Rect (r) ]#
+#[ Checks if Rect (r2) collides with another Rect (r) ]#
 proc collide* (r: Rect, r2: Rect): bool =
     for x in r2.pos[0]..r2.epos[0]:
       for y in r2.pos[1]..r2.epos[1]:
         return collide(r, (x, y))
+#[ Checks if Rect is within screen range ]#
+proc isWithin* (r: Rect, w: var Window): bool =
+    if isWithin(w, r.pos[0]) and isWithin(w, r.epos[0] and isWithin(w, r.pos[1]) and isWithin(w, r.epos[1])):
+        return true
+    return false
 
 #[ Draws one colour on whole screen ]#
 proc drawBackground* (w: var Window, colour: ColorRGBX = w.bg_colour) =

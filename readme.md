@@ -62,13 +62,8 @@ Again, if you want to see more detailed documentation, `examples/keyboard_input`
 ---
 ### Note
 For more code examples, visit `examples` folder. You can also look at `examples/games`
-for tutorial games.
-
-All files are up for testing, however following modules:
-- `nimfire/ui`
-
-are experimental and as such, their behaviour should not be reported as buggy, as
-it is very much expected, being still worked on.
+for tutorial games. They serve as current most up-to-date and extensive
+documentation outside (a bit messily written) source code.
 
 ---
 ### Discord server
@@ -102,4 +97,7 @@ that is not commercial in any way.
   - getting sound and letting it play (possibly on several channels, so they
     can be played together and managed by it?)
     ::: https://github.com/oprypin/nim-csfml
+  - holders for Image, Rect and other elements via either Window or
+    separate structure? Would work as Table of [ID:str, T] and could
+    handle objects for further reference
 -->

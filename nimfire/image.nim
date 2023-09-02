@@ -1,6 +1,7 @@
 from pixie/fileformats/png import decodePng, Png
 from pixie import autoPremultipliedAlpha
 from chroma import ColorRGBA, ColorRGBX
+from ../nimfire import isWithin
 import glFB except Window
 from types import Window
 import std/tables
@@ -25,9 +26,13 @@ proc newImage* (path: string, pos: (int, int) = (0, 0)): Image =
     echo(result.png.data)
 
 proc drawImage* (w: var Window, i: Image, pos: (int, int) = i.pos, cond: bool = true) =
+    var x, y: int
     if cond == true:
       for k, v in i.matrix:
-          w.scr[pos[0]+k[0], pos[1]+k[1]] = v
+        x = pos[0]+k[0]
+        y = pos[1]+k[1]
+        if isWithin(w, (x, y)):
+          w.scr[x, y] = v
 
 proc move* (i: var Image, pos: (int, int)) =
     i.pos = (i.pos[0] + pos[0], i.pos[1] + pos[1])

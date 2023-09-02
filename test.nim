@@ -10,8 +10,10 @@ var i = newImage("nimfire.png", (10, 10))
 
 while w.tick():
     w.drawImage(i)
-    if getKeyPressed(w, SPACE):
-      move(i, 1, 1)
+    if getKeyPressed(w, W):
+      move(i, 0, -1)
+    if getKeyPressed(w, S):
+      move(i, 0, 1)
 
     w.update() # updates the screen
 w.finish() # finishes the game

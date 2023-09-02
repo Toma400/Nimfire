@@ -31,7 +31,8 @@ proc collide* (r: Rect, x: int, y: int): bool =
 proc collide* (r: Rect, r2: Rect): bool =
     for x in r2.pos[0]..r2.epos[0]:
       for y in r2.pos[1]..r2.epos[1]:
-        return collide(r, (x, y))
+        if collide(r, (x, y)) == true: return true
+    return false
 #[ Checks if Rect is within screen range ]#
 proc isWithin* (r: Rect, w: var Window): bool =
     if isWithin(w, (r.pos[0], r.pos[1])):

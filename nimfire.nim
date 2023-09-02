@@ -1,27 +1,41 @@
-from nimfire/draw import drawBackground
 from nimfire/types import Window
 from nimfire/colors import BLACK
 from chroma import ColorRGBX
 import glFB except Window
 import vmath
 
-proc initWindow* (res: (int, int), title: string, resizable: bool = false, bg_colour: ColorRGBX = BLACK): Window =
+#[ Forward functions]#
+proc fillBackground* (w: var Window, colour: ColorRGBX = w.bg_colour)
+
+proc initWindow* (res: (int, int), title: string, icon: string = "", resizable: bool = false, bg_colour: ColorRGBX = BLACK): Window =
     #[ Creates initial Window object. Arguments:
     - res       : (int, int) | required        >> Resolution of the window
     - title     : string     | required        >> Title of the window
+    - icon      : string     | default = none  >> Path to icon image
     - resizable : bool       | default = false >> Whether window should be resizeable
-    - bg_colour : ColorRGBX  | default = BLACK >> Colour of the background ]#
+    - bg_colour : ColorRGBX  | default = BLACK >> Colour of the background            ]#
     result.scr = Screen.new(res[0], res[1], title, resizable)
     result.bg_colour = bg_colour
-    result.drawBackground()
+    result.fillBackground()
+    # setWindowIcon* - for icon adding
 
 #[ Returns tuple with window size (using GLFW function) ]#
 proc getRes* (w: var Window): (int, int) =
     return (w.scr.win.getSize()[0].int, w.scr.win.getSize()[1].int)
 
+#[ Checks whether specific coordinates are within window ]#
+proc isWithin* (w: var Window, pos: (int, int)): bool =
+    return (
+      (-1 < pos[0] and pos[0] < getRes(w)[0]) and (-1 < pos[1] and pos[1] < getRes(w)[1])
+    )
+
+#[ Draws one colour on whole screen ]#
+proc fillBackground* (w: var Window, colour: ColorRGBX = w.bg_colour) =
+    for pix in w.scr.pixels(): pix = colour
+
 #[ Let you manually clean canvas by drawing background over what was drawn ]#
 proc clear* (w: var Window) =
-    w.drawBackground()
+    w.fillBackground()
 
 #[ Returns whether Window is ticking - stops when exit event is called ]#
 proc tick* (w: var Window): bool =
@@ -37,8 +51,8 @@ proc finish* (w: var Window) =
     w.scr.term()
 
 #[ ALIASES ]#
-proc ignite* (res: (int, int), title: string, resizable: bool = false, bg_colour: ColorRGBX = BLACK): Window = # initWindow()
-    return initWindow(res, title, resizable, bg_colour)
+proc ignite* (res: (int, int), title: string, icon: string = "", resizable: bool = false, bg_colour: ColorRGBX = BLACK): Window = # initWindow()
+    return initWindow(res, title, icon, resizable, bg_colour)
 proc isBurning* (w: var Window): bool = return w.tick()                                                        # tick()
 proc addWood* (w: var Window) = w.update()                                                                     # update()
 proc extinguish* (w: var Window) = w.finish()                                                                  # finish()

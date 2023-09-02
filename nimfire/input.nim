@@ -1,5 +1,4 @@
 from nglfw/core import getKey, getMouseButton
-from ../nimfire import getRes
 from types import Window
 import std/tables
 
@@ -194,7 +193,7 @@ proc allKeysPressed* (w: Window, k: varargs[string]): bool =
 proc getMousePressed* (w: Window, button: MouseButton = LEFT): bool =
     return getMouseButton(w.scr.win.ct, button.cint - 1) == 1
 
-# ---------> ------------> import CursorPosFun {!}
+# ---------> ------------> import CursorPosFun, ../nimfire :: getRes {!}
 #[ Returns position of a mouse. Uses (-1, -1) as special coordinates of bug ]#
 # proc getMousePos* (w: var Window): (int, int) =
 #     for x in 0..getRes(w)[0]:

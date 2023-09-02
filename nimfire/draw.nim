@@ -34,8 +34,11 @@ proc collide* (r: Rect, r2: Rect): bool =
         return collide(r, (x, y))
 #[ Checks if Rect is within screen range ]#
 proc isWithin* (r: Rect, w: var Window): bool =
-    if isWithin(w, r.pos[0]) and isWithin(w, r.epos[0] and isWithin(w, r.pos[1]) and isWithin(w, r.epos[1])):
-        return true
+    if isWithin(w, (r.pos[0], r.pos[1])):
+      if isWithin(w, (r.pos[0], r.epos[1])):
+        if isWithin(w, (r.epos[0], r.pos[1])):
+          if isWithin(w, (r.epos[0], r.epos[1])):
+            return true
     return false
 
 #[ Draws one colour on whole screen ]#

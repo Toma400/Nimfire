@@ -45,8 +45,11 @@ proc move* (i: var Image, x: int, y: int) =
     move(i, (x, y))
 #[ Checks if Image is within screen range ]#
 proc isWithin* (i: Image, w: var Window): bool =
-    if isWithin(w, i.pos[0]) and isWithin(w, i.epos[0] and isWithin(w, i.pos[1]) and isWithin(w, i.epos[1])):
-        return true
+    if isWithin(w, (i.pos[0], i.pos[1])):
+      if isWithin(w, (i.pos[0], i.epos[1])):
+        if isWithin(w, (i.epos[0], i.pos[1])):
+          if isWithin(w, (i.epos[0], i.epos[1])):
+            return true
     return false
 
 proc createMatrix* (res: (int, int), pxs: seq[ColorRGBA]): Table[(int, int), ColorRGBX] =

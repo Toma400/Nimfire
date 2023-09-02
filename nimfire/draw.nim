@@ -50,7 +50,7 @@ proc drawRect* (w: var Window, pos: (int, int), size: (int, int), colour: ColorR
     if condition == true:
       for x in pos[0]..pos[0]+size[0]:
         for y in pos[1]..pos[1]+size[1]:
-          if isWithin(w, (x, y)):
+          if isWithin(w, (x, y)) and colour.a > 0:
             w.scr[x, y] = colour
 
 #[ Alternative drawRect using predefined type for faster implementation ]#
@@ -58,4 +58,5 @@ proc drawRect* (w: var Window, r: var Rect, condition: bool = true) =
     if condition == true:
       for x in r.pos[0]..r.pos[0]+r.size[0]:
         for y in r.pos[1]..r.pos[1]+r.size[1]:
-          w.scr[x, y] = r.colour
+          if isWithin(w, (x, y)) and r.colour.a > 0:
+            w.scr[x, y] = r.colour

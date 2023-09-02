@@ -23,7 +23,6 @@ proc newImage* (path: string, pos: (int, int) = (0, 0)): Image =
     result.png = decodePng(readFile(path)) # returns pixie.Png type
     result.res = (result.png.width, result.png.height)
     result.matrix = createMatrix(result.res, result.png.data)
-    echo(result.png.data)
 #[ Returns ending pos for Image as (X, Y) tuple ]#
 proc epos* (i: Image): (int, int) =
     return (i.pos[0]+i.res[0],
@@ -35,7 +34,7 @@ proc drawImage* (w: var Window, i: Image, pos: (int, int) = i.pos, cond: bool = 
       for k, v in i.matrix:
         x = pos[0]+k[0]
         y = pos[1]+k[1]
-        if isWithin(w, (x, y)):
+        if isWithin(w, (x, y)) and v.a > 0:
           w.scr[x, y] = v
 
 #[ Simple QoL function for moving Image with tuple or ints (use negative ints to substract) ]#
@@ -57,8 +56,7 @@ proc createMatrix* (res: (int, int), pxs: seq[ColorRGBA]): Table[(int, int), Col
     var y = 0
     for px in pxs:
       result[(x, y)] = autoPremultipliedAlpha(px) # converts RGBA into RGBX and binds to coords
-      if y == 0: echo px
-      if x < res[0]:
+      if x < res[0]-1:
         x += 1
       else:
         x = 0; y += 1

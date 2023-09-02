@@ -42,7 +42,22 @@ w.finish()
 You can look at `examples/drawing` and `examples/rect_management` for more detailed
 documentation on how you can use drawing with the library.
 
-Also, Nimfire has possibility to handle user input:
+Aside of drawing shapes, Nimfire allows you also to use PNG images, further explained
+in `examples/images` file:
+```nim
+import nimfire/image
+import nimfire
+
+var w = initWindow((800, 600), "Nimfire")
+var i = newImage("nimfire.png")
+
+while w.tick():
+  w.drawImage(i, (10, 10))
+  w.update()
+  
+w.finish()
+```
+And you can also handle user input:
 ```nim
 import nimfire/input
 import nimfire
@@ -56,14 +71,21 @@ while w.tick():
   
 w.finish()
 ```
-Again, if you want to see more detailed documentation, `examples/keyboard_input` and
-`examples/mouse_input` are great place to start!
-
----
-### Note
 For more code examples, visit `examples` folder. You can also look at `examples/games`
 for tutorial games. They serve as current most up-to-date and extensive
 documentation outside (a bit messily written) source code.
+
+---
+### Note
+Nimfire is learning project, and as such, may contain more bugs, performance issues
+and problems overall than matured library.  
+It is by no means stable or ready for development of games or software, and I hold
+no promise to maintain it if I lose my motivation and will.
+
+That said, I really want to do as much as I can with Nimfire, so it's not like this
+lib will disappear soon. Just take in mind that until it becomes important utility
+for my own gamedev, I do it as fun side-project, with all good and bad coming with
+such status.
 
 ---
 ### Socials
@@ -85,13 +107,14 @@ that is not commercial in any way.
   - added basic Window handler
   - added colors
   - added drawing shapes
+  - added drawing images
   - added several utility procs
   - added handling of keyboard & mouse clicking
 -->
 <!-- TODO
   - getting mouse position
-  - getting image and drawing it on screen
-    (getting image as array of pixels and doing it manually?)
+  - resize image
+  - jpg & svg & bmp formats supported?
 
   - creating button (nimfire/ui) that is manageable?
     - creating 'buttons' element in Window that button can subscribe to?

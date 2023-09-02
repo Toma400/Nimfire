@@ -8,13 +8,15 @@ import std/tables
 import std/syncio
 
 proc createMatrix* (res: (int, int), pxs: seq[ColorRGBA]): Table[(int, int), ColorRGBX]
+proc filterMatrix* (matrix: Table[(int, int), ColorRGBX]): Table[(int, int), ColorRGBX]
 
 type
   Image* = object
     png     : Png         # pixie object (private)
     pos*    : (int, int)  # 'pos' can be declared in drawing to overwrite
     res*    : (int, int)
-    matrix* : Table[(int, int), ColorRGBX]
+    matrix* : Table[(int, int), ColorRGBX] # full pixel matrix, table of [coords, color_value]
+    fatrix* : Table[(int, int), ColorRGBX] # filtered matrix, does not have transparent pixels
   # ImageHandler* = object
   #   h       : Table[string, Image]
 
@@ -23,6 +25,7 @@ proc newImage* (path: string, pos: (int, int) = (0, 0)): Image =
     result.png = decodePng(readFile(path)) # returns pixie.Png type
     result.res = (result.png.width, result.png.height)
     result.matrix = createMatrix(result.res, result.png.data)
+    result.fatrix = filterMatrix(result.matrix)
 #[ Returns ending pos for Image as (X, Y) tuple ]#
 proc epos* (i: Image): (int, int) =
     return (i.pos[0]+i.res[0],
@@ -31,10 +34,10 @@ proc epos* (i: Image): (int, int) =
 proc drawImage* (w: var Window, i: Image, pos: (int, int) = i.pos, cond: bool = true) =
     var x, y: int
     if cond == true:
-      for k, v in i.matrix:
+      for k, v in i.fatrix:
         x = pos[0]+k[0]
         y = pos[1]+k[1]
-        if isWithin(w, (x, y)) and v.a > 0:
+        if isWithin(w, (x, y)):
           w.scr[x, y] = v
 
 #[ Simple QoL function for moving Image with tuple or ints (use negative ints to substract) ]#
@@ -74,6 +77,12 @@ proc createMatrix* (res: (int, int), pxs: seq[ColorRGBA]): Table[(int, int), Col
         x += 1
       else:
         x = 0; y += 1
+
+#[ Filters base matrix out of transparent pixels ]#
+proc filterMatrix* (matrix: Table[(int, int), ColorRGBX]): Table[(int, int), ColorRGBX] =
+    for k, v in matrix:
+      if v.a > 0:
+        result[k] = v
 
 #[ Creates new empty ImageHandler ]#
 # proc newImageHandler* (): ImageHandler =

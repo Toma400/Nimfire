@@ -1,4 +1,4 @@
-from pixie/fileformats/png import decodePng, Png
+from pixie/fileformats/png import decodePng, encodePng, Png
 from pixie import autoPremultipliedAlpha
 from chroma import ColorRGBA, ColorRGBX
 from ../nimfire import isWithin
@@ -83,6 +83,11 @@ proc filterMatrix* (matrix: Table[(int, int), ColorRGBX]): Table[(int, int), Col
     for k, v in matrix:
       if v.a > 0:
         result[k] = v
+
+proc saveImage* (i: Image, name: string) =
+    let ret = open(name, fmWrite)
+    defer: ret.close()
+    write(ret, encodePng(i.png))
 
 #[ Creates new empty ImageHandler ]#
 # proc newImageHandler* (): ImageHandler =

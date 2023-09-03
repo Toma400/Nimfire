@@ -2,9 +2,6 @@ import nimfire/colors
 import nimfire/input
 import nimfire/draw
 import nimfire
-import random
-
-randomize()
 
 #[ --- DANCE OR DIE ----------------------------------------------
    Game is fairly simple: you move with WASD/arrows, and whenever
@@ -13,33 +10,28 @@ randomize()
    However if you grow too big, you will eventually crash the game
 
    EXTENDED VERSION
-   This update adds poison system - in which whenever you touch
-   enemy, you got effect shrinking you
-   This makes it harder to survive since you need to actually
-   avoid enemies instead of just them blocking you              ]#
+   Extended version adds also "enemy" rectangles that you should
+   not touch, as they also shrink you!                           ]#
 
 # initialises window
-var w = initWindow((800, 600), "Dance or Die", resizable=true, bg_colour=PULLMAN_BROWN)
-# player-related variables
-var r      = newRect((25, 25), (10, 10), PINE_GREEN) # player Rect
-var poison = 0                                       # whether player is poisoned
-# enemey-related variables
-#   we change position and size of rectangles to be random
-var en1 = newRect(pos=(rand(100..700), rand(100..600)), size=(rand(30..50), rand(30..50)), colour=BLOOD)
-var en2 = newRect(pos=(rand(100..700), rand(100..600)), size=(rand(30..50), rand(30..50)), colour=BLOOD)
-var en3 = newRect(pos=(rand(100..700), rand(100..600)), size=(rand(30..50), rand(30..50)), colour=BLOOD)
-var en4 = newRect(pos=(rand(100..700), rand(100..600)), size=(rand(30..50), rand(30..50)), colour=BLOOD)
-var en5 = newRect(pos=(rand(100..700), rand(100..600)), size=(rand(30..50), rand(30..50)), colour=BLOOD)
+var w = initWindow((800, 600), "Dance or Die - Simple Game", true, bg_colour=PURPLE)
+# creates "player" rectangle
+var r = newRect((25, 25), (10, 10), PINE_GREEN)
+# creates "enemy" rectangles
+var en1 = newRect((45, 45),   (30, 30), BLOOD)
+var en2 = newRect((550, 300), (30, 30), BLOOD)
+var en3 = newRect((700, 120), (30, 30), BLOOD)
+var en4 = newRect((80,  460), (40, 40), BLOOD)
+var en5 = newRect((200, 230), (40, 40), BLOOD)
 
 # update loop
 while w.tick():
-    w.drawRect(r)     # draws player
-    w.drawRect(en1)
+    w.drawRect(r)   # draws player
+    w.drawRect(en1) # draws enemies
     w.drawRect(en2)
     w.drawRect(en3)
     w.drawRect(en4)
     w.drawRect(en5)
-
     if getKeyPressed(w, KEY.A) or getKeyPressed(w, KEY.LEFT): # check for keys (WASD)
         r.move(-1, 0)                                           # adjusts Rect position
         r.size = (r.size[0] - 1, r.size[1] - 1)                 # and shrinks size of it
@@ -54,18 +46,9 @@ while w.tick():
         r.size = (r.size[0] - 1, r.size[1] - 1)
     if getKeyPressed(w, KEY.SPACE):
         r.size = (r.size[0] + 1, r.size[1] + 1)  # grows size of player (when SPACE is pressed)
-
     # checks if player Rect doesn't touch enemies - if it does, it shrinks player
     if r.collide(en1) or r.collide(en2) or r.collide(en3) or r.collide(en4) or r.collide(en5):
-        poison += 5
-
-    if poison > 0:
         r.size = (r.size[0] - 1, r.size[1] - 1)
-        r.colour = sample([YELLOW, ORANGE])
-        poison -= 1
-    else:
-        r.colour = PINE_GREEN
-
     # checks if size of player Rect is bigger than (0, 0)
     if r.size[0] < 1 or r.size[1] < 1:
         break

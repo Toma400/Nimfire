@@ -24,7 +24,7 @@ proc spawnPos(): (int, int) =
     return (rand(100..700), rand(100..600))
 
 # initialises window
-var w = initWindow((800, 600), "Dance or Die", resizable=true, bg_colour=PULLMAN_BROWN)
+var w = initWindow((800, 600), "Dance or Die - Simple Game", resizable=true, bg_colour=PULLMAN_BROWN)
 # player-related variables
 var r      = newRect((25, 25), (10, 10), PINE_GREEN) # player Rect
 var poison = 0                                       # whether player is poisoned

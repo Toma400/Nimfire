@@ -5,28 +5,19 @@ import nimfire/draw
 import nimfire
 
 # initialises window
-var w = initWindow((800, 600), "Dance or Die", resizable=true, bg_colour=PULLMAN_BROWN)
-var i = newImage("nimfire.png", (10, 10))
-var r = newRect((50, 50), (50, 50), BLACK).toImage()
-saveImage(r, "test.png")
+var w = initWindow((800, 600), "Dance or Die - Simple Game", resizable=true, bg_colour=PULLMAN_BROWN)
+#var i = newImage("nimfire.png", (0, 1))
+var i = newRect((0,0), (50, 50), BLUE)
+var p = newRect((50, 50), (50, 50), RED)
+var r = newRect((100, 100), (200, 200), BLACK)
+i.matrix = createMatrix(i)
+p.matrix = createMatrix(p)
+r.matrix = createMatrix(r)
 
 while w.tick():
-    w.drawImage(i)
-    # w.drawRect(r)
-    # w.drawImage(r)
-    if getKeyPressed(w, W):
-      move(i, 0, -1)
-    if getKeyPressed(w, S):
-      move(i, 0, 1)
-    if getKeyPressed(w, A):
-      move(i, -1, 0)
-    if getKeyPressed(w, D):
-      move(i, 1, 0)
-
-    echo w.getMousePos()
-
-    # if getMousePressed(w, LEFT):
-    #   echo getMousePos(w)
+    w.drawRect(i)
+    w.drawRect(p)
+    w.drawRect(r)
 
     w.update() # updates the screen
 w.finish() # finishes the game

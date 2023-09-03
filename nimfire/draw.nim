@@ -89,7 +89,7 @@ proc createMatrix* (s: (int, int), e: (int, int), c: ColorRGBX): Table[(int, int
       for y in s[1]..e[1]-1:
         ex = x-s[0]
         ey = y-s[1]
-        result[(x, y)] = c
+        result[(ex, ey)] = c
 
 #[ QoL wrapper for Rect.fatrix[(x, y)] = pix ]#
 proc setPixel* (r: var Rect, pos: (int, int), colour: ColorRGBX) =

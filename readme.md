@@ -69,6 +69,9 @@ while w.tick():
     echo "Space just got used!"
   w.update()
   
+  if w.getMousePressed(LEFT):
+    echo "Mouse coordinates are: " & w.getMousePos()
+  
 w.finish()
 ```
 For more code examples, visit `examples` folder. You can also look at `examples/games`

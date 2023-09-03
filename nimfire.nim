@@ -33,6 +33,11 @@ proc isWithin* (w: var Window, pos: (int, int)): bool =
 proc fillBackground* (w: var Window, colour: ColorRGBX = w.bg_colour) =
     for pix in w.scr.pixels(): pix = colour
 
+#[ Draws on specific coordinates - alias for gl*FB <scr[x, y] = c> ]#
+proc fillPos* (w: var Window, pos: (0, 0), colour: ColorRGBX) =
+    if isWithin(w, pos):
+        w.scr[pos[0], pos[1]] = colour
+
 #[ Let you manually clean canvas by drawing background over what was drawn ]#
 proc clear* (w: var Window) =
     w.fillBackground()

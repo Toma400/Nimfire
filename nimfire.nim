@@ -41,10 +41,13 @@ proc clear* (w: var Window) =
 proc tick* (w: var Window): bool =
     return not w.scr.close()
 
-#[ Updated the screen. Should be used on every 'tick(Window)' check ]#
-proc update* (w: var Window) =
+#[ Updates the screen. Should be used on every 'tick(Window)' check. Arguments:
+    - manual : bool | default = false >> Decide on whether you control clearing
+                                         of window by yourself or this proc     ]#
+proc update* (w: var Window, manual: bool = false) =
     w.scr.update()
-    w.clear()
+    if not manual:
+      w.clear()
 
 #[ Exits the application ]#
 proc finish* (w: var Window) =

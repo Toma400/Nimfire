@@ -76,13 +76,19 @@ proc drawRect* (w: var Window, r: var Rect, condition: bool = true) =
 
 #[ Creates matrix for further pixel manipulation ]#
 proc createMatrix* (r: var Rect): Table[(int, int), ColorRGBX] =
+    var ex, ey: int
     for x in r.pos[0]..r.epos[0]-1:
       for y in r.pos[1]..r.epos[1]-1:
-        result[(x, y)] = r.colour
+        ex = x-r.pos[0]
+        ey = y-r.pos[1]
+        result[(ex, ey)] = r.colour
 # raw variant for Rect initialisation
 proc createMatrix* (s: (int, int), e: (int, int), c: ColorRGBX): Table[(int, int), ColorRGBX] =
+    var ex, ey: int
     for x in s[0]..e[0]-1:
       for y in s[1]..e[1]-1:
+        ex = x-s[0]
+        ey = y-s[1]
         result[(x, y)] = c
 
 #[ QoL wrapper for Rect.fatrix[(x, y)] = pix ]#

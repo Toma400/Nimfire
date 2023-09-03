@@ -23,6 +23,8 @@ while w.tick():
     if getKeyPressed(w, D):
       move(i, 1, 0)
 
+    echo w.getMousePos()
+
     # if getMousePressed(w, LEFT):
     #   echo getMousePos(w)
 

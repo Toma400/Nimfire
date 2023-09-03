@@ -81,22 +81,37 @@ Currently, this is Nimfire's scope:
 - [x] Creating app and controlling window
   - [x] Setting basic data (res, title) 
   - [x] Drawing shapes
-    - [ ] Exporting shapes into graphical files
+    - [x] Exporting shapes into graphical files
 - [x] Input control `partially, still WIP`
   - [x] Keyboard control
     - [x] Getting keyboard key being pressed
   - [x] Mouse control `unfinished`
     - [x] Recognising mouse input
-    - [ ] Getting mouse position on screen
+    - [x] Getting mouse position on screen
 - [x] Image management `simple`
   - [x] Render image on screen
   - [ ] Resize images
-  - [ ] Save images
+  - [x] Save images
   - [ ] JPG/SVG/BMP formats
+- [ ] Text management
+  - [ ] Drawing text on screen
+    - [ ] Size properties
+    - [ ] More advanced features (multiline text)
+  - [ ] Font support
 - [ ] QoL
   - [ ] Holders for images/rects/sounds that let you access them by ID from Window
 - [ ] Sound management
+  - [ ] Playing & stopping sound
+  - [ ] WAV/FLAC/OGG/MP3 formats
+  - [ ] Managing multiple channels (parallel sounds playing)
 - [ ] UI
+  - [ ] Buttons
+  - [ ] Progress bars
+  - [ ] Sliders
+  - [ ] Lists
+    - [ ] Comboboxes
+    - [ ] Bulletboxes
+    - [ ] Listboxes
 - [ ] QoL abstractions
 
 Look at [changelog](changelog.md) if you want to see details.

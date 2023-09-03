@@ -7,11 +7,12 @@ import nimfire
 # initialises window
 var w = initWindow((800, 600), "Dance or Die", resizable=true, bg_colour=PULLMAN_BROWN)
 var i = newImage("nimfire.png", (10, 10))
-var r = newRect((50, 50), (50, 50), BLACK).toImage()
+var r = newRect((50, 50), (50, 50), BLACK)
 
 while w.tick():
     w.drawImage(i)
-    w.drawImage(r)
+    w.drawRect(r)
+    #w.drawImage(r)
     if getKeyPressed(w, W):
       move(i, 0, -1)
     if getKeyPressed(w, S):

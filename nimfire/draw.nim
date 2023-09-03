@@ -66,11 +66,13 @@ proc drawRect* (w: var Window, pos: (int, int), size: (int, int), colour: ColorR
 
 #[ Alternative drawRect using predefined type for faster implementation ]#
 proc drawRect* (w: var Window, r: var Rect, condition: bool = true) =
+    var x, y: int
     if condition == true:
-      for x in r.pos[0]..r.pos[0]+r.size[0]:
-        for y in r.pos[1]..r.pos[1]+r.size[1]:
-          if isWithin(w, (x, y)) and r.colour.a > 0:
-            w.scr[x, y] = r.colour
+      for k, v in r.matrix:
+        x = r.pos[0]+k[0]
+        y = r.pos[1]+k[1]
+        if isWithin(w, (x, y)):
+          w.scr[x, y] = v
 
 #[ Creates matrix for further pixel manipulation ]#
 proc createMatrix* (r: var Rect): Table[(int, int), ColorRGBX] =
@@ -88,6 +90,10 @@ proc setPixel* (r: var Rect, pos: (int, int), colour: ColorRGBX) =
     r.matrix[(pos[0], pos[1])] = colour
 proc setPixel* (r: var Rect, x: int, y: int, colour: ColorRGBX) =
     r.matrix[(x, y)] = colour
+#[ Resets changes made by setPixel to base colour of Rect ]#
+proc clearPixels* (r: var Rect) =
+    for k, v in r.matrix:
+      k = r.colour
 
 #[ Converts Rect into Image ]#
 proc toImage* (r: Rect): Image =

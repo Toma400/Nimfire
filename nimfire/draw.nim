@@ -94,6 +94,10 @@ proc setPixel* (r: var Rect, x: int, y: int, colour: ColorRGBX) =
 proc clearPixels* (r: var Rect) =
     for k, v in r.matrix:
       r.matrix[k] = r.colour
+#[ Changes colour of rectangle. Should not be performed often, as it recreates matrix ]#
+proc setColour* (r: var Rect, colour: ColorRGBX) =
+    r.colour = colour
+    r.matrix = createMatrix(r)
 
 #[ Converts Rect into Image ]#
 proc toImage* (r: Rect): Image =
@@ -106,3 +110,7 @@ proc toImage* (r: Rect): Image =
     result.res = r.size
     result.matrix = r.matrix
     result.fatrix = r.matrix
+
+#[ TODO: I guess we could convert it both ways? ]#
+proc toRect (i: Image): Rect =
+    discard

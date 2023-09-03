@@ -12,7 +12,7 @@ proc filterMatrix* (matrix: Table[(int, int), ColorRGBX]): Table[(int, int), Col
 
 type
   Image* = object
-    png     : Png         # pixie object (private)
+    png*    : Png         # pixie Png object
     pos*    : (int, int)  # 'pos' can be declared in drawing to overwrite
     res*    : (int, int)
     matrix* : Table[(int, int), ColorRGBX] # full pixel matrix, table of [coords, color_value]

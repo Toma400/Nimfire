@@ -1,15 +1,25 @@
 from ../nimfire import isWithin, fillBackground
-from chroma import ColorRGBX
+from chroma/transformations import rgba
+from chroma import ColorRGBX, ColorRGBA
+from pixie/fileformats/png import Png
 import glFB except Window
 from types import Window
+from image import Image
+import std/tables
+
+proc createMatrix* (s: (int, int), e: (int, int), c: ColorRGBX): Table[(int, int), ColorRGBX]
 
 type
   Rect* = object
     pos*    : (int, int)
     size*   : (int, int)
     colour* : ColorRGBX
+    matrix* : Table[(int, int), ColorRGBX]
 proc newRect* (pos: (int, int), size: (int, int), colour: ColorRGBX): Rect =
-    return Rect(pos: pos, size: size, colour: colour)
+    result.pos    = pos
+    result.size   = size
+    result.colour = colour
+    result.matrix = createMatrix(pos, (pos[0]+size[0], pos[1]+size[1]), colour)
 #[ Returns ending pos for Rect as (X, Y) tuple ]#
 proc epos* (r: Rect): (int, int) =
     return (r.pos[0]+r.size[0],
@@ -61,3 +71,32 @@ proc drawRect* (w: var Window, r: var Rect, condition: bool = true) =
         for y in r.pos[1]..r.pos[1]+r.size[1]:
           if isWithin(w, (x, y)) and r.colour.a > 0:
             w.scr[x, y] = r.colour
+
+#[ Creates matrix for further pixel manipulation ]#
+proc createMatrix* (r: var Rect): Table[(int, int), ColorRGBX] =
+    for x in r.pos[0]..r.epos[0]:
+      for y in r.pos[1]..r.epos[1]:
+        result[(x, y)] = r.colour
+# raw variant for Rect initialisation
+proc createMatrix* (s: (int, int), e: (int, int), c: ColorRGBX): Table[(int, int), ColorRGBX] =
+    for x in s[0]..e[0]:
+      for y in s[1]..e[1]:
+        result[(x, y)] = c
+
+#[ QoL wrapper for Rect.fatrix[(x, y)] = pix ]#
+proc setPixel* (r: var Rect, pos: (int, int), colour: ColorRGBX) =
+    r.matrix[(pos[0], pos[1])] = colour
+proc setPixel* (r: var Rect, x: int, y: int, colour: ColorRGBX) =
+    r.matrix[(x, y)] = colour
+
+#[ Converts Rect into Image ]#
+proc toImage* (r: Rect): Image =
+    proc getData(m: Table[(int, int), ColorRGBX]): seq[ColorRGBA]=
+      for cor, col in m:
+        result.add(rgba(col))
+
+    result.pos = r.pos
+    result.png = Png(width: r.size[0], height: r.size[1], channels: 1, data: getData(r.matrix)) # returns pixie.Png type
+    result.res = r.size
+    result.matrix = r.matrix
+    result.fatrix = r.matrix

@@ -76,6 +76,32 @@ for tutorial games. They serve as current most up-to-date and extensive
 documentation outside (a bit messily written) source code.
 
 ---
+### Features
+Currently, this is Nimfire's scope:
+- [x] Creating app and controlling window
+  - [x] Setting basic data (res, title) 
+  - [x] Drawing shapes
+    - [ ] Exporting shapes into graphical files
+- [x] Input control `partially, still WIP`
+  - [x] Keyboard control
+    - [x] Getting keyboard key being pressed
+  - [x] Mouse control `unfinished`
+    - [x] Recognising mouse input
+    - [ ] Getting mouse position on screen
+- [x] Image management `simple`
+  - [x] Render image on screen
+  - [ ] Resize images
+  - [ ] Save images
+  - [ ] JPG/SVG/BMP formats
+- [ ] QoL
+  - [ ] Holders for images/rects/sounds that let you access them by ID from Window
+- [ ] Sound management
+- [ ] UI
+- [ ] QoL abstractions
+
+Look at [changelog](changelog.md) if you want to see details.
+
+---
 ### Note
 Nimfire is learning project, and as such, may contain more bugs, performance issues
 and problems overall than matured library.  
@@ -102,15 +128,6 @@ While library is *All Rights Reserved* for now (I'm quite lazy for libraries), i
 be changed soon. For now you are allowed to use the library for any personal project
 that is not commercial in any way.
 
-<!-- CHANGELOG
-0.1.0:
-  - added basic Window handler
-  - added colors
-  - added drawing shapes
-  - added drawing images
-  - added several utility procs
-  - added handling of keyboard & mouse clicking
--->
 <!-- TODO
   - getting mouse position
   - resize image
@@ -123,6 +140,8 @@ that is not commercial in any way.
   - getting sound and letting it play (possibly on several channels, so they
     can be played together and managed by it?)
     ::: https://github.com/oprypin/nim-csfml
+    ::: https://github.com/treeform/openal (pure Nim!)
+    ::: https://github.com/treeform/slappy (OpenAL wrapper? More C!)
   - holders for Image, Rect and other elements via either Window or
     separate structure? Would work as Table of [ID:str, T] and could
     handle objects for further reference

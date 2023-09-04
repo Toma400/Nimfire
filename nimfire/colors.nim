@@ -1,6 +1,5 @@
 from chroma import rgbx, ColorRGBX, parseHexAlpha
 from chroma/transformations import asRgbx
-from system/exceptions import IndexError
 
 # utility procedure for colours below
 proc r(r: uint8, g: uint8, b: uint8): ColorRGBX =
@@ -83,10 +82,8 @@ const
 proc toRGBX* (tup: (uint8, uint8, uint8, uint8)): ColorRGBX =
     result = rgbx(tup[0], tup[1], tup[2], tup[3])
 
-proc toRGBX* (args: varargs[uint8]): ColorRGBX =
-    if args.len > 4 or args.len < 4:
-      raise newException(IndexError, "Passed " & args.len & " arguments to 'toRGBX(varargs[uint8])' procedure while expected amount is 4.")
-    result = rgbx(args[0], args[1], args[2], args[3])
+proc toRGBX* (r: uint8, g: uint8, b: uint8, a: uint8): ColorRGBX =
+    result = rgbx(r, g, b, a)
 
 proc toRGBX* (hex: string): ColorRGBX =
     result = parseHexAlpha(hex).asRgbx()

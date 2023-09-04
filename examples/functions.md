@@ -1,12 +1,12 @@
 # Files
 - [nimfire](#nimfire)
 - [nimfire/input](#nimfireinput)
-- nimfire/image
-- nimfire/draw
-- nimfire/utils
-- nimfire/colors
+- [nimfire/image](#nimfireimage)
+- [nimfire/draw](#nimfiredraw)
+- [nimfire/utils](#nimfireutils)
+- [nimfire/colors](#nimfirecolors)
 - nimfire/types
-- nimfire/ui
+<!-- - nimfire/ui -->
 
 ---
 ## Nimfire
@@ -14,22 +14,23 @@ Nimfire main module. Used for only basic handling of the application, such as
 creating Window object and doing manipulation on its basic properties.
 
 Functions:
-- [initWindow](#initwindow)
-- [tick](#tick)
-- [update](#update)
-- [finish](#finish)
-- [clear](#clear)
-- [fillPos](#fillpos)
-- [fillBackground](#fillbackground)
-- [getRes](#getres)
-- [isWithin](#iswithin)
+  - [initWindow](#initwindow)
+  - [tick](#tick)
+  - [update](#update)
+  - [finish](#finish)
+  - [clear](#clear)
+  - [fillPos](#fillpos)
+  - [fillBackground](#fillbackground)
+  - [getRes](#getres)
+  - [isWithin](#iswithin)
 
 Aliases:
-- [ignite](#initwindow)
-- [isBurning](#tick)
-- [addWood](#update)
-- [extinguish](#finish)
+  - [ignite](#initwindow)
+  - [isBurning](#tick)
+  - [addWood](#update)
+  - [extinguish](#finish)
 
+---
 ### initWindow  
 Creates initial Window object that you use in your application.
 ```nim
@@ -174,6 +175,8 @@ Arguments:
 
 ---
 ## Nimfire/input
+Nimfire module handling user input on standard PC devices, such as keyboard and mouse.
+
 Types:
   - [Key](#key)                 : enum
   - [MouseButton](#mousebutton) : enum
@@ -189,6 +192,7 @@ Functions:
   - anyKeysPressed
   - allKeysPressed
 
+---
 ### Key
 **Type**: enum
 
@@ -248,3 +252,98 @@ Arguments:
 ### anyKeysPressed
 
 ### allKeysPressed
+
+---
+## Nimfire/image
+Nimfire module allowing you to control images and manipulate them on app window.
+
+Types:
+  - Image : object
+    - pos
+    - png
+    - res
+    - matrix
+    - fatrix
+
+Functions:
+  - newImage
+  - drawImage
+  - move
+  - collide
+  - collidePrecise
+  - saveImage
+  - epos
+  - isWithin
+  - createMatrix
+  - filterMatrix
+
+---
+## Nimfire/draw
+Nimfire module that let you draw shapes on app window and manipulate them.
+
+Types:
+  - Rect : object
+    - pos
+    - size
+    - colour
+    - matrix
+
+Functions:
+  - newRect
+  - drawRect
+  - move
+  - collide
+  - toImage
+  - drawBackground
+  - setColour
+  - setPixel
+  - clearPixels
+  - epos
+  - isWithin
+  - createMatrix
+
+---
+## Nimfire/utils
+Nimfire module that holds some useful utility procs that are not related directly
+to any core feature.
+
+Functions:
+  - getPxPerc
+  - p
+  - pax
+  - pay
+
+---
+## Nimfire/colors
+Nimfire module allowing you to use ColoRGBX without explicitly calling `chroma` or
+`pixie` dependencies this format is used in, as well as convert RGB/hexcode values.  
+
+It is quite useful to take a look at [its constant values](/nimfire/colors.nim), as
+this file has pretty handy documentation on what each colour name means without
+even looking at specific RGB values or testing colour in practice.
+
+Constants:
+  - [Various, documented in module file](/nimfire/colors.nim)
+
+Functions:
+  - [toRGBX](#torgbx)
+
+---
+### toRGBX
+Utility procedure that converts various data to RGBX. In numeral values, indexes
+represent R, G, B and transparency value, respectively.
+```nim
+proc toRGBX* (tup: (uint8, uint8, uint8, uint8)): ColorRGBX
+
+proc toRGBX* (args: varargs[uint8]): ColorRGBX
+
+proc toRGBX* (hex: string): ColorRGBX
+```
+Arguments:
+
+| Name |             Type             |  Treatment   | Description                                                                                                                                  |
+|:----:|:----------------------------:|:------------:|:---------------------------------------------------------------------------------------------------------------------------------------------|
+| tup  | (uint8, uint8, uint8, uint8) | **required** | Turns tuple of four uint8 values into ColorRGBX object <br> ✮ Can be overloaded with string or uint8 varargs                                 |
+| args |        varargs[uint8]        | **required** | Turns four arguments into ColorRGBX object, raises IndexError if given different number  <br> ✮ Can be overloaded with string or uint8 tuple |
+| hex  |            string            | **required** | Turns string representing hexcode into ColorRGBX object <br> ✮ Can be overloaded with uint8 tuple or uint8 varargs                           |
+

@@ -269,8 +269,8 @@ Types:
 Functions:
   - [newImage](#newimage)
   - [drawImage](#drawimage)
-  - [move](#move)
-  - [collide](#collide)
+  - [move](#move-image)
+  - [collide](#collide-image)
   - [collidePrecise](#collideprecise)
   - [saveImage](#saveimage)
   - epos
@@ -333,7 +333,7 @@ field of Image type. Therefore, any changes that affect `fatrix` data will affec
 image drawn and reversely, lack of those will leave image intact.  
 Proc [filterMatrix](#filtermatrix) can be used to recreate valid `fatrix` field.
 
-### move
+### move `Image`
 Utility function that let you easily move Image from its current position.
 ```nim
 proc move* (i: var Image, pos: (int, int))
@@ -351,7 +351,7 @@ Arguments:
 Moving has inverted Y treatment, so if you want to move Image upwards, use `(n, -n)`
 value.
 
-### collide
+### collide `Image`
 Checks whether Image collides with either specific position or another Image.
 ```nim
 proc collide* (i: Image, pos: (int, int)): bool
@@ -423,18 +423,18 @@ Arguments:
 Nimfire module that let you draw shapes on app window and manipulate them.
 
 Types:
-  - Rect : object
+  - [Rect](#rect) : object
     - pos
     - size
     - colour
     - matrix
 
 Functions:
-  - newRect
-  - drawRect
-  - move
-  - collide
-  - toImage
+  - [newRect](#newrect)
+  - [drawRect](#drawrect)
+  - [move](#move-rect)
+  - [collide](#collide-rect)
+  - [toImage](#toimage)
   - drawBackground
   - setColour
   - setPixel
@@ -442,6 +442,117 @@ Functions:
   - epos
   - isWithin
   - createMatrix
+
+---
+### Rect
+**Type**: object
+
+Rect type representing rectangular shape of given colour.
+
+Fields:
+
+|  Name  |                 Type                 | Usage details                                                                            |
+|:------:|:------------------------------------:|:-----------------------------------------------------------------------------------------|
+|  pos   |              (int, int)              | initial position of rectangle. Can be overwritten during drawing                         |
+|  size  |              (int, int)              | size of rectangle, given explicitly as tuple of ints                                     | 
+| colour |              ColorRGBX               | colour of rectangle (suggested to use [Colour enum](#nimfirecolors))                     |
+| matrix | OrderedTable\[(int, int), ColorRGBX] | OrderedTable containing all pixels of the Rect, paired into coordinates-color value hash |
+
+---
+### newRect  
+Creates Rect object out of given coordinates and size.
+```nim
+proc newRect* (pos: (int, int), size: (int, int), colour: ColorRGBX): Rect
+```
+Arguments:
+
+|  Name  |    Type    |  Treatment   | Description                                                                           |
+|:------:|:----------:|:------------:|:--------------------------------------------------------------------------------------|
+|  pos   | (int, int) | **required** | initial position for the rectangle                                                    |
+|  size  | (int, int) | **required** | size of rectangle                                                                     |
+| colour | ColorRGBX  | **required** | colour rectangle will be filled with (suggested to use [Colour enum](#nimfirecolors)) |
+
+### drawRect
+Draws rectangle on Window object. Unlike [Image drawing](#drawimage) it doesn't require
+initialised object, and you can draw shapes freely. However, take in mind that drawing
+without Rect object doesn't give you as much control.
+```nim
+proc drawRect* (w      : var Window, 
+                pos    : (int, int), 
+                size   : (int, int), 
+                colour : ColorRGBX, 
+                cond   : bool = true)
+
+proc drawRect* (w    : var Window,
+                r    : var Rect,
+                cond : bool = true,
+                pos  : (int, int)   = r.pos)
+```
+Arguments (drawing freely):
+
+|  Name  |     Type     |    Treatment    | Description                                                               |
+|:------:|:------------:|:---------------:|:--------------------------------------------------------------------------|
+|   w    | `var` Window |  **required**   | Window object being drawn into                                            |
+|  pos   |  (int, int)  |  **required**   | sets position of rectangle                                                |
+|  size  |  (int, int)  |  **required**   | sets size of rectangle                                                    |
+| colour |  ColorRGBX   |  **required**   | sets colour of rectangle (suggested to use [Colour enum](#nimfirecolors)) |
+|  cond  |     bool     | default: `true` | boolean expression that allow you to condition Rect drawing               |
+
+Arguments (using Rect object):
+
+| Name |     Type     |             Treatment             | Description                                                 |
+|:----:|:------------:|:---------------------------------:|:------------------------------------------------------------|
+|  w   | `var` Window |           **required**            | Window object being drawn into                              |
+|  r   |  `var` Rect  |           **required**            | Rect object being drawn                                     |
+| pos  |  (int, int)  | default: <br> `pos` field of Rect | overrides position given during initialisation              |
+| cond |     bool     |          default: `true`          | boolean expression that allow you to condition Rect drawing |
+
+### move `Rect`
+Utility function that let you easily move Rect from its current position.
+```nim
+proc move* (r: var Rect, pos: (int, int))
+
+proc move* (r: var Rect, x: int, y: int)
+```
+Arguments:
+
+| Name |    Type    |  Treatment   | Description                                                                                                                              |
+|:----:|:----------:|:------------:|:-----------------------------------------------------------------------------------------------------------------------------------------|
+|  r   | `var` Rect | **required** | Rect object being moved                                                                                                                  |
+| pos  | (int, int) | **required** | Relative position Rect should be moved with. Use negative and positive values for direction <br> ✮ Can be overloaded with two int values |
+| x, y |    int     | **required** | Relative position Rect should be moved with. Use negative and positive values for direction <br> ✮ Can be overloaded with int tuple.     |
+
+Moving has inverted Y treatment, so if you want to move Rect upwards, use `(n, -n)`
+value.
+
+### collide `Rect`
+Checks whether Rect collides with either specific position or another Rect.
+```nim
+proc collide* (r: Rect, pos: (int, int)): bool
+
+proc collide* (r: Rect, x: int, y: int): bool
+
+proc collide* (r: Rect, r2: Rect): bool
+```
+Arguments:
+
+| Name |    Type    |  Treatment   | Description                                                                                                        |
+|:----:|:----------:|:------------:|:-------------------------------------------------------------------------------------------------------------------|
+|  r   |    Rect    | **required** | Rect object collision being checked                                                                                |
+| pos  | (int, int) | **required** | position being checked for collision, as tuple of ints <br> ✮ Can be overloaded with two int values or Rect object |
+| x, y |    int     | **required** | position being checked, as two int values <br> ✮ Can be overloaded with int tuple or Rect object                   |
+|  r2  |    Rect    | **required** | another Rect object being checked for collisions <br> ✮ Can be overloaded with int tuple or two int values         | 
+
+### toImage
+Converts Rect into [Image](#image) type.
+```nim
+proc toImage* (r: Rect): Image
+```
+Arguments:
+
+| Name | Type |  Treatment   | Description                 |
+|:----:|:----:|:------------:|:----------------------------|
+|  r   | Rect | **required** | Rect object being converted |
 
 ---
 # Nimfire/utils

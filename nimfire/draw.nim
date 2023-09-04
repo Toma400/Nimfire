@@ -2,9 +2,9 @@ from ../nimfire import isWithin, fillBackground
 from chroma/transformations import rgba
 from chroma import ColorRGBX, ColorRGBA
 from pixie/fileformats/png import Png
+from image import Image, filterMatrix
 import glFB except Window
 from types import Window
-from image import Image
 import std/tables
 
 proc createMatrix* (s: (int, int), e: (int, int), c: ColorRGBX): OrderedTable[(int, int), ColorRGBX]
@@ -67,7 +67,8 @@ proc drawRect* (w: var Window, pos: (int, int), size: (int, int), colour: ColorR
             w.scr[x, y] = colour
 
 #[ Alternative drawRect using predefined type for faster implementation ]#
-proc drawRect* (w: var Window, r: var Rect, condition: bool = true) =
+proc drawRect* (w: var Window, r: var Rect, condition: bool = true, pos: (int, int) = r.pos) =
+    r.pos = pos
     var x, y: int
     if condition == true:
       for k, v in r.matrix:
@@ -118,7 +119,7 @@ proc toImage* (r: Rect): Image =
     result.png = Png(width: r.size[0], height: r.size[1], channels: 1, data: getData(r.matrix)) # returns pixie.Png type
     result.res = r.size
     result.matrix = r.matrix
-    result.fatrix = r.matrix
+    result.fatrix = filterMatrix(r.matrix)
 
 #[ TODO: I guess we could convert it both ways? ]#
 proc toRect (i: Image): Rect =

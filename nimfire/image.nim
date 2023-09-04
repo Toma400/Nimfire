@@ -45,17 +45,19 @@ proc move* (i: var Image, x: int, y: int) =
     move(i, (x, y))
 #[ Checks if specific position collides with Image given ]#
 proc collide* (i: Image, pos: (int, int)): bool =
-    for x in i.pos[0]..i.epos[0]:
-      for y in i.pos[1]..i.epos[1]:
-        if (x, y) == pos: return true
+    if i.pos[0] < pos[0] and pos[0] < i.epos[0]:
+      if i.pos[1] < pos[1] and pos[1] < i.epos[1]:
+        return true
     return false
 proc collide* (i: Image, x: int, y: int): bool =
     return collide(i, (x, y))
 #[ Checks if Image (i2) collides with another Image (i) ]#
 proc collide* (i: Image, i2: Image): bool =
-    for x in i2.pos[0]..i2.epos[0]:
-      for y in i2.pos[1]..i2.epos[1]:
-        if collide(i, (x, y)) == true: return true
+    if collide(i, (i2.pos[0], i2.pos[1])):
+      if collide(i, (i2.pos[0]), i2.epos[1]):
+        if collide(i, (i2.epos[0], i2.pos[1])):
+          if collide(i, (i2.epos[0], i2.epos[1])):
+            return true
     return false
 #[ Checks if Image is within screen range ]#
 proc isWithin* (i: Image, w: var Window): bool =

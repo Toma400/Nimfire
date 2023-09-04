@@ -86,12 +86,13 @@ Currently, this is Nimfire's scope:
   - [x] Setting basic data (res, title) 
   - [x] Drawing shapes
     - [x] Exporting shapes into graphical files
-- [x] Input control `partially, still WIP`
+- [x] Input control `mostly`
   - [x] Keyboard control
     - [x] Getting keyboard key being pressed
-  - [x] Mouse control `unfinished`
+  - [x] Mouse control
     - [x] Recognising mouse input
     - [x] Getting mouse position on screen
+  - [ ] Saving user input as data (listening to sequence of keys)
 - [x] Image management `simple`
   - [x] Render image on screen
   - [x] Save images
@@ -113,12 +114,18 @@ Currently, this is Nimfire's scope:
 - [ ] UI
   - [ ] Buttons
   - [ ] Progress bars
-  - [ ] Sliders
+  - [ ] Sliders (vertical/horizontal)
+  - [ ] Scrolling slider (vertical/horizontal)
+  - [ ] Text fields
+    - [ ] Single-row box
+    - [ ] Multi-row box
   - [ ] Lists
     - [ ] Comboboxes
     - [ ] Bulletboxes
     - [ ] Listboxes
 - [ ] QoL abstractions
+  - [ ] Delta clock object
+  - [ ] Optional Event system
 
 Look at [changelog](changelog.md) if you want to see details.
 

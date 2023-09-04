@@ -7,14 +7,14 @@ from types import Window
 from image import Image
 import std/tables
 
-proc createMatrix* (s: (int, int), e: (int, int), c: ColorRGBX): Table[(int, int), ColorRGBX]
+proc createMatrix* (s: (int, int), e: (int, int), c: ColorRGBX): OrderedTable[(int, int), ColorRGBX]
 
 type
   Rect* = object
     pos*    : (int, int)
     size*   : (int, int)
     colour* : ColorRGBX
-    matrix* : Table[(int, int), ColorRGBX]
+    matrix* : OrderedTable[(int, int), ColorRGBX]
 proc newRect* (pos: (int, int), size: (int, int), colour: ColorRGBX): Rect =
     result.pos    = pos
     result.size   = size
@@ -31,9 +31,9 @@ proc move* (r: var Rect, x: int, y: int) =
     move(r, (x, y))
 #[ Checks if specific position collides with Rect given ]#
 proc collide* (r: Rect, pos: (int, int)): bool =
-    for x in r.pos[0]..r.epos[0]:
-      for y in r.pos[1]..r.epos[1]:
-        if (x, y) == pos: return true
+    if r.pos[0] < pos[0] and pos[0] < r.epos[0]:
+      if r.pos[1] < pos[1] and pos[1] < r.epos[1]:
+        return true
     return false
 proc collide* (r: Rect, x: int, y: int): bool =
     return collide(r, (x, y))
@@ -75,7 +75,7 @@ proc drawRect* (w: var Window, r: var Rect, condition: bool = true) =
           w.scr[x, y] = v
 
 #[ Creates matrix for further pixel manipulation ]#
-proc createMatrix* (r: var Rect): Table[(int, int), ColorRGBX] =
+proc createMatrix* (r: var Rect): OrderedTable[(int, int), ColorRGBX] =
     var ex, ey: int
     for x in r.pos[0]..r.epos[0]-1:
       for y in r.pos[1]..r.epos[1]-1:
@@ -83,7 +83,7 @@ proc createMatrix* (r: var Rect): Table[(int, int), ColorRGBX] =
         ey = y-r.pos[1]
         result[(ex, ey)] = r.colour
 # raw variant for Rect initialisation
-proc createMatrix* (s: (int, int), e: (int, int), c: ColorRGBX): Table[(int, int), ColorRGBX] =
+proc createMatrix* (s: (int, int), e: (int, int), c: ColorRGBX): OrderedTable[(int, int), ColorRGBX] =
     var ex, ey: int
     for x in s[0]..e[0]-1:
       for y in s[1]..e[1]-1:
@@ -91,11 +91,12 @@ proc createMatrix* (s: (int, int), e: (int, int), c: ColorRGBX): Table[(int, int
         ey = y-s[1]
         result[(ex, ey)] = c
 
-#[ QoL wrapper for Rect.fatrix[(x, y)] = pix ]#
+#[ QoL wrapper for Rect.matrix[(x, y)] = pix. 'pos' needs to collide with Rect. Needs redraw to be visible ]#
 proc setPixel* (r: var Rect, pos: (int, int), colour: ColorRGBX) =
-    r.matrix[(pos[0], pos[1])] = colour
+    if pos[0] > r.pos[0] and pos[0] < r.epos[0] and pos[1] > r.pos[1] and pos[1] < r.epos[1]:
+      r.matrix[(pos[0]-r.pos[0], pos[1]-r.pos[1])] = colour
 proc setPixel* (r: var Rect, x: int, y: int, colour: ColorRGBX) =
-    r.matrix[(x, y)] = colour
+    setPixel(r, (x, y), colour)
 #[ Resets changes made by setPixel to base colour of Rect ]#
 proc clearPixels* (r: var Rect) =
     for k, v in r.matrix:
@@ -107,7 +108,7 @@ proc setColour* (r: var Rect, colour: ColorRGBX) =
 
 #[ Converts Rect into Image ]#
 proc toImage* (r: Rect): Image =
-    proc getData(m: Table[(int, int), ColorRGBX]): seq[ColorRGBA]=
+    proc getData(m: OrderedTable[(int, int), ColorRGBX]): seq[ColorRGBA]=
       for cor, col in m:
         result.add(rgba(col))
 

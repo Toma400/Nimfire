@@ -7,18 +7,16 @@ from types import Window
 import std/tables
 import std/syncio
 
-proc createMatrix* (res: (int, int), pxs: seq[ColorRGBA]): Table[(int, int), ColorRGBX]
-proc filterMatrix* (matrix: Table[(int, int), ColorRGBX]): Table[(int, int), ColorRGBX]
+proc createMatrix* (res: (int, int), pxs: seq[ColorRGBA]):        OrderedTable[(int, int), ColorRGBX]
+proc filterMatrix* (matrix: OrderedTable[(int, int), ColorRGBX]): OrderedTable[(int, int), ColorRGBX]
 
 type
   Image* = object
     png*    : Png         # pixie Png object
     pos*    : (int, int)  # 'pos' can be declared in drawing to overwrite
     res*    : (int, int)
-    matrix* : Table[(int, int), ColorRGBX] # full pixel matrix, table of [coords, color_value]
-    fatrix* : Table[(int, int), ColorRGBX] # filtered matrix, does not have transparent pixels
-  # ImageHandler* = object
-  #   h       : Table[string, Image]
+    matrix* : OrderedTable[(int, int), ColorRGBX] # full pixel matrix, table of [coords, color_value]
+    fatrix* : OrderedTable[(int, int), ColorRGBX] # filtered matrix, does not have transparent pixels
 
 proc newImage* (path: string, pos: (int, int) = (0, 0)): Image =
     result.pos = pos
@@ -68,7 +66,7 @@ proc isWithin* (i: Image, w: var Window): bool =
             return true
     return false
 
-proc createMatrix* (res: (int, int), pxs: seq[ColorRGBA]): Table[(int, int), ColorRGBX] =
+proc createMatrix* (res: (int, int), pxs: seq[ColorRGBA]): OrderedTable[(int, int), ColorRGBX] =
     var x = 0
     var y = 0
     for px in pxs:
@@ -79,7 +77,7 @@ proc createMatrix* (res: (int, int), pxs: seq[ColorRGBA]): Table[(int, int), Col
         x = 0; y += 1
 
 #[ Filters base matrix out of transparent pixels ]#
-proc filterMatrix* (matrix: Table[(int, int), ColorRGBX]): Table[(int, int), ColorRGBX] =
+proc filterMatrix* (matrix: OrderedTable[(int, int), ColorRGBX]): OrderedTable[(int, int), ColorRGBX] =
     for k, v in matrix:
       if v.a > 0:
         result[k] = v

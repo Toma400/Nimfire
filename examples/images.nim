@@ -1,5 +1,6 @@
 import nimfire/colors
 import nimfire/image
+import nimfire/draw # used for Rect conversion
 import nimfire
 
 # initialises Window object
@@ -16,6 +17,13 @@ while w.tick():
   i1.move(10, 15) # similarly to Rect, you can move images with 'move(int, int)' proc
 
   # currently, Nimfire supports only .png format, but this will change shortly
+
+  # you can also convert Rect into Image
+  var r1 = newRect((0, 0), (50, 50), BLACK)
+  var i3 = r1.toImage()
+
+  # Image can be saved as PNG file (so
+  saveImage(i3, "example_file.png")
 
   w.update()
 

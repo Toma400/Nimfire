@@ -74,9 +74,10 @@ while w.tick():
   
 w.finish()
 ```
-For more code examples, visit `examples` folder. You can also look at `examples/games`
-for tutorial games. They serve as current most up-to-date and extensive
-documentation outside (a bit messily written) source code.
+For more code examples, visit `examples` folder. You can also look at `examples/apps`
+for tutorial apps done step by step to showcase more abstract use of Nimfire.  
+Additionally, module functions are slowly documented in [this](examples/functions.md)
+Markdown file.
 
 ---
 ### Features
@@ -93,9 +94,11 @@ Currently, this is Nimfire's scope:
     - [x] Getting mouse position on screen
 - [x] Image management `simple`
   - [x] Render image on screen
-  - [ ] Resize images
   - [x] Save images
   - [ ] JPG/SVG/BMP formats
+  - [ ] More Image manipulation features
+    - [ ] Resize images
+    - [ ] Nesting Image type into each other
 - [ ] Text management
   - [ ] Drawing text on screen
     - [ ] Size properties

@@ -28,6 +28,9 @@ proc brushDrawSlash(w: var Window, pos: (int, int)) = # '\' slash
     let x = pos[0] + i
     let y = pos[1] + i
     w.fillPos((x, y), cr.colour)
+    setPixel(canvas, (x, y), cr.colour) # we add setPixel here, because this let us
+                                        # notify Rect object about the change done
+                                        # (will be useful for saving it later)
 
 proc brushDrawSquare(w: var Window, pos: (int, int)) = # square
   for i in -brush..brush:
@@ -35,16 +38,19 @@ proc brushDrawSquare(w: var Window, pos: (int, int)) = # square
       let x = pos[0] + i
       let y = pos[1] + j
       w.fillPos((x, y), cr.colour)
+      setPixel(canvas, (x, y), cr.colour)
 
 proc brushDrawCross(w: var Window, pos: (int, int)) = # cross
   for i in -brush..brush:
     let x = pos[0] + i
     let y = pos[1]
     w.fillPos((x, y), cr.colour)
+    setPixel(canvas, (x, y), cr.colour)
   for j in -brush..brush:
     let x = pos[0]
     let y = pos[1] + j
     w.fillPos((x, y), cr.colour)
+    setPixel(canvas, (x, y), cr.colour)
 
 
 while w.tick():

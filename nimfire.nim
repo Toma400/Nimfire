@@ -19,7 +19,7 @@ proc initWindow* (res: (int, int), title: string, icon: string = "", resizable: 
     result.fillBackground()
     # setWindowIcon* - for icon adding
 
-#[ Returns tuple with window size (using GLFW function) ]#
+#[ Returns tuple with current window size (using GLFW function). Use over `res` field ]#
 proc getRes* (w: var Window): (int, int) =
     return (w.scr.win.getSize()[0].int, w.scr.win.getSize()[1].int)
 

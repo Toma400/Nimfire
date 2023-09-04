@@ -22,7 +22,8 @@ while w.tick():
   var r1 = newRect((0, 0), (50, 50), BLACK)
   var i3 = r1.toImage()
 
-  # Image can be saved as PNG file (so
+  # Image can be saved as PNG file
+  # (so you can modify Image or convert Rect and get it as image file)
   saveImage(i3, "example_file.png")
 
   w.update()

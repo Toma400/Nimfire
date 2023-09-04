@@ -44,6 +44,8 @@ proc move* (i: var Image, pos: (int, int)) =
 proc move* (i: var Image, x: int, y: int) =
     move(i, (x, y))
 #[ Checks if specific position collides with Image given ]#
+#[ Have in mind that it checks for rectangle shape,
+                       including transparent pixels ]#
 proc collide* (i: Image, pos: (int, int)): bool =
     if i.pos[0] < pos[0] and pos[0] < i.epos[0]:
       if i.pos[1] < pos[1] and pos[1] < i.epos[1]:
@@ -52,6 +54,8 @@ proc collide* (i: Image, pos: (int, int)): bool =
 proc collide* (i: Image, x: int, y: int): bool =
     return collide(i, (x, y))
 #[ Checks if Image (i2) collides with another Image (i) ]#
+#[ Have in mind that it checks for rectangle shape,
+                       including transparent pixels ]#
 proc collide* (i: Image, i2: Image): bool =
     if collide(i, (i2.pos[0], i2.pos[1])):
       if collide(i, (i2.pos[0]), i2.epos[1]):
@@ -59,6 +63,23 @@ proc collide* (i: Image, i2: Image): bool =
           if collide(i, (i2.epos[0], i2.epos[1])):
             return true
     return false
+
+#[ Checker similar to 'collide' above, but only for pixels
+   that are not transparent.
+   Takes image shape into consideration instead of
+   performing collision check on rectangular shape.
+   Should be used with caution being more performance-heavy,
+   especially Rect comparison one                         ]#
+proc collidePrecise* (i: Image, pos: (int, int)): bool =
+    for coord, _ in i.fatrix:
+      if coord == pos: return true
+    return false
+proc collidePrecise* (i: Image, i2: Image): bool =
+    for coord, _ in i.fatrix:
+      for coord2, _ in i2.fatrix:
+        if coord == coord2: return true
+    return false
+
 #[ Checks if Image is within screen range ]#
 proc isWithin* (i: Image, w: var Window): bool =
     if isWithin(w, (i.pos[0], i.pos[1])):

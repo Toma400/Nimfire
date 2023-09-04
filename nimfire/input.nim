@@ -163,9 +163,9 @@ const
            "f24":    F24,
            "f25":    F25,
            "escape": ESCAPE}.toOrderedTable
-  mouse* = {"left":   LEFT,
-            "right":  RIGHT,
-            "middle": MIDDLE}.toOrderedTable
+  mouse* = {"left":   MOUSEBUTTON.LEFT,
+            "right":  MOUSEBUTTON.RIGHT,
+            "middle": MOUSEBUTTON.MIDDLE}.toOrderedTable
 
 #[ Returns whether specific key is pressed or not. Takes Key enum or string representation ]#
 proc getKeyPressed* (w: Window, k: Key): bool =

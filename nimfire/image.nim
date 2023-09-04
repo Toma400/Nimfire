@@ -71,13 +71,23 @@ proc collide* (i: Image, i2: Image): bool =
    Should be used with caution being more performance-heavy,
    especially Rect comparison one                         ]#
 proc collidePrecise* (i: Image, pos: (int, int)): bool =
+    # creates current (non-relative) pos tuple
+    proc u(c: (int, int), p: (int, int)): (int, int) =
+      return (c[0] + p[0], c[1] + p[1])
+
     for coord, _ in i.fatrix:
-      if coord == pos: return true
+      if u(coord, i.pos) == pos: return true
     return false
+proc collidePrecise* (i: Image, x: int, y: int): bool =
+    return collidePrecise(i, (x, y))
 proc collidePrecise* (i: Image, i2: Image): bool =
+    # creates current (non-relative) pos tuple
+    proc u(c: (int, int), p: (int, int)): (int, int) =
+      return (c[0] + p[0], c[1] + p[1])
+
     for coord, _ in i.fatrix:
       for coord2, _ in i2.fatrix:
-        if coord == coord2: return true
+        if u(coord, i.pos) == u(coord2, i2.pos): return true
     return false
 
 #[ Checks if Image is within screen range ]#

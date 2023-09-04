@@ -270,9 +270,9 @@ Functions:
   - [newImage](#newimage)
   - [drawImage](#drawimage)
   - [move](#move)
-  - collide
-  - collidePrecise
-  - saveImage
+  - [collide](#collide)
+  - [collidePrecise](#collideprecise)
+  - [saveImage](#saveimage)
   - epos
   - isWithin
   - createMatrix
@@ -348,8 +348,62 @@ Arguments:
 | pos  | (int, int)  | **required** | Relative position Image should be moved with. Use negative and positive values for direction <br> ✮ Can be overloaded with two int values |
 | x, y |     int     | **required** | Relative position Image should be moved with. Use negative and positive values for direction <br> ✮ Can be overloaded with int tuple.     |
 
-Moving has inverted Y treatment, so if you want to move Image upwards, use `(n, -1)`
+Moving has inverted Y treatment, so if you want to move Image upwards, use `(n, -n)`
 value.
+
+### collide
+Checks whether Image collides with either specific position or another Image.
+```nim
+proc collide* (i: Image, pos: (int, int)): bool
+
+proc collide* (i: Image, x: int, y: int): bool
+
+proc collide* (i: Image, i2: Image): bool
+```
+Arguments:
+
+| Name |    Type    |  Treatment   | Description                                                                                                         |
+|:----:|:----------:|:------------:|:--------------------------------------------------------------------------------------------------------------------|
+|  i   |   Image    | **required** | Image object collision being checked                                                                                |
+| pos  | (int, int) | **required** | position being checked for collision, as tuple of ints <br> ✮ Can be overloaded with two int values or Image object |
+| x, y |    int     | **required** | position being checked, as two int values <br> ✮ Can be overloaded with int tuple or Image object                   |
+|  i2  |   Image    | **required** | another Image object being checked for collisions <br> ✮ Can be overloaded with int tuple or two int values         | 
+
+Performing `collide()` check is done using image's rectangular shape, which means that
+it is faster, but does not check whether pixels are solid.  
+For more resource-heavy check that counts only non-transparent pixels, use [collidePrecise](#collideprecise).
+
+### collidePrecise
+More performance-heavy alternative to [collide](#collide) that performs collision
+check on `fatrix` field, resulting on collision being checked only on non-transparent
+pixels.
+```nim
+proc collidePrecise* (i: Image, pos: (int, int)): bool
+
+proc collidePrecise* (i: Image, x: int, y: int): bool 
+
+proc collidePrecise* (i: Image, i2: Image): bool
+```
+Arguments:
+
+| Name |    Type    |  Treatment   | Description                                                                                                         |
+|:----:|:----------:|:------------:|:--------------------------------------------------------------------------------------------------------------------|
+|  i   |   Image    | **required** | Image object collision being checked                                                                                |
+| pos  | (int, int) | **required** | position being checked for collision, as tuple of ints <br> ✮ Can be overloaded with two int values or Image object |
+| x, y |    int     | **required** | position being checked, as two int values <br> ✮ Can be overloaded with int tuple or Image object                   |
+|  i2  |   Image    | **required** | another Image object being checked for collisions <br> ✮ Can be overloaded with int tuple or two int values         | 
+
+### saveImage
+Saves Image object as a PNG file to specific path.
+```nim
+proc saveImage* (i: Image, name: string)
+```
+Arguments:
+
+| Name |  Type  |  Treatment   | Description                                                                     |
+|:----:|:------:|:------------:|:--------------------------------------------------------------------------------|
+|  i   | Image  | **required** | Image object being saved                                                        |
+| name | string | **required** | name of the file (should contain also extension being `.png`) and optional path |
 
 ### filterMatrix
 Filters `matrix` field of transparent blocks, letting drawing be performed only on

@@ -156,6 +156,9 @@ While library is *All Rights Reserved* for now (I'm quite lazy for libraries), i
 be changed soon. For now you are allowed to use the library for any personal project
 that is not commercial in any way.
 
+### Project made using Nimfire
+#### 🎨 [Drawfire](https://github.com/Toma400/Drawfire) - simple drawing app
+
 <!-- TODO
   - getting mouse position
   - resize image

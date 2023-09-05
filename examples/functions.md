@@ -250,9 +250,6 @@ Arguments:
 |:----:|:------:|:-------------:|:------------------------------|
 |  w   | Window | **required**  | Window object used by our app |
 
-### anyKeysPressed
-
-### allKeysPressed
 
 ---
 # Nimfire/image

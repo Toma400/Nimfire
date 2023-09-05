@@ -111,12 +111,13 @@ proc setColour* (r: var Rect, colour: ColorRGBX) =
 
 #[ Converts Rect into Image ]#
 proc toImage* (r: Rect): Image =
-    proc getData(m: OrderedTable[(int, int), ColorRGBX]): seq[ColorRGBA]=
-      for cor, col in m:
-        result.add(rgba(col))
+    proc getData(m: Rect): seq[ColorRGBA]=
+      for y in 0..m.size[1]-1:
+        for x in 0..m.size[0]-1:
+          result.add(rgba(m.matrix[(x, y)]))
 
     result.pos = r.pos
-    result.png = Png(width: r.size[0], height: r.size[1], channels: 1, data: getData(r.matrix)) # returns pixie.Png type
+    result.png = Png(width: r.size[0], height: r.size[1], channels: 1, data: getData(r)) # returns pixie.Png type
     result.res = r.size
     result.matrix = r.matrix
     result.fatrix = filterMatrix(r.matrix)

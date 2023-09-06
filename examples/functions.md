@@ -481,6 +481,10 @@ proc drawRect* (w      : var Window,
                 cond   : bool = true)
 
 proc drawRect* (w    : var Window,
+                r    : Rect,
+                cond : bool = true)
+
+proc drawRect* (w    : var Window,
                 r    : var Rect,
                 cond : bool = true,
                 pos  : (int, int)   = r.pos)
@@ -500,9 +504,18 @@ Arguments (using Rect object):
 | Name |     Type     |             Treatment             | Description                                                 |
 |:----:|:------------:|:---------------------------------:|:------------------------------------------------------------|
 |  w   | `var` Window |           **required**            | Window object being drawn into                              |
+|  r   |     Rect     |           **required**            | Rect object being drawn                                     |
+| cond |     bool     |          default: `true`          | boolean expression that allow you to condition Rect drawing |
+
+Arguments (using Rect object, with overriding of position):
+
+| Name |     Type     |             Treatment             | Description                                                 |
+|:----:|:------------:|:---------------------------------:|:------------------------------------------------------------|
+|  w   | `var` Window |           **required**            | Window object being drawn into                              |
 |  r   |  `var` Rect  |           **required**            | Rect object being drawn                                     |
 | pos  |  (int, int)  | default: <br> `pos` field of Rect | overrides position given during initialisation              |
 | cond |     bool     |          default: `true`          | boolean expression that allow you to condition Rect drawing |
+
 
 ### move `Rect`
 Utility function that let you easily move Rect from its current position.

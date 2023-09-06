@@ -432,9 +432,11 @@ Functions:
   - [move](#move-rect)
   - [collide](#collide-rect)
   - [toImage](#toimage)
+  - [toRect](#torect)
   - drawBackground
   - setColour
-  - setPixel
+  - [setPixel](#setpixel)
+  - [setPixelRelative](#setpixelrelative)
   - clearPixels
   - epos
   - isWithin
@@ -563,6 +565,52 @@ Arguments:
 | Name | Type |  Treatment   | Description                 |
 |:----:|:----:|:------------:|:----------------------------|
 |  r   | Rect | **required** | Rect object being converted |
+
+### toRect
+Converts [Image](#image) type into Rect.
+```nim
+proc toRect* (i: Image): Rect
+```
+Arguments:
+
+| Name | Type  |  Treatment   | Description                  |
+|:----:|:-----:|:------------:|:-----------------------------|
+|  i   | Image | **required** | Image object being converted |
+
+### setPixel
+Sets pixel on specific coordinate of Rect object. It is absolute and performs
+check on whether given coordinates belong to Rect.  
+For relative, see [setPixelRelative](#setpixelrelative) proc.
+```nim
+proc setPixel* (r: var Rect, pos: (int, int), colour: ColorRGBX)
+
+proc setPixel* (r: var Rect, x: int, y: int, colour: ColorRGBX)
+```
+Arguments:
+
+|  Name  |    Type    |  Treatment   | Description                                                                                                                   |
+|:------:|:----------:|:------------:|:------------------------------------------------------------------------------------------------------------------------------|
+|   r    | `var` Rect | **required** | Rect object that is being used                                                                                                |
+|  pos   | (int, int) | **required** | Absolute position that is being drawn into. Skips drawing if outside of Rect <br> ✮ Can be overloaded with two int values     |
+|  x, y  |    int     | **required** | Absolute position that is being drawn into. Skips drawing if outside of Rect  <br> ✮ Can be overloaded with tuple of two ints |
+| colour | ColorRGBX  | **required** | Colour being drawn in position (suggested to use [Colour enum](#nimfirecolors))                                               |
+
+### setPixelRelative
+Equivalent of [setPixel](#setpixel) proc, but uses relative positioning.  
+Performs check whether position is between 0 and Rect size.
+```nim
+proc setPixelRelative* (r: var Rect, rel_pos: (int, int), colour: ColorRGBX)
+
+proc setPixelRelative* (r: var Rect, rel_x: int, rel_y: int, colour: ColorRGBX)
+```
+Arguments:
+
+|     Name     |    Type    |  Treatment   | Description                                                                                                                   |
+|:------------:|:----------:|:------------:|:------------------------------------------------------------------------------------------------------------------------------|
+|      r       | `var` Rect | **required** | Rect object that is being used                                                                                                |
+|   rel_pos    | (int, int) | **required** | Relative position that is being drawn into. Skips drawing if outside of Rect <br> ✮ Can be overloaded with two int values     |
+| rel_x, rel_y |    int     | **required** | Relative position that is being drawn into. Skips drawing if outside of Rect  <br> ✮ Can be overloaded with tuple of two ints |
+|    colour    | ColorRGBX  | **required** | Colour being drawn in position (suggested to use [Colour enum](#nimfirecolors))                                               |
 
 ---
 # Nimfire/utils

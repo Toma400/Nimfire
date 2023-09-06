@@ -10,6 +10,8 @@ proc r(r: uint8, g: uint8, b: uint8): ColorRGBX =
    - HTML colours are in STD list, but if they feel odd, they will get their h[NAME] variant
    - Unnamed colours will get their custom name, but prefixed: u[NAME]                       ]#
 
+const TRANSPARENT* = rgbx(0, 0, 0, 0)
+
 const
   #[ Standard colours ]#
   WHITE*  = r(255, 255, 255)
@@ -20,6 +22,7 @@ const
   YELLOW* = r(255, 255,   0)
   PURPLE* = r(128,   0, 128)
   # BROWN
+  GRAY*   = r(126, 133, 138)
   CYAN*   = r(  0, 255, 255)
   LIME*   = r(  0, 255,   0)
   CREAM*  = r(239, 230, 198)
@@ -42,7 +45,6 @@ const
   CAMOUFLAGE_GREEN* = r(120, 134, 107) # -- bleak
   MORNING_BLUE*     = r(141, 163, 153) # -- gray-driven / cyan-driven
   PINE_GREEN*       = r(  1, 121, 111) # -- cyan-driven:blue
-  ##### CATS # -- bright | bleak, dark, cyan-driven:green, creamy-driven, gray-driven
   #[ Blue-like shades ]#
   uCYAN_LIGHT_BLUE*    = r(119, 152, 159) # -- cyan-driven:gray
   uINTENSE_LIGHT_BLUE* = r( 85, 145, 190) # -- light
@@ -73,6 +75,8 @@ const
   ACAJOU*        = r( 76,  47,  39)
   BAIKO*         = r(133, 124,  85) # -- gray-driven
   IWAI*          = r( 94,  85,  69)
+  #[ Gray-like shades ]#
+
   #[ Cyan-like shades ]#
   AQUA*           = r(  0, 255, 255) # -- bright
   AQUAMARINE*     = r(127, 255, 212)

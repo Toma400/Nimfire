@@ -1,6 +1,6 @@
 from ../nimfire import isWithin, fillBackground
+from chroma import ColorRGBX, ColorRGBA, rgbx
 from chroma/transformations import rgba
-from chroma import ColorRGBX, ColorRGBA
 from pixie/fileformats/png import Png
 from image import Image, filterMatrix
 import glFB except Window
@@ -110,6 +110,14 @@ proc setPixel* (r: var Rect, pos: (int, int), colour: ColorRGBX) =
       r.matrix[(pos[0]-r.pos[0], pos[1]-r.pos[1])] = colour
 proc setPixel* (r: var Rect, x: int, y: int, colour: ColorRGBX) =
     setPixel(r, (x, y), colour)
+
+#[ setPixel proc, but with relative character ]#
+proc setPixelRelative* (r: var Rect, rel_pos: (int, int), colour: ColorRGBX) =
+    if rel_pos[0] > 0 and rel_pos[0] < r.size[0] and rel_pos[1] > 0 and rel_pos[1] < r.size[1]:
+      r.matrix[(rel_pos[0], rel_pos[1])] = colour
+proc setPixelRelative* (r: var Rect, rel_x: int, rel_y: int, colour: ColorRGBX) =
+    setPixel(r, (rel_x, rel_y), colour)
+
 #[ Resets changes made by setPixel to base colour of Rect ]#
 proc clearPixels* (r: var Rect) =
     for k, v in r.matrix:
@@ -132,6 +140,8 @@ proc toImage* (r: Rect): Image =
     result.matrix = r.matrix
     result.fatrix = filterMatrix(r.matrix)
 
-#[ TODO: I guess we could convert it both ways? ]#
-proc toRect (i: Image): Rect =
-    discard
+proc toRect* (i: Image): Rect =
+    result.pos = i.pos
+    result.size = i.res
+    result.colour = rgbx(0, 0, 0, 0)
+    result.matrix = i.matrix

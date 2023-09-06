@@ -31,22 +31,36 @@ const
   #[ White-like shades ]#
 
   #[ Black-like shades ]#
-  RAISIN_BLACK* = r( 36,  33,  36)
+  RAISIN_BLACK*  = r( 36,  33,  36)
+  CHINESE_BLACK* = r( 20,  20,  20)
+  BLACK_COFFEE*  = r( 59,  47,  47) # -- brown-driven
   #[ Green-like shades ]#
-  OLIVE_GREEN*  = r(181, 179,  92)
-  MORNING_BLUE* = r(141, 163, 153) # -- gray-driven / cyan-driven
-  PINE_GREEN*   = r(  1, 121, 111) # -- cyan-driven:blue
+  OLIVEDRAB*        = r(107, 142,  35) # -- classic
+  CAL_POLY_POMONA*  = r( 30,  77,  43) # -- dark
+  CADMIUM_GREEN*    = r(  0, 107,  60) # -- intense
+  OLIVE_GREEN*      = r(181, 179,  92) # -- yellow-driven
+  CAMOUFLAGE_GREEN* = r(120, 134, 107) # -- bleak
+  MORNING_BLUE*     = r(141, 163, 153) # -- gray-driven / cyan-driven
+  PINE_GREEN*       = r(  1, 121, 111) # -- cyan-driven:blue
   ##### CATS # -- bright | bleak, dark, cyan-driven:green, creamy-driven, gray-driven
   #[ Blue-like shades ]#
-  NAVY_BLUE* = r(  0,  0, 128) # -- dark
-  DARK_NAVY* = r(  2,  7,  93)
+  uCYAN_LIGHT_BLUE*    = r(119, 152, 159) # -- cyan-driven:gray
+  uINTENSE_LIGHT_BLUE* = r( 85, 145, 190) # -- light
+  uBRIGHT_LIGHT_BLUE*  = r(194, 218, 223) #
+  uPASTEL_LIGHT_BLUE*  = r(135, 171, 203) # -- light / pastel
+  NAVY_BLUE*           = r(  0,  0, 128)  # -- dark
+  DARK_NAVY*           = r(  2,  7,  93)
   #[ Red-like shades ]#
   ALABAMA_CRIMSON* = r(175,   0,  42)
   MAROON*          = r(128,   0,   0)
   CLARET*          = r(100,  29,  47)
   BLOOD*           = r(138,   3,   3) # -- dark
   #[ Yellow-like shades ]#
-
+  GOLDENGLOW*   = r(254, 245, 128) # -- bleak
+  BUFF*         = r(240, 220, 130)
+  BAJA_YELLOW*  = r(244, 207,  15) # -- intense / orange-driven
+  VIVID_YELLOW* = r(255, 227,   2) # -- intense
+  CANARY*       = r(255, 255, 153) # -- bright
   #[ Purple-like shades ]#
   VIOLET*        = r(113,   1, 147) # -- classic
   DARK_PURPLE*   = r( 48,  25,  52) # -- dark
@@ -60,9 +74,10 @@ const
   BAIKO*         = r(133, 124,  85) # -- gray-driven
   IWAI*          = r( 94,  85,  69)
   #[ Cyan-like shades ]#
-  AQUA*       = r(  0, 255, 255) # -- bright
-  AQUAMARINE* = r(127, 255, 212)
-  TEAL*       = r(  0, 128, 128) # -- teal-like
+  AQUA*           = r(  0, 255, 255) # -- bright
+  AQUAMARINE*     = r(127, 255, 212)
+  TEAL*           = r(  0, 128, 128) # -- teal-like
+  CAMBRIDGE_BLUE* = r(163, 193, 173) # -- bleak / pastel
   #[ Lime-like shades ]#
   LIME_PULP*   = r(209, 225, 137) # -- bleak
   ARCTIC_LIME* = r(208, 255,  20) # -- bright:neon

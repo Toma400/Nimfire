@@ -10,11 +10,6 @@ To install the library, simply run such command in terminal:
 ```
 nimble install https://github.com/Toma400/Nimfire
 ```
-However, due to small bug between 0.1.0 and upcoming 0.1.1, I recommend to use
-this command to get newest version which has correctly set dependencies:
-```
-nimble install https://github.com/Toma400/Nimfire@#HEAD
-```
 
 ### Usage
 Initialising basic window is done using `initWindow` procedure. After that, you will

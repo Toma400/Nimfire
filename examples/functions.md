@@ -436,6 +436,7 @@ Functions:
   - drawBackground
   - setColour
   - [setPixel](#setpixel)
+  - [setPixelAbsolute](#setpixelabsolute)
   - [setPixelRelative](#setpixelrelative)
   - clearPixels
   - epos
@@ -581,6 +582,12 @@ Arguments:
 Sets pixel on specific coordinate of Rect object. It is absolute and performs
 check on whether given coordinates belong to Rect.  
 For relative, see [setPixelRelative](#setpixelrelative) proc.
+
+**Disclaimer**:   
+`setPixel` will change its behaviour to mimic [setPixelRelative](#setpixelrelative)
+as default in version 0.1.3.  
+Use [setPixelAbsolute](#setpixelabsolute) instead to keep your code safe from changes.
+
 ```nim
 proc setPixel* (r: var Rect, pos: (int, int), colour: ColorRGBX)
 
@@ -595,9 +602,18 @@ Arguments:
 |  x, y  |    int     | **required** | Absolute position that is being drawn into. Skips drawing if outside of Rect  <br> ✮ Can be overloaded with tuple of two ints |
 | colour | ColorRGBX  | **required** | Colour being drawn in position (suggested to use [Colour enum](#nimfirecolors))                                               |
 
+### setPixelAbsolute
+Alias of [setPixel](#setpixel) that will remain 
+
 ### setPixelRelative
 Equivalent of [setPixel](#setpixel) proc, but uses relative positioning.  
 Performs check whether position is between 0 and Rect size.
+
+**Disclaimer**:  
+[setPixel](#setpixel) will change its behaviour in version 0.1.3 to mimic `setPixelRelative`
+as default. This may result in this proc becoming deprecated and eventually removed.  
+Please check changelogs and deprecation warnings.
+
 ```nim
 proc setPixelRelative* (r: var Rect, rel_pos: (int, int), colour: ColorRGBX)
 

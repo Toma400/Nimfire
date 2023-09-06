@@ -105,10 +105,16 @@ proc createMatrix* (s: (int, int), e: (int, int), c: ColorRGBX): OrderedTable[(i
         result[(ex, ey)] = c
 
 #[ QoL wrapper for Rect.matrix[(x, y)] = pix. 'pos' needs to collide with Rect. Needs redraw to be visible ]#
-proc setPixel* (r: var Rect, pos: (int, int), colour: ColorRGBX) =
+proc setPixel* (r: var Rect, pos: (int, int), colour: ColorRGBX) {.deprecated:"In version 0.1.3 -setPixel- will be changed to work as -setPixelRelative-. Use -setPixelAbsolute- instead.".} =
     if pos[0] > r.pos[0] and pos[0] < r.epos[0] and pos[1] > r.pos[1] and pos[1] < r.epos[1]:
       r.matrix[(pos[0]-r.pos[0], pos[1]-r.pos[1])] = colour
-proc setPixel* (r: var Rect, x: int, y: int, colour: ColorRGBX) =
+proc setPixel* (r: var Rect, x: int, y: int, colour: ColorRGBX) {.deprecated:"In version 0.1.3 -setPixel- will be changed to work as -setPixelRelative-. Use -setPixelAbsolute- instead.".} =
+    setPixel(r, (x, y), colour)
+
+proc setPixelAbsolute* (r: var Rect, pos: (int, int), colour: ColorRGBX) =
+    if pos[0] > r.pos[0] and pos[0] < r.epos[0] and pos[1] > r.pos[1] and pos[1] < r.epos[1]:
+      r.matrix[(pos[0]-r.pos[0], pos[1]-r.pos[1])] = colour
+proc setPixelAbsolute* (r: var Rect, x: int, y: int, colour: ColorRGBX) =
     setPixel(r, (x, y), colour)
 
 #[ setPixel proc, but with relative character ]#

@@ -9,7 +9,6 @@ type
     COMMA  = 44 # ','
     MINUS  = 45 # '-'
     DOT    = 46 # '.'
-    PERIOD = 46 # '.'
     SLASH  = 47 # '/'
     N0 = 48 # 0-9 numerical keys
     N1 = 49
@@ -22,8 +21,7 @@ type
     N8 = 56
     N9 = 57
     SEMICOLON = 60 # ';'
-    PLUS      = 61 # '+' (plus button, not plus character)
-    EQUAL     = 61 # '=' (equal button, not equal character)
+    PLUS      = 61 # '='/'+' (equal button, not equal character)
     A = 65
     B = 66
     C = 67
@@ -201,7 +199,7 @@ const
            "f25":     F25,
            "plus":    PLUS,  # '+' (same as '=')
            "minus":   MINUS, # '-'
-           "equal":   EQUAL, # '=' (same as '+')
+           "equal":   PLUS,  # '=' (same as '+')
            "lbracket":  L_BRACKET, # '['
            "rbracket":  R_BRACKET, # ']'
            "l_bracket": L_BRACKET, # '['
@@ -212,7 +210,7 @@ const
            "grave":        TILDE,     # '`'
            "semicolon":    SEMICOLON, # ';'
            "dot":          DOT,       # '.'
-           "period":       PERIOD,    # '.'
+           "period":       DOT,       # '.'
            "comma":        COMMA,     # ','
            "insert":       INSERT,
            "backspace":    BACKSPACE,

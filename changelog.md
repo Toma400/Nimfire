@@ -9,6 +9,7 @@
 ### 0.1.1
 Additions:
   - added several new keys to be recognised
+  - added utility proc to check screen size
 
 Improvements:
   - `drawRect` does not require `var` type of Rect object, so can be iterated

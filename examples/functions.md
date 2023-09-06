@@ -570,10 +570,19 @@ Nimfire module that holds some useful utility procs that are not related directl
 to any core feature.
 
 Functions:
+  - [getScreenRes](#getscreenres)
   - getPxPerc
   - p
   - pax
   - pay
+
+---
+### getScreenRes
+Returns screen resolution as a tuple. Currently only support Windows OS and raises
+error if called from different one.
+```nim
+proc getScreenRes* (): (int, int)
+```
 
 ---
 # Nimfire/colors

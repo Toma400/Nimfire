@@ -1,4 +1,11 @@
+from winim/inc/winuser import GetSystemMetrics, SM_CXSCREEN, SM_CYSCREEN
 from types import Window, Axis
+
+proc getScreenRes* (): (int, int) =
+    if hostOS == "windows":
+      return (GetSystemMetrics(SM_CXSCREEN).int, GetSystemMetrics(SM_CYSCREEN).int)
+    else:
+      raise newException(Exception, "Non-Windows OS does not support -getScreenRes- proc yet")
 
 #[ Gives you % pixel value of specific context
 - perc    : int | required >> % value that we want to get

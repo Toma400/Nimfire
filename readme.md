@@ -112,6 +112,8 @@ Currently, this is Nimfire's scope:
   - [ ] Font support
 - [ ] QoL
   - [ ] Holders for images/rects/sounds that let you access them by ID from Window
+  <!-- use .mitems() for iterating over loop while making vars mutable
+       can be pretty beneficial for iterating over holder items -->
 - [ ] Sound management
   - [ ] Playing & stopping sound
   - [ ] WAV/FLAC/OGG/MP3 formats

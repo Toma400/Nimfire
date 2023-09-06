@@ -5,7 +5,12 @@ import std/tables
 
 type
   Key* = enum # look at nglfw/core for references of numbers
-    SPACE = 32
+    SPACE  = 32
+    COMMA  = 44 # ','
+    MINUS  = 45 # '-'
+    DOT    = 46 # '.'
+    PERIOD = 46 # '.'
+    SLASH  = 47 # '/'
     N0 = 48 # 0-9 numerical keys
     N1 = 49
     N2 = 50
@@ -16,6 +21,9 @@ type
     N7 = 55
     N8 = 56
     N9 = 57
+    SEMICOLON = 60 # ';'
+    PLUS      = 61 # '+' (plus button, not plus character)
+    EQUAL     = 61 # '=' (equal button, not equal character)
     A = 65
     B = 66
     C = 67
@@ -42,13 +50,24 @@ type
     X = 88
     Y = 89
     Z = 90
-    ESCAPE = 256
-    ENTER  = 257
-    TAB    = 258
-    RIGHT  = 262
-    LEFT   = 263
-    DOWN   = 264
-    UP     = 265
+    L_BRACKET    = 91 # '['
+    BACKSLASH    = 92 # '\'
+    R_BRACKET    = 93 # ']'
+    TILDE        = 96 # '`' (tilde button, not tilde character)
+    ESCAPE       = 256
+    ENTER        = 257
+    TAB          = 258
+    BACKSPACE    = 259
+    INSERT       = 260
+    DELETE       = 261
+    RIGHT        = 262 # arrow keys (<, ^, v, >)
+    LEFT         = 263
+    DOWN         = 264
+    UP           = 265
+    HOME         = 268
+    END          = 269
+    CAPS_LOCK    = 280
+    PRINT_SCREEN = 283
     F1     = 290
     F2     = 291
     F3     = 292
@@ -180,6 +199,28 @@ const
            "f23":     F23,
            "f24":     F24,
            "f25":     F25,
+           "plus":    PLUS,  # '+' (same as '=')
+           "minus":   MINUS, # '-'
+           "equal":   EQUAL, # '=' (same as '+')
+           "lbracket":  L_BRACKET, # '['
+           "rbracket":  R_BRACKET, # ']'
+           "l_bracket": L_BRACKET, # '['
+           "r_bracket": R_BRACKET, # ']'
+           "slash":     SLASH,     # '/'
+           "backslash": BACKSLASH, # '\'
+           "tilde":        TILDE,     # '`'
+           "grave":        TILDE,     # '`'
+           "semicolon":    SEMICOLON, # ';'
+           "dot":          DOT,       # '.'
+           "period":       PERIOD,    # '.'
+           "comma":        COMMA,     # ','
+           "insert":       INSERT,
+           "backspace":    BACKSPACE,
+           "delete":       DELETE,
+           "home":         HOME,
+           "end":          END,
+           "caps_lock":    CAPS_LOCK,
+           "print_screen": PRINT_SCREEN,
            "escape":  ESCAPE}.toOrderedTable
   mouse* = {"left":   MOUSEBUTTON.LEFT,
             "right":  MOUSEBUTTON.RIGHT,

@@ -1,10 +1,15 @@
 # Changelog
 - [0.1](#0.1.x)
+  - [0.1.2](#0.1.2) 
   - [0.1.1](#0.1.1) 
   - [0.1.0](#0.1.0)
 
 ---
 ## 0.1.x
+
+### 0.1.2
+Changes:
+  - `setPixel` behaviour has been changed to mimic `setPixelRelative` as default
 
 ### 0.1.1
 Additions:

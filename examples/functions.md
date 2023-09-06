@@ -280,7 +280,9 @@ Functions:
 **Type**: object
 
 Image type representing single image, either imported through [newImage](#newimage)
-proc from file, or converted from other type such as Rect.
+proc from file, or converted from other type such as [Rect](#toimage).
+
+Can be [converted into Rect](#torect) type.
 
 Fields:
 
@@ -448,6 +450,8 @@ Functions:
 **Type**: object
 
 Rect type representing rectangular shape of given colour.
+
+Can be [converted into Image](#toimage) type.
 
 Fields:
 

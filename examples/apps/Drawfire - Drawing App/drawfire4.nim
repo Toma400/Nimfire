@@ -72,7 +72,8 @@ while w.tick():
     cr.setColour(PURPLE)
   elif w.getKeyPressed(KEY.Q):
     w.clear()
-    w.drawRect(canvas)                    # we add redrawing canvas here, since this makes our canvas empty again
+    clearPixels(canvas)                   # we clear our canvas of any drawn pixels
+    w.drawRect(canvas)                    # and redraw empty canvas on screen
   elif w.getKeyPressed(KEY.UP):
     brush += 1
   elif w.getKeyPressed(KEY.DOWN):

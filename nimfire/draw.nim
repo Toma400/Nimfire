@@ -67,7 +67,17 @@ proc drawRect* (w: var Window, pos: (int, int), size: (int, int), colour: ColorR
             w.scr[x, y] = colour
 
 #[ Alternative drawRect using predefined type for faster implementation ]#
-proc drawRect* (w: var Window, r: var Rect, condition: bool = true, pos: (int, int) = r.pos) =
+proc drawRect* (w: var Window, r: Rect, condition: bool = true) =
+    var x, y: int
+    if condition == true:
+      for k, v in r.matrix:
+        x = r.pos[0]+k[0]
+        y = r.pos[1]+k[1]
+        if isWithin(w, (x, y)):
+          w.scr[x, y] = v
+
+#[ drawRect that does change position of Rect - requires 'var' type of Rect ]#
+proc drawRect* (w: var Window, r: var Rect, condition: bool = true, pos: (int, int)) =
     r.pos = pos
     var x, y: int
     if condition == true:

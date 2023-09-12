@@ -1,5 +1,4 @@
 from nglfw/core import getKey, getMouseButton, getCursorPos
-from ../nimfire import getRes
 from types import Window
 import std/tables
 

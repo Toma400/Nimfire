@@ -7,6 +7,9 @@
 - [nimfire/colors](#nimfirecolors)
 - nimfire/types
 <!-- - nimfire/ui -->
+Experimental
+- [nimfire/indev/simpleui](#nimfireindevsimpleui)
+- [nimfire/indev/text](#nimfireindevtext)
 
 ---
 # Nimfire
@@ -686,3 +689,38 @@ Arguments:
 | r, g, b, a |            uint8             | **required** | Turns four uint8 values into ColorRGBX object <br> ✮ Can be overloaded with string or uint8 tuple                      |
 |    hex     |            string            | **required** | Turns string representing hexcode into ColorRGBX object <br> ✮ Can be overloaded with uint8 tuple or four uint8 values |
 
+---
+# Nimfire/indev/simpleui
+Experimental Nimfire module that allows you to draw UI elements.  
+Unlike `ui`, it operates only on primitive elements, such as [Rect](#rect) objects.
+Its main use case is being practical, not particularly aesthetical or customisable.
+
+Types:
+  - ProgressBar : object
+    - pos
+    - size
+    - progress
+    - bg_col
+    - progress_col
+    - bg_rect
+
+Functions:
+  - newProgressBar
+  - drawProgressBar
+
+---
+# Nimfire/indev/text
+Experimental Nimfire module that allows you to render text.
+
+Types:
+  - Text : object
+    - bg_rect
+    - text
+    - font
+    - size
+    - pixmg
+  - Fonts : enum
+
+Functions:
+  - newText
+  - drawText

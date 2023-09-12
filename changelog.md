@@ -8,6 +8,18 @@
 ## 0.1.x
 
 ### 0.1.2
+Additions:
+  - Added experimental `nimfire/indev` section to test new unstable features
+    - each module in there will have its stable substitute in main directory
+      (`indev` variant will be deprecated by that time)
+    - `simpleui` module let you create simple UI
+      - currently it handles only `ProgressBar` element
+      - it will be added as non-experimental feature later in 0.1.x
+    - `text` module let you render text
+      - rendering can be bugged and not work as expected
+      - should be added as non-experimental feature in 0.1.3
+    - `ui` module stays as private for the time being
+
 Changes:
   - `setPixel` behaviour has been changed to mimic `setPixelRelative` as default
 

@@ -100,11 +100,11 @@ Currently, this is Nimfire's scope:
   - [ ] More Image manipulation features
     - [ ] Resize images
     - [ ] Nesting Image type into each other
-- [ ] Text management
-  - [ ] Drawing text on screen
+- [x] Text management
+  - [x] Drawing text on screen
     - [ ] Size properties
     - [ ] More advanced features (multiline text)
-  - [ ] Font support
+  - [x] Font support
 - [ ] QoL
   - [ ] Holders for images/rects/sounds that let you access them by ID from Window
   <!-- use .mitems() for iterating over loop while making vars mutable
@@ -154,9 +154,13 @@ such status.
 </tr>
 
 ### Licensing
-While library is *All Rights Reserved* for now (I'm quite lazy for libraries), it will
-be changed soon. For now you are allowed to use the library for any personal project
-that is not commercial in any way.
+While library code is *All Rights Reserved* for now (I'm quite lazy for licenses),
+it will be changed soon. For now you are allowed to use the library for any personal
+project that is not commercial in any way.
+
+Library fonts use [Open Font License](https://scripts.sil.org/cms/scripts/page.php?site_id=nrsi&id=OFL)
+which permits their use. They can be used in project of any kind, but please refer
+to license or your lawyer if you want to be sure.
 
 ### Project made using Nimfire
 #### 🎨 [Drawfire](https://github.com/Toma400/Drawfire) - simple drawing app
@@ -173,6 +177,9 @@ that is not commercial in any way.
     (https://github.com/treeform/pixie/tree/523b364fcaa288d23ecb3f34c795da97d3637117#text)
     + look at textspans, as they would be neat both for Nimfire & MarXDown
       (https://github.com/treeform/pixie/tree/523b364fcaa288d23ecb3f34c795da97d3637117#text-spans)
+    + text could not have default size or customised one, but one adjusting to Rect
+      (or make two variants, one with auto-Rect and one with auto-size, with opposite
+       one being customisable)
 
   - resize image
   - jpg & svg & bmp formats supported?

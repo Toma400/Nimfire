@@ -20,6 +20,14 @@ type
   #   bg_col    : ColorRGBX
   #   rect      : Rect
   #   bg_rect   : Rect
+  # # making \____/
+  # # this    |  |
+  # # shape  /----\
+  # # of button is doable by simply iterating over [0,0] of Rect1 to [0,0] of Rect2, and
+  # # the same for each corner - and then either drawing those iterations like brush, or!
+  # # changing Rect1 (bg_rect) matrix in there - making this more performant, as only one
+  # # iteration is needed and then all drawing takes place normally on two matrixes
+  # # (instead of two matrixes + four iterations)
 
 proc newProgressBar* (pos          : (int, int),
                       size         : (int, int),
@@ -34,7 +42,7 @@ proc newProgressBar* (pos          : (int, int),
     result.bg_rect = newRect(pos, size, bg_col)
 
 #[ Drawing progress bar. Progress value should be between 0 and 100, else it will get outside bar frames
-   This is set intentionally for now, as it may be useful for some, and it let user gain more control   ]#
+   This is set intentionally for now, as it may be useful for some, and it lets user gain more control  ]#
 proc drawProgressBar* (w        : var Window,
                        pb       : var ProgressBar,
                        pos      : (int, int) = pb.pos,

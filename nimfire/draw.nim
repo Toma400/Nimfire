@@ -15,6 +15,9 @@ type
     size*   : (int, int)
     colour* : ColorRGBX
     matrix* : OrderedTable[(int, int), ColorRGBX]
+  # NestedRect* = ref object of Rect
+  #   rects   : seq[Rect] # private so it can't be accessed without proper procs being added later on
+  #   # adding should have also a way to initialise rects positions as "relative"
 proc newRect* (pos: (int, int), size: (int, int), colour: ColorRGBX): Rect =
     result.pos    = pos
     result.size   = size
@@ -89,19 +92,17 @@ proc drawRect* (w: var Window, r: var Rect, condition: bool = true, pos: (int, i
 
 #[ Creates matrix for further pixel manipulation ]#
 proc createMatrix* (r: var Rect): OrderedTable[(int, int), ColorRGBX] =
-    var ex, ey: int
     for x in r.pos[0]..r.epos[0]-1:
       for y in r.pos[1]..r.epos[1]-1:
-        ex = x-r.pos[0]
-        ey = y-r.pos[1]
+        let ex = x-r.pos[0]
+        let ey = y-r.pos[1]
         result[(ex, ey)] = r.colour
 # raw variant for Rect initialisation
 proc createMatrix* (s: (int, int), e: (int, int), c: ColorRGBX): OrderedTable[(int, int), ColorRGBX] =
-    var ex, ey: int
     for x in s[0]..e[0]-1:
       for y in s[1]..e[1]-1:
-        ex = x-s[0]
-        ey = y-s[1]
+        let ex = x-s[0]
+        let ey = y-s[1]
         result[(ex, ey)] = c
 
 #[ QoL wrapper for Rect.matrix[(x, y)] = pix. 'pos' needs to collide with Rect. Needs redraw to be visible ]#

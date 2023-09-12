@@ -43,7 +43,7 @@ proc newButton (pos        : (int, int),
 
 # other option: no bound window for Button (as it was funky as you saw with issues of recursivity), then maybe there should be call from
 # Window object? Like 'draw Button (var Window, ID <str>)' which would browse buttons
-# ISSUE - recursivity is still made (because ui.nim uses Window for type checking), but is not practically wrong (no type recursivity)
+# ISSUE - recursivity is still made (because ui_dis.nim uses Window for type checking), but is not practically wrong (no type recursivity)
 #          --- example of shorthand proc ---
 # proc drawButton* (w: var Window, id: string, condition: bool = true) =
 #     if condition == true:

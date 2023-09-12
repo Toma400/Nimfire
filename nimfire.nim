@@ -1,3 +1,5 @@
+from pixie/fileformats/png import decodePng
+from nglfw import GlfwImage, setWindowIcon
 from nimfire/types import Window
 from nimfire/colors import BLACK
 from chroma import ColorRGBX
@@ -7,17 +9,15 @@ import vmath
 #[ Forward functions]#
 proc fillBackground* (w: var Window, colour: ColorRGBX = w.bg_colour)
 
-proc initWindow* (res: (int, int), title: string, icon: string = "", resizable: bool = false, bg_colour: ColorRGBX = BLACK): Window =
+proc initWindow* (res: (int, int), title: string, resizable: bool = false, bg_colour: ColorRGBX = BLACK): Window =
     #[ Creates initial Window object. Arguments:
     - res       : (int, int) | required        >> Resolution of the window
     - title     : string     | required        >> Title of the window
-    - icon      : string     | default = none  >> Path to icon image
     - resizable : bool       | default = false >> Whether window should be resizeable
     - bg_colour : ColorRGBX  | default = BLACK >> Colour of the background            ]#
     result.scr = Screen.new(res[0], res[1], title, resizable)
     result.bg_colour = bg_colour
     result.fillBackground()
-    # setWindowIcon* - for icon adding
 
 #[ Returns tuple with current window size (using GLFW function). Use over `res` field ]#
 proc getRes* (w: var Window): (int, int) =

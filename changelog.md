@@ -23,6 +23,11 @@ Additions:
 Changes:
   - `setPixel` behaviour has been changed to mimic `setPixelRelative` as default
 
+Improvements:
+  - removed redundant `icon` argument in Window initialisation
+    - argument was set for future use, but adding icon was pushed forward in
+      development plans 
+
 ### 0.1.1
 Additions:
   - added `toRect` conversion from Image object

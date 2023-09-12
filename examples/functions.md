@@ -38,8 +38,7 @@ Aliases:
 Creates initial Window object that you use in your application.
 ```nim
 proc initWindow* (res       : (int, int), 
-                  title     : string, 
-                  icon      : string      = "",
+                  title     : string,
                   resizable : bool        = false,
                   bg_colour : ColorRGBX   = BLACK): Window
 ```
@@ -49,7 +48,6 @@ Arguments:
 |:---------:|:----------:|:----------------:|:-----------------------------------------------------|
 |    res    | (int, int) |   **required**   | resolution of the window                             |
 |   title   |   string   |   **required**   | title of the window                                  |
-|   icon    |   string   |    *optional*    | path to window icon image                            |
 | resizable |    bool    | default: `false` | whether window can be resized or not                 |
 | bg_colour | ColorRGBX  |    *optional*    | colour of the background (see also `nimfire/colors`) |
 
@@ -710,7 +708,9 @@ Functions:
 
 ---
 # Nimfire/indev/text
-Experimental Nimfire module that allows you to render text.
+Experimental Nimfire module that allows you to render text.  
+In its current state, it may be overhauled heavily to let users have more control
+over their input.
 
 Types:
   - Text : object

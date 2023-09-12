@@ -59,8 +59,8 @@ proc finish* (w: var Window) =
     w.scr.term()
 
 #[ ALIASES ]#
-proc ignite* (res: (int, int), title: string, icon: string = "", resizable: bool = false, bg_colour: ColorRGBX = BLACK): Window = # initWindow()
-    return initWindow(res, title, icon, resizable, bg_colour)
+proc ignite* (res: (int, int), title: string, resizable: bool = false, bg_colour: ColorRGBX = BLACK): Window = # initWindow()
+    return initWindow(res, title, resizable, bg_colour)
 proc isBurning* (w: var Window): bool = return w.tick()                                                        # tick()
 proc addWood* (w: var Window) = w.update()                                                                     # update()
 proc extinguish* (w: var Window) = w.finish()                                                                  # finish()

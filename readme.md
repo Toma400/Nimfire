@@ -115,7 +115,7 @@ Currently, this is Nimfire's scope:
   - [ ] Managing multiple channels (parallel sounds playing)
 - [ ] UI
   - [ ] Buttons
-  - [ ] Progress bars
+  - [x] Progress bars
   - [ ] Sliders (vertical/horizontal)
   - [ ] Scrolling slider (vertical/horizontal)
   - [ ] Text fields
@@ -162,7 +162,18 @@ that is not commercial in any way.
 #### 🎨 [Drawfire](https://github.com/Toma400/Drawfire) - simple drawing app
 
 <!-- TODO
-  - getting mouse position
+  - nested rects (for GUI)
+    // - I'd say it should be exactly 'ref of Rect' with new addition being
+         dict/list of rects inside & special drawing system that calls drawing
+         of inside rects afterwards and with relative position
+    // - a way to nest Rects inside Rects? (needs adjusting matrix accordingly)
+  - simplegui button
+  - simplegui progress bar
+  - text using Pixie's "fillText" with possibility to have clear borders
+    (https://github.com/treeform/pixie/tree/523b364fcaa288d23ecb3f34c795da97d3637117#text)
+    + look at textspans, as they would be neat both for Nimfire & MarXDown
+      (https://github.com/treeform/pixie/tree/523b364fcaa288d23ecb3f34c795da97d3637117#text-spans)
+
   - resize image
   - jpg & svg & bmp formats supported?
 

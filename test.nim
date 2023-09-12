@@ -1,16 +1,20 @@
+import nimfire/indev/simpleui
 import nimfire/colors
-import nimfire/image
-import nimfire/draw
+import nimfire/input
 import nimfire
 
 var w = initWindow((800, 600), "Dance or Die - Simple Game", resizable=true, bg_colour=PULLMAN_BROWN)
-var i = newImage("nimfire.png", (50, 50)).toRect
-
-for x in 0..10:
-  setPixel(i, (x, 5), BLACK)
+var e = newProgressBar((5, 5), (500, 50))
+var p = 100
 
 while w.tick():
-    w.drawRect(i)
-    w.update(true)
+    w.drawProgressBar(e, progress=p)
+
+    if getKeyPressed(w, KEY.W):
+        p -= 1
+
+    echo p
+
+    w.update()
 
 w.finish()

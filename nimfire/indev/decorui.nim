@@ -45,7 +45,7 @@ proc drawDecorButton* (w: var Window, db: var DecorButton, pos: (int, int), cond
          discard button.setListener(...)
 
    Current returning implementation is experimental and may change in the future ]#
-proc setListener* (w: Window, db: var DecorButton, button: MouseButton = LEFT): DecorButton =
+proc setListener* (db: var DecorButton, w: Window, button: MouseButton = LEFT): DecorButton =
     if getMousePressed(w, button):
       if collide(db.un_image, getMousePos(w)):
         db.state = true

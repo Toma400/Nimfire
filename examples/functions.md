@@ -624,7 +624,7 @@ Arguments:
 
 
 ### setPixelRelative
-Alias of [setPixel](#setpixel) used in >=0.1.1 version for transition.  
+Alias of [setPixel](#setpixel) used in >=0.1.1 versions for transition.  
 Do use `setPixel` instead, as this proc is now deprecated and will be removed in one of
 upcoming releases.
 
@@ -713,8 +713,8 @@ Types:
     - bg_rect
 
 Functions:
-  - newProgressBar
-  - drawProgressBar
+  - [newProgressBar](#newprogressbar)
+  - [drawProgressBar](#drawprogressbar)
 
 ---
 ### ProgressBar
@@ -737,24 +737,120 @@ Progress value being only between 0 and 100, as well as having no guardrails may
 something to change in upcoming releases.
 
 ---
+### newProgressBar
+Basic ProgressBar constructor, allowing you to initialise it.
+```nim
+proc newProgressBar* (pos          : (int, int),
+                      size         : (int, int),
+                      progress     : int        = 100,
+                      bg_col       : ColorRGBX  = WHITE,
+                      progress_col : ColorRGBX  = PINE_GREEN): ProgressBar
+```
+Arguments:
+
+|     Name     |    Type    |        Treatment         | Description                                                                  |
+|:------------:|:----------:|:------------------------:|:-----------------------------------------------------------------------------|
+|     pos      | (int, int) |       **required**       | initial position for the bar                                                 |
+|     size     | (int, int) |       **required**       | size of the bar                                                              |
+|   progress   |    int     |    default: <br> 100     | initial progress amount (can be overwritten later)                           |
+|    bg_col    | ColorRGBX  |   default: <br> WHITE    | background rectangle colour (suggested to use [Colour enum](#nimfirecolors)) |
+| progress_col | ColorRGBX  | default: <br> PINE_GREEN | progress rectangle colour (suggested to use [Colour enum](#nimfirecolors))   |
+
+### drawProgressBar
+Procedure allowing you to draw and update ProgressBar object.
+```nim
+proc drawProgressBar* (w        : var Window,
+                       pb       : var ProgressBar,
+                       pos      : (int, int) = pb.pos,
+                       progress : int        = pb.progress,
+                       cond     : bool       = true)
+```
+Arguments:
+
+|   Name   |       Type        |                   Treatment                   | Description                                                                                |
+|:--------:|:-----------------:|:---------------------------------------------:|:-------------------------------------------------------------------------------------------|
+|    w     |   `var` Window    |                 **required**                  | window we draw bar on                                                                      |
+|    pb    | `var` ProgressBar |                 **required**                  | bar object                                                                                 |
+|   pos    |    (int, int)     |   default: <br> `pos` field of ProgressBar    | overrides bar position if used                                                             |
+| progress |        int        | default: <br> `progress` field of ProgressBar | overrides bar progress if used. Passing value outside 0..100 range will overflow the image |
+|   cond   |       bool        |             default: <br> `true`              | boolean expression that allow you to condition ProgressBar drawing                         |
+
+---
 # Nimfire/indev/decorui
 Experimental Nimfire module that allows you to draw UI elements.  
 Unlike [simpleui](#nimfireindevsimpleui), it operates on more aesthetically pleasing
 elements, allowing also for broader customisation.
 
 Types:
-  - DecorButton : object
+  - [DecorButton](#decorbutton) : object
     - un_image
     - ac_image
     - state
     - pos
   
 Functions:
-  - newDecorButton
+  - [newDecorButton](#newdecorbutton)
   - drawDecorButton
-  - setListener
+  - [setListener](#setlistener)
   - isClicked
   - isClickedListener
+
+---
+### DecorButton
+**Type**: object
+
+GUI object which allows creating Image-based buttons.
+
+Fields:
+
+|   Name   |    Type    | Usage details                                         |
+|:--------:|:----------:|:------------------------------------------------------|
+| un_image |   Image    | Image object that is drawn when button is not pressed |
+| ac_image |   Image    | Image object that is drawn when button is pressed     |
+|  state   |    bool    | stores information whether button is pressed or not   |
+|   pos    | (int, int) | position of DecorButton                               |
+
+---
+### newDecorButton
+Creates new DecorButton object.
+```nim
+proc newDecorButton* (pos: (int, int), uim: Image, aim: Image): DecorButton
+```
+Arguments:
+
+| Name |    Type    |  Treatment   | Description                                                                |
+|:----:|:----------:|:------------:|:---------------------------------------------------------------------------|
+| pos  | (int, int) | **required** | initial position of the button                                             |
+| uim  |   Image    | **required** | Image object representing default state (false) when button is not pressed |
+| aim  |   Image    | **required** | Image object representing pressed state (true)                             |
+
+### setListener
+Procedure that takes care of rendering updates of DecorButton object.  
+In most cases, it should be used within game loop. 
+```nim
+proc setListener* (db: var DecorButton, w: Window, button: MouseButton = LEFT): DecorButton
+```
+Arguments:
+
+|  Name  |       Type        |     Treatment      | Description                                             |
+|:------:|:-----------------:|:------------------:|:--------------------------------------------------------|
+|   db   | `var` DecorButton |    **required**    | button listening to events                              |
+|   w    |      Window       |    **required**    | window to check events for                              |
+| button |    MouseButton    | default: <br> LEFT | mouse action being listened to (by default: left-click) |
+
+Since `setListener` returns value, you can use it to set listening immediately during
+initialisation:
+```nim
+while window.tick():
+  var button = newDecorButton((0, 0), image1, image2).setListener(window)
+```
+But since this requires initialisation within the loop, it is not really practical and
+should be used only when absolutely necessary.  
+However, using it in normal circumstances requires using `discard`:
+```nim
+while window.tick():
+  discard button.setListener(window)
+```
 
 ---
 # Nimfire/indev/text

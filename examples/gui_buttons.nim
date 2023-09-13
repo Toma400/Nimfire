@@ -18,12 +18,15 @@ var w = initWindow((800, 600), "Nimfire", bg_colour=PURPLE)
 #                              V                  V                      V
 var button = newDecorButton((100, 100), newImage("test1.png"), newImage("test2.png"))
 # you can do it by passing Image objects initialised elsewhere, but you can do it within button constructor as well
+#                 tip: since there's possibility of converting Rect to Image, you can also make buttons
+#                      out of pure colour by creating Rect objects and converting them
 
 while w.tick():
   w.drawDecorButton(button) # we then pass drawing command to main loop
 
-  setListener(w, button) # we need to create listener, so button will recognise being clicked and change its state
-                         # it mostly help with correct rendering of button state, it doesn't affect isClicked proc
+  discard button.setListener(w) # we need to create listener, so button will recognise being clicked and change its state
+                                 # it mostly help with correct rendering of button state, it doesn't affect isClicked proc
+                                 # we need to 'discard' it because setListener returns value we don't use in this context
 
   if isClicked(w, button): # isClicked proc let you recognise whether button was clicked
     echo "Hello world!"

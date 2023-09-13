@@ -1,20 +1,20 @@
 import nimfire/indev/simpleui
-import nimfire/indev/text
+import nimfire/indev/decorui
 import nimfire/colors
-import nimfire/input
+import nimfire/image
 import nimfire
 
 var w = initWindow((800, 600), "Nimfire Test", resizable=true, bg_colour=PULLMAN_BROWN)
 var e = newProgressBar((5, 5), (500, 50), bg_col=CREAM, progress_col=PURPLE)
-var f = newText("Hello world", size=35, pos=(150, 150), bsize=(300, 300))
+var f = newDecorButton((100, 100), newImage("test1.png"), newImage("test2.png"))
 var p = 100
 
 while w.tick():
     w.drawProgressBar(e, progress=p)
-    w.drawText(f)
+    w.drawDecorButton(f)
 
-    if getKeyPressed(w, KEY.W):
-        p -= 1
+    if isClickedListener(f, w):
+      p -= 1
 
     echo p
 

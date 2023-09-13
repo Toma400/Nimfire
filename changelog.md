@@ -15,10 +15,13 @@ Additions:
     - `simpleui` module let you create simple UI
       - currently it handles only `ProgressBar` element
       - it will be added as non-experimental feature later in 0.1.x
+    - `decorui` module let you create more advanced UI
+      - currently it handles only `DecorButton` element
+      - it will be developed heavily through whole 0.1.x cycle
+      - expected date of releasing it as non-experimental is 0.2.0 
     - `text` module let you render text
       - rendering can be bugged and not work as expected
       - should be added as non-experimental feature in 0.1.3
-    - `ui` module stays as private for the time being
 
 Changes:
   - `setPixel` behaviour has been changed to mimic `setPixelRelative` as default
@@ -26,7 +29,7 @@ Changes:
 Improvements:
   - removed redundant `icon` argument in Window initialisation
     - argument was set for future use, but adding icon was pushed forward in
-      development plans 
+      development plans
 
 ### 0.1.1
 Additions:

@@ -9,6 +9,7 @@
 <!-- - nimfire/ui -->
 Experimental
 - [nimfire/indev/simpleui](#nimfireindevsimpleui)
+- [nimfire/indev/decorui](#nimfireindevdecorui)
 - [nimfire/indev/text](#nimfireindevtext)
 
 ---
@@ -690,7 +691,8 @@ Arguments:
 ---
 # Nimfire/indev/simpleui
 Experimental Nimfire module that allows you to draw UI elements.  
-Unlike `ui`, it operates only on primitive elements, such as [Rect](#rect) objects.
+Unlike [decorui](#nimfireindevdecorui), it operates only on primitive elements,
+such as [Rect](#rect) objects.
 Its main use case is being practical, not particularly aesthetical or customisable.
 
 Types:
@@ -705,6 +707,26 @@ Types:
 Functions:
   - newProgressBar
   - drawProgressBar
+
+---
+# Nimfire/indev/decorui
+Experimental Nimfire module that allows you to draw UI elements.  
+Unlike [simpleui](#nimfireindevsimpleui), it operates on more aesthetically pleasing
+elements, allowing also for broader customisation.
+
+Types:
+  - DecorButton : object
+    - un_image
+    - ac_image
+    - state
+    - pos
+  
+Functions:
+  - newDecorButton
+  - drawDecorButton
+  - setListener
+  - isClicked
+  - isClickedListener
 
 ---
 # Nimfire/indev/text

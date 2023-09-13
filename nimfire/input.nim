@@ -256,7 +256,7 @@ proc getMousePressed* (w: Window, button: string): bool =
     return getMouseButton(w.scr.win.ct, mouse[button].cint - 1) == 1
 
 #[ Returns position of a mouse. Uses (-1, -1) as special coordinates of bug ]#
-proc getMousePos* (w: var Window): (int, int) =
+proc getMousePos* (w: Window): (int, int) =
     var cx: cdouble
     var cy: cdouble
     getCursorPos(w.scr.win.ct, addr cx, addr cy)

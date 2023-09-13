@@ -30,11 +30,10 @@ proc epos* (i: Image): (int, int) =
             i.pos[1]+i.res[1])
 
 proc drawImage* (w: var Window, i: Image, pos: (int, int) = i.pos, cond: bool = true) =
-    var x, y: int
     if cond == true:
       for k, v in i.fatrix:
-        x = pos[0]+k[0]
-        y = pos[1]+k[1]
+        let x = pos[0]+k[0]
+        let y = pos[1]+k[1]
         if isWithin(w, (x, y)):
           w.scr[x, y] = v
 

@@ -1,9 +1,26 @@
 ![](banner.png)
-**Nimfire** (Nim Campfire) is small GUI/game library inspired by PyGame and Nigui,
-using gl*FB and GLFW libraries to render window and let you draw.  
+**Nimfire** (Nim Campfire) is small Nim GUI/game library inspired by PyGame and Nigui,
+trying to be what I haven't found yet in Nim's gamedev ecosystem.  
 While it is mostly my learning project, I'd love to see it becoming something bigger
 in the future - I will try to update is regularly, so it should not be abandoned
 anytime soon.
+
+Nimfire aim is to:
+- **empower control**
+  - you are given as much manual control as possible, including contents of main loop
+    (inspired by PyGame)
+- **minimise abstractions**
+  - you are not forced into any OOP system and relations, there's no object that
+    you need inherit from or use to control your custom elements
+- **have no dependencies**
+  - one of huge issues with Nim gamelibs is their requirement to install and/or
+    compile many C libraries and other dependencies - Nimfire uses only static
+    Nim libraries which makes it work out of the box
+- **be simple and user-friendly**
+  - no unnecessary verbosity of code, we are coding Nim after all
+  - well documented code, examples and possibility to learn from short examples
+  - and also being batteries-included in terms of having GUI elements, so you don't
+    need to write your own (it's totally possible though!)
 
 ### Installation
 To install the library, simply run such command in terminal:

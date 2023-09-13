@@ -244,7 +244,7 @@ Arguments:
 ### getMousePos
 Returns position of the cursor as a coordinates tuple.
 ```nim
-proc getMousePos* (w: var Window): (int, int)
+proc getMousePos* (w: Window): (int, int)
 ```
 Arguments:
 
@@ -489,7 +489,7 @@ proc drawRect* (w      : var Window,
                 colour : ColorRGBX, 
                 cond   : bool = true)
 
-proc drawRect* (w    : var Window,
+proc drawRect* (w    : Window,
                 r    : Rect,
                 cond : bool = true)
 
@@ -510,11 +510,11 @@ Arguments (drawing freely):
 
 Arguments (using Rect object):
 
-| Name |     Type     |             Treatment             | Description                                                 |
-|:----:|:------------:|:---------------------------------:|:------------------------------------------------------------|
-|  w   | `var` Window |           **required**            | Window object being drawn into                              |
-|  r   |     Rect     |           **required**            | Rect object being drawn                                     |
-| cond |     bool     |          default: `true`          | boolean expression that allow you to condition Rect drawing |
+| Name |  Type  |    Treatment    | Description                                                 |
+|:----:|:------:|:---------------:|:------------------------------------------------------------|
+|  w   | Window |  **required**   | Window object being drawn into                              |
+|  r   |  Rect  |  **required**   | Rect object being drawn                                     |
+| cond |  bool  | default: `true` | boolean expression that allow you to condition Rect drawing |
 
 Arguments (using Rect object, with overriding of position):
 
@@ -585,14 +585,10 @@ Arguments:
 |  i   | Image | **required** | Image object being converted |
 
 ### setPixel
-Sets pixel on specific coordinate of Rect object. It is absolute and performs
-check on whether given coordinates belong to Rect.  
-For relative, see [setPixelRelative](#setpixelrelative) proc.
-
-**Disclaimer**:   
-`setPixel` will change its behaviour to mimic [setPixelRelative](#setpixelrelative)
-as default in version 0.1.3.  
-Use [setPixelAbsolute](#setpixelabsolute) instead to keep your code safe from changes.
+Sets pixel on specific coordinate of Rect object.  
+Uses relative positioning (so `0,0` means upper top of Rect, not upper top of Window).  
+Performs check whether position is between 0 and Rect size.  
+For absolute variant, see [setPixelAbsolute](#setpixelabsolute) proc.
 
 ```nim
 proc setPixel* (r: var Rect, pos: (int, int), colour: ColorRGBX)
@@ -604,21 +600,33 @@ Arguments:
 |  Name  |    Type    |  Treatment   | Description                                                                                                                   |
 |:------:|:----------:|:------------:|:------------------------------------------------------------------------------------------------------------------------------|
 |   r    | `var` Rect | **required** | Rect object that is being used                                                                                                |
+|  pos   | (int, int) | **required** | Relative position that is being drawn into. Skips drawing if outside of Rect <br> ✮ Can be overloaded with two int values     |
+|  x, y  |    int     | **required** | Relative position that is being drawn into. Skips drawing if outside of Rect  <br> ✮ Can be overloaded with tuple of two ints |
+| colour | ColorRGBX  | **required** | Colour being drawn in position (suggested to use [Colour enum](#nimfirecolors))                                               |
+
+### setPixelAbsolute
+Sets pixel on specific coordinate of Rect object. It is absolute and performs
+check on whether given coordinates belong to Rect.  
+
+```nim
+proc setPixelAbsolute* (r: var Rect, pos: (int, int), colour: ColorRGBX)
+
+proc setPixelAbsolute* (r: var Rect, x: int, y: int, colour: ColorRGBX)
+```
+Arguments:
+
+|  Name  |    Type    |  Treatment   | Description                                                                                                                   |
+|:------:|:----------:|:------------:|:------------------------------------------------------------------------------------------------------------------------------|
+|   r    | `var` Rect | **required** | Rect object that is being used                                                                                                |
 |  pos   | (int, int) | **required** | Absolute position that is being drawn into. Skips drawing if outside of Rect <br> ✮ Can be overloaded with two int values     |
 |  x, y  |    int     | **required** | Absolute position that is being drawn into. Skips drawing if outside of Rect  <br> ✮ Can be overloaded with tuple of two ints |
 | colour | ColorRGBX  | **required** | Colour being drawn in position (suggested to use [Colour enum](#nimfirecolors))                                               |
 
-### setPixelAbsolute
-Alias of [setPixel](#setpixel) that will remain 
 
 ### setPixelRelative
-Equivalent of [setPixel](#setpixel) proc, but uses relative positioning.  
-Performs check whether position is between 0 and Rect size.
-
-**Disclaimer**:  
-[setPixel](#setpixel) will change its behaviour in version 0.1.3 to mimic `setPixelRelative`
-as default. This may result in this proc becoming deprecated and eventually removed.  
-Please check changelogs and deprecation warnings.
+Alias of [setPixel](#setpixel) used in >=0.1.1 version for transition.  
+Do use `setPixel` instead, as this proc is now deprecated and will be removed in one of
+upcoming releases.
 
 ```nim
 proc setPixelRelative* (r: var Rect, rel_pos: (int, int), colour: ColorRGBX)
@@ -696,7 +704,7 @@ such as [Rect](#rect) objects.
 Its main use case is being practical, not particularly aesthetical or customisable.
 
 Types:
-  - ProgressBar : object
+  - [ProgressBar](#progressbar) : object
     - pos
     - size
     - progress
@@ -707,6 +715,26 @@ Types:
 Functions:
   - newProgressBar
   - drawProgressBar
+
+---
+### ProgressBar
+**Type**: object
+
+GUI object that allows showcasing various kinds of progress.
+
+Fields:
+
+|     Name     |    Type    | Usage details                                                                                                                                                     |
+|:------------:|:----------:|:------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+|     pos      | (int, int) | initial position of bar. Can be overwritten during drawing                                                                                                        |
+|     size     | (int, int) | size of bar, given explicitly as tuple of ints                                                                                                                    | 
+|   progress   |    int     | number signifying progress of the bar, in % values. Does not protect against overflows, so manual check for value passed being between 0 and 100 needs to be made |
+|    bg_col    | ColorRGBX  | colour of background rectangle (hidden below progress one). It is suggested to use [Colour enum](#nimfirecolors)                                                  |
+| progress_col | ColorRGBX  | colour of progress rectangle (dynamic). It is suggested to use [Colour enum](#nimfirecolors)                                                                      |
+|   bg_rect    |    Rect    | Rect object of background rectangle                                                                                                                               |
+
+Progress value being only between 0 and 100, as well as having no guardrails may be
+something to change in upcoming releases.
 
 ---
 # Nimfire/indev/decorui

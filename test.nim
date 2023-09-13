@@ -13,7 +13,7 @@ while w.tick():
     w.drawProgressBar(e, progress=p)
     w.drawDecorButton(f)
 
-    if isClickedListener(f, w):
+    if isClickedListener(w, f):
       p -= 1
 
     echo p

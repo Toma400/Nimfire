@@ -14,6 +14,7 @@ Additions:
       (`indev` variant will be deprecated by that time)
     - `simpleui` module let you create simple UI
       - currently it handles only `ProgressBar` element
+        - improvements towards range will be introduced soon 
       - it will be added as non-experimental feature later in 0.1.x
     - `decorui` module let you create more advanced UI
       - currently it handles only `DecorButton` element

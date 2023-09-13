@@ -4,10 +4,10 @@ import ../draw
 import ../types
 
 type
-  ProgressBar = object
+  ProgressBar* = object
     pos          : (int, int)
     size         : (int, int)
-    progress     : int
+    progress*    : int
     bg_col       : ColorRGBX
     progress_col : ColorRGBX
     bg_rect      : Rect
@@ -28,6 +28,13 @@ type
   # # changing Rect1 (bg_rect) matrix in there - making this more performant, as only one
   # # iteration is needed and then all drawing takes place normally on two matrixes
   # # (instead of two matrixes + four iterations)
+  # #
+  # # instead of NestedRect, wouldn't it make more sense that both Rects would just merge
+  # # with each other? So it simply would mean overwriting Rect1 with Rect2 matrix differences
+  # # -- this would allow for easy one-time construction of both active and inactive Rects
+  # #    and, by extension, easy Button > DecorButton conversion
+  # #    -- normal Button could keep some flexibility properties in this case, such as
+  # #       changing of text or sth, depending on how we build it
 
 proc newProgressBar* (pos          : (int, int),
                       size         : (int, int),

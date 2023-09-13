@@ -114,7 +114,7 @@ Currently, this is Nimfire's scope:
   - [ ] WAV/FLAC/OGG/MP3 formats
   - [ ] Managing multiple channels (parallel sounds playing)
 - [ ] UI
-  - [ ] Buttons
+  - [x] Buttons
   - [x] Progress bars
   - [ ] Sliders (vertical/horizontal)
   - [ ] Scrolling slider (vertical/horizontal)
@@ -173,6 +173,8 @@ to license or your lawyer if you want to be sure.
     // - a way to nest Rects inside Rects? (needs adjusting matrix accordingly)
   - simplegui button
   - simplegui progress bar
+    - can have custom range, so if given 10_000, it'd make 10_000/100 and use it?
+    - should have non-manual 0<x<100 control at least as an option
   - text using Pixie's "fillText" with possibility to have clear borders
     (https://github.com/treeform/pixie/tree/523b364fcaa288d23ecb3f34c795da97d3637117#text)
     + look at textspans, as they would be neat both for Nimfire & MarXDown

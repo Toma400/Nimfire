@@ -45,7 +45,7 @@ proc drawDecorButton* (w: var Window, db: var DecorButton, pos: (int, int), cond
          discard button.setListener(...)
 
    Current returning implementation is experimental and may change in the future ]#
-proc setListener* (db: var DecorButton, w: Window, button: MouseButton = LEFT): DecorButton =
+proc setListener* (w: Window, db: var DecorButton, button: MouseButton = LEFT): DecorButton =
     if getMousePressed(w, button):
       if collide(db.un_image, getMousePos(w)):
         db.state = true
@@ -62,7 +62,7 @@ proc isClicked* (w: Window, db: DecorButton, button: MouseButton = LEFT): bool =
     return false
 
 # bundled isClicked and setListener, so it doesn't double tasks
-proc isClickedListener* (db: var DecorButton, w: Window, button: MouseButton = LEFT): bool =
+proc isClickedListener* (w: Window, db: var DecorButton, button: MouseButton = LEFT): bool =
     if getMousePressed(w, button):
       if collide(db.un_image, getMousePos(w)):
         db.state = true

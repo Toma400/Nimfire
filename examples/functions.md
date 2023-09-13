@@ -792,8 +792,8 @@ Functions:
   - [newDecorButton](#newdecorbutton)
   - drawDecorButton
   - [setListener](#setlistener)
-  - isClicked
-  - isClickedListener
+  - [isClicked](#isclicked)
+  - [isClickedListener](#isclickedlistener)
 
 ---
 ### DecorButton
@@ -851,6 +851,38 @@ However, using it in normal circumstances requires using `discard`:
 while window.tick():
   discard button.setListener(window)
 ```
+
+### isClicked
+Proc that checks whether specific DecorButton is being clicked on.
+```nim
+proc isClicked* (w: Window, db: DecorButton, button: MouseButton = LEFT): bool
+```
+Arguments:
+
+|  Name  |    Type     |     Treatment      | Description                                            |
+|:------:|:-----------:|:------------------:|:-------------------------------------------------------|
+|   w    |   Window    |    **required**    | window being checked on                                |
+|   db   | DecorButton |    **required**    | button being checked on                                |
+| button | MouseButton | default: <br> LEFT | mouse action being checked on (by default: left-click) |
+
+Since `isClicked` performs the same check as `setListener`, you can use [isClickedListener](#isclickedlistener)
+to optimise this action, if you use each of those once.  
+In case you put multiple `isClicked` checks, it is better to keep `setListener` separate.
+
+### isClickedListener
+Proc optimising `isClicked` and `setListener` use by performing both tasks in shorter
+manner. Should be used only if `isClicked` is performed once, else it becomes more
+expensive than doing those checks in separation.
+```nim
+proc isClickedListener* (w: Window, db: var DecorButton, button: MouseButton = LEFT): bool
+```
+Arguments:
+
+|  Name  |       Type        |     Treatment      | Description                                            |
+|:------:|:-----------------:|:------------------:|:-------------------------------------------------------|
+|   w    |      Window       |    **required**    | window being checked on                                |
+|   db   | `var` DecorButton |    **required**    | button being checked on                                |
+| button |    MouseButton    | default: <br> LEFT | mouse action being checked on (by default: left-click) |
 
 ---
 # Nimfire/indev/text

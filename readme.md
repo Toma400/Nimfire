@@ -19,8 +19,8 @@ Nimfire aim is to:
 - **be simple and user-friendly**
   - no unnecessary verbosity of code, we are coding Nim after all
   - well documented code, examples and possibility to learn from short examples
-  - and also being batteries-included in terms of having GUI elements, so you don't
-    need to write your own (it's totally possible though!)
+  - being batteries-included in terms of having GUI elements, so you don't need to
+    write your own (it's totally possible though!)
 
 ### Installation
 To install the library, simply run such command in terminal:
@@ -183,6 +183,13 @@ to license or your lawyer if you want to be sure.
 #### 🎨 [Drawfire](https://github.com/Toma400/Drawfire) - simple drawing app
 
 <!-- TODO
+  - listening to sequence of keys (see TODO)
+    - there could be OrderedSet/seq that would store strings
+    - there would be arg that would be 'duration before reset' with default being -1 (infinite)
+       - each tick would count from 'duration' down
+       - clicking on keyboard input would bring 'duration' clock back + append string
+       - if 'duration' gets to 0, it would reset string
+
   - nested rects (for GUI)
     // - I'd say it should be exactly 'ref of Rect' with new addition being
          dict/list of rects inside & special drawing system that calls drawing

@@ -20,7 +20,7 @@ proc initWindow* (res: (int, int), title: string, resizable: bool = false, bg_co
     result.fillBackground()
 
 #[ Returns tuple with current window size (using GLFW function). Use over `res` field ]#
-proc getRes* (w: var Window): (int, int) =
+proc getRes* (w: Window): (int, int) =
     return (w.scr.win.getSize()[0].int, w.scr.win.getSize()[1].int)
 
 #[ Checks whether specific coordinates are within window ]#

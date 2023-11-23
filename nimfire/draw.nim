@@ -17,7 +17,7 @@ type
     matrix* : OrderedTable[(int, int), ColorRGBX]
   # NestedRect* = ref object of Rect
   #   rects   : seq[Rect] # private so it can't be accessed without proper procs being added later on
-  #   # adding should have also a way to initialise rects positions as "relative"
+    # adding should have also a way to initialise rects positions as "relative"
 proc newRect* (pos: (int, int), size: (int, int), colour: ColorRGBX): Rect =
     result.pos    = pos
     result.size   = size
@@ -123,7 +123,7 @@ proc setPixelRelative* (r: var Rect, rel_pos: (int, int), colour: ColorRGBX) {.d
     if rel_pos[0] > 0 and rel_pos[0] < r.size[0] and rel_pos[1] > 0 and rel_pos[1] < r.size[1]:
       r.matrix[(rel_pos[0], rel_pos[1])] = colour
 proc setPixelRelative* (r: var Rect, rel_x: int, rel_y: int, colour: ColorRGBX) {.deprecated:"In version 0.1.4 this proc will be removed. Use -setPixel- instead".} =
-    setPixel(r, (rel_x, rel_y), colour)
+    setPixelRelative(r, (rel_x, rel_y), colour)
 
 #[ Resets changes made by setPixel to base colour of Rect ]#
 proc clearPixels* (r: var Rect) =

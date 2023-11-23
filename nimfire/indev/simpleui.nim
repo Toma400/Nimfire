@@ -7,6 +7,7 @@ type
   ProgressBar* = object
     pos          : (int, int)
     size         : (int, int)
+    range        : (int, int)
     progress*    : int
     bg_col       : ColorRGBX
     progress_col : ColorRGBX
@@ -39,12 +40,14 @@ type
 proc newProgressBar* (pos          : (int, int),
                       size         : (int, int),
                       progress     : int        = 100,
+                      range        : (int, int) = (0, 100),
                       bg_col       : ColorRGBX  = WHITE,
                       progress_col : ColorRGBX  = PINE_GREEN): ProgressBar =
     result.pos  = pos
     result.size = size
     result.progress = progress # can be overriden later (in drawing)
-    result.bg_col = bg_col
+    result.range    = range
+    result.bg_col   = bg_col
     result.progress_col = progress_col
     result.bg_rect = newRect(pos, size, bg_col)
 
@@ -56,4 +59,4 @@ proc drawProgressBar* (w        : var Window,
                        progress : int        = pb.progress,
                        cond     : bool       = true) =
     drawRect(w, pb.bg_rect, cond, pb.pos)
-    drawRect(w, pos, ((pb.size[0].float*(progress/100)).int, pb.size[1]), pb.progress_col, cond)
+    drawRect(w, pos, ((pb.size[0].float*(progress/pb.range[1])).int, pb.size[1]), pb.progress_col, cond)

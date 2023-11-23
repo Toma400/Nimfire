@@ -8,6 +8,7 @@
 - nimfire/types
 <!-- - nimfire/ui -->
 Experimental
+- [nimfire/indev/collection](#nimfireindevcollection)
 - [nimfire/indev/simpleui](#nimfireindevsimpleui)
 - [nimfire/indev/decorui](#nimfireindevdecorui)
 - [nimfire/indev/text](#nimfireindevtext)
@@ -80,10 +81,10 @@ proc update* (w: var Window, manual: bool = false)
 ```
 Arguments:
 
-|  Name  |     Type     |    Treatment     | Description                          |
-|:------:|:------------:|:----------------:|:-------------------------------------|
-|   w    | `var` Window |   **required**   | Window object that gets updated      |
-| manual |     bool     | default: `false` | whether screen is redrawn every tick |
+|  Name  |     Type     |    Treatment     | Description                              |
+|:------:|:------------:|:----------------:|:-----------------------------------------|
+|   w    | `var` Window |   **required**   | Window object that gets updated          |
+| manual |     bool     | default: `false` | whether screen is not redrawn every tick |
 
 It is recommended to put this proc at the end of main loop, especially if `manual`
 field is set to default.  
@@ -154,13 +155,13 @@ Arguments:
 Returns tuple of current Window size. Should be used instead of `res` field, as
 field itself doesn't get updated if Window is resized (it contains initial resolution).
 ```nim
-proc getRes* (w: var Window): (int, int)
+proc getRes* (w: Window): (int, int)
 ```
 Arguments:
 
-| Name |     Type     |  Treatment   | Description                        |
-|:----:|:------------:|:------------:|:-----------------------------------|
-|  w   | `var` Window | **required** | window resolution is checked for   |
+| Name |  Type  |  Treatment   | Description                      |
+|:----:|:------:|:------------:|:---------------------------------|
+|  w   | Window | **required** | window resolution is checked for |
 
 ### isWithin
 Returns whether specific coordinates are within Window boundaries.
@@ -697,6 +698,83 @@ Arguments:
 |    hex     |            string            | **required** | Turns string representing hexcode into ColorRGBX object <br> ✮ Can be overloaded with uint8 tuple or four uint8 values |
 
 ---
+# Nimfire/indev/collection
+Experimental Nimfire module that allows you to collect Image objects.  
+This allows for easier mass-management or categorising of them, for various purposes,
+for example "non-walkable sprites" category or one with shared behaviour.
+
+Inspired heavily by mesh categorising of Morrowind and thinking how to translate this
+into 2D environment.
+
+Types:
+  - [Collection](#collection) : object
+    - elems
+    - fatrix
+
+Functions:
+  - [newCollection](#newcollection)
+  - [drawCollection](#drawcollection)
+  - [collide](#collide-collection)
+  - add
+  - remove
+
+---
+### Collection
+**Type**: object
+
+Object that collects multiple Image objects.
+
+Fields:
+
+|  Name  |        Type         | Usage details                                          |
+|:------:|:-------------------:|:-------------------------------------------------------|
+| elems  |     seq[Image]      | list of all images collected                           |
+| fatrix | HashSet[(int, int)] | set of all pixel positions used by collection elements |
+
+---
+### newCollection
+Basic Collection constructor, allowing you to store Image objects in it.  
+Note that passing no Image objects results in empty Collection.
+```nim
+proc newCollection* (elems : varargs[Image]) : Collection
+```
+Arguments:
+
+|     Name     |      Type      |                          Treatment                           | Description                                                |
+|:------------:|:--------------:|:------------------------------------------------------------:|:-----------------------------------------------------------|
+|    elems     | varargs[Image] | default: <br> no arguments passed result in empty Collection | Image objects that you initially want to add to Collection |
+
+### drawCollection
+Draws entire Collection on Window object.
+```nim
+proc drawCollection* (w: var Window, col: Collection)
+```
+Arguments:
+
+| Name |     Type     |  Treatment   | Description                                        |
+|:----:|:------------:|:------------:|:---------------------------------------------------|
+|  w   | `var` Window | **required** | Window object being drawn on                       |
+| col  |  Collection  | **required** | Collection which its elements are being drawn from |
+
+### collide `Collection`
+Collision check for Collection elements, returning whether specific positions is
+within their range.
+```nim
+proc collide* (col: Collection, pos: (int, int)): bool
+```
+Arguments:
+
+| Name |    Type    |  Treatment   | Description                             |
+|:----:|:----------:|:------------:|:----------------------------------------|
+| col  | Collection | **required** | Collection being checked for collisions |
+| pos  | (int, int) | **required** | Position being checked against          |
+
+It's important to note that algorithm for this function is not as performant as
+regular `collide` as it works in similar vein as [collidePrecise](#collideprecise).  
+It is a bit more optimised for large Collections, but still suffers from similar
+issues of iterating over `fatrix` field.
+
+---
 # Nimfire/indev/simpleui
 Experimental Nimfire module that allows you to draw UI elements.  
 Unlike [decorui](#nimfireindevdecorui), it operates only on primitive elements,
@@ -707,6 +785,7 @@ Types:
   - [ProgressBar](#progressbar) : object
     - pos
     - size
+    - range
     - progress
     - bg_col
     - progress_col
@@ -727,7 +806,8 @@ Fields:
 |     Name     |    Type    | Usage details                                                                                                                                                     |
 |:------------:|:----------:|:------------------------------------------------------------------------------------------------------------------------------------------------------------------|
 |     pos      | (int, int) | initial position of bar. Can be overwritten during drawing                                                                                                        |
-|     size     | (int, int) | size of bar, given explicitly as tuple of ints                                                                                                                    | 
+|     size     | (int, int) | size of bar, given explicitly as tuple of ints                                                                                                                    |
+|    range     | (int, int) | range of numbers passed into `progress` field (by default, 0..100 is used)                                                                                        |
 |   progress   |    int     | number signifying progress of the bar, in % values. Does not protect against overflows, so manual check for value passed being between 0 and 100 needs to be made |
 |    bg_col    | ColorRGBX  | colour of background rectangle (hidden below progress one). It is suggested to use [Colour enum](#nimfirecolors)                                                  |
 | progress_col | ColorRGBX  | colour of progress rectangle (dynamic). It is suggested to use [Colour enum](#nimfirecolors)                                                                      |
@@ -743,6 +823,7 @@ Basic ProgressBar constructor, allowing you to initialise it.
 proc newProgressBar* (pos          : (int, int),
                       size         : (int, int),
                       progress     : int        = 100,
+                      range        : (int, int) = (0, 100),
                       bg_col       : ColorRGBX  = WHITE,
                       progress_col : ColorRGBX  = PINE_GREEN): ProgressBar
 ```
@@ -753,6 +834,7 @@ Arguments:
 |     pos      | (int, int) |       **required**       | initial position for the bar                                                 |
 |     size     | (int, int) |       **required**       | size of the bar                                                              |
 |   progress   |    int     |    default: <br> 100     | initial progress amount (can be overwritten later)                           |
+|    range     | (int, int) |  default: <br> (0, 100)  | range of numbers used between start and end of progress bar                  |
 |    bg_col    | ColorRGBX  |   default: <br> WHITE    | background rectangle colour (suggested to use [Colour enum](#nimfirecolors)) |
 | progress_col | ColorRGBX  | default: <br> PINE_GREEN | progress rectangle colour (suggested to use [Colour enum](#nimfirecolors))   |
 

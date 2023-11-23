@@ -715,8 +715,8 @@ Functions:
   - [newCollection](#newcollection)
   - [drawCollection](#drawcollection)
   - [collide](#collide-collection)
-  - add
-  - remove
+  - [add](#add)
+  - [remove](#remove)
 
 ---
 ### Collection
@@ -773,6 +773,35 @@ It's important to note that algorithm for this function is not as performant as
 regular `collide` as it works in similar vein as [collidePrecise](#collideprecise).  
 It is a bit more optimised for large Collections, but still suffers from similar
 issues of iterating over `fatrix` field.
+
+### add 
+Expands Collection of new Image.
+```nim
+proc add* (col: var Collection, i: Image)
+```
+Arguments:
+
+| Name |       Type       |  Treatment   | Description               |
+|:----:|:----------------:|:------------:|:--------------------------|
+| col  | `var` Collection | **required** | Collection being added to |
+|  i   |      Image       | **required** | Image being added         |
+
+### remove
+Removes Image from collection on specific position.
+```nim
+proc remove* (col: var Collection, index: int)
+```
+Arguments:
+
+| Name  |       Type       |  Treatment   | Description                   |
+|:-----:|:----------------:|:------------:|:------------------------------|
+|  col  | `var` Collection | **required** | Collection being removed from |
+| index |       int        | **required** | Image index being removed     |
+
+Note that removal of Image requires Collection to rebuild `fatrix` which can
+have smaller or bigger impact on performance during this process, depending
+on Collection size.  
+Thus, it is recommended to not use `remove` too often.
 
 ---
 # Nimfire/indev/simpleui

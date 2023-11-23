@@ -31,11 +31,14 @@ proc add* (col: var Collection, i: Image) =
       col.fatrix.incl((rel_pos[0] + i.pos[0],
                        rel_pos[1] + i.pos[1]))
 
-# proc remove* (col: Collection, index: int) =
-#     if col.elems.len() > index:
-#       col.elems.fatrix = @[] # clears out entirely because there can be some pixel positions used by multiple Images at once
-#       for pos in col.elems.fatrix:
-#         if not pos in col.elems.fatrix:
-#           col.elems.fatrix.add(pos)
-#     else:
-#       raise newException(Exception, "Tried to reach index " & index & " while collection has " & col.elems.len() & " elements.")
+proc remove* (col: var Collection, index: int) =
+    if col.elems.len() > index:
+      col.elems.delete(index)
+      # rebuilding matrix entirely because there can be some pixel positions used by multiple Image objects at once
+      clear(col.fatrix)
+      for elem in col.elems:
+        for rel_pos in keys(elem.fatrix):
+          col.fatrix.incl((rel_pos[0] + elem.pos[0],
+                           rel_pos[1] + elem.pos[1]))
+    else:
+      raise newException(Exception, "Tried to reach index " & $index & " while collection has " & $len(col.elems) & " elements.")

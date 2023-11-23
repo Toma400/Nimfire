@@ -1,11 +1,25 @@
 # Changelog
 - [0.1](#0.1.x)
+  - [0.1.3](#0.1.3)
   - [0.1.2](#0.1.2) 
   - [0.1.1](#0.1.1) 
   - [0.1.0](#0.1.0)
 
 ---
 ## 0.1.x
+
+### 0.1.3
+Additions:
+  - `Collection` type that allows for mass management of Images
+  - New `range` field used by ProgressBar to customise its values used
+  
+Todo:
+  - Making `text` reliable on Rect size and more customised
+  - Allowing for `icon` on Window (?)
+  - 0.1.4 most probably:
+    - adding `simpleui` Button (convertable to DecorButton)
+    - Holder for UI elements, Rects and Images?
+    - Px as separate type, not `utils` thing?
 
 ### 0.1.2
 Additions:

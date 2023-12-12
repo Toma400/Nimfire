@@ -623,26 +623,6 @@ Arguments:
 |  x, y  |    int     | **required** | Absolute position that is being drawn into. Skips drawing if outside of Rect  <br> ✮ Can be overloaded with tuple of two ints |
 | colour | ColorRGBX  | **required** | Colour being drawn in position (suggested to use [Colour enum](#nimfirecolors))                                               |
 
-
-### setPixelRelative
-Alias of [setPixel](#setpixel) used in >=0.1.1 versions for transition.  
-Do use `setPixel` instead, as this proc is now deprecated and will be removed in one of
-upcoming releases.
-
-```nim
-proc setPixelRelative* (r: var Rect, rel_pos: (int, int), colour: ColorRGBX)
-
-proc setPixelRelative* (r: var Rect, rel_x: int, rel_y: int, colour: ColorRGBX)
-```
-Arguments:
-
-|     Name     |    Type    |  Treatment   | Description                                                                                                                   |
-|:------------:|:----------:|:------------:|:------------------------------------------------------------------------------------------------------------------------------|
-|      r       | `var` Rect | **required** | Rect object that is being used                                                                                                |
-|   rel_pos    | (int, int) | **required** | Relative position that is being drawn into. Skips drawing if outside of Rect <br> ✮ Can be overloaded with two int values     |
-| rel_x, rel_y |    int     | **required** | Relative position that is being drawn into. Skips drawing if outside of Rect  <br> ✮ Can be overloaded with tuple of two ints |
-|    colour    | ColorRGBX  | **required** | Colour being drawn in position (suggested to use [Colour enum](#nimfirecolors))                                               |
-
 ---
 # Nimfire/utils
 Nimfire module that holds some useful utility procs that are not related directly

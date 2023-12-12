@@ -17,6 +17,11 @@ Soonest todo:
     - Px as separate type, not `utils` thing?
 -->
 
+### 0.1.4
+Changes:
+  - Removed `setPixelRelative` function being deprecated
+    (use `setPixel` for its behaviour)
+
 ### 0.1.3
 Additions:
   - `Collection` type that allows for mass management of Images

@@ -4,7 +4,7 @@
 
 #[--- PACKAGE ----------]#
 packageName   = "Nimfire"
-version       = "0.1.3"
+version       = "0.1.4"
 author        = "Toma400"
 description   = "Small GUI/game development library made using gl*FB"
 license       = "All Rights Reserved"

@@ -58,13 +58,13 @@ Also uses alias `ignite()` for fun Nimfire reference.
 ### tick
 Returns whether Window is ticking (is open) or not.
 ```nim
-proc tick* (w: var Window): bool
+proc tick* (w: Window): bool
 ```
 Arguments:
 
-| Name |     Type     |  Treatment   | Description                        |
-|:----:|:------------:|:------------:|:-----------------------------------|
-|  w   | `var` Window | **required** | Window object we check for ticking |
+| Name |  Type  |  Treatment   | Description                        |
+|:----:|:------:|:------------:|:-----------------------------------|
+|  w   | Window | **required** | Window object we check for ticking |
 
 This is also considered as main loop handle, as it is created with use of `tick()`:
 ```nim
@@ -894,26 +894,30 @@ GUI object which allows creating Image-based buttons.
 
 Fields:
 
-|   Name   |    Type    | Usage details                                         |
-|:--------:|:----------:|:------------------------------------------------------|
-| un_image |   Image    | Image object that is drawn when button is not pressed |
-| ac_image |   Image    | Image object that is drawn when button is pressed     |
-|  state   |    bool    | stores information whether button is pressed or not   |
-|   pos    | (int, int) | position of DecorButton                               |
+|   Name   |    Type    | Usage details                                          |
+|:--------:|:----------:|:-------------------------------------------------------|
+| un_image |   Image    | Image object that is drawn when button is not pressed  |
+| ac_image |   Image    | Image object that is drawn when button is pressed      |
+| hv_image |   Image    | Image object that is drawn when button is hovered upon |
+|  state   |    bool    | stores information whether button is pressed or not    |
+|   pos    | (int, int) | position of DecorButton                                |
 
 ---
 ### newDecorButton
 Creates new DecorButton object.
 ```nim
-proc newDecorButton* (pos: (int, int), uim: Image, aim: Image): DecorButton
+proc newDecorButton* (pos: (int, int), uim: Image,
+                                       aim: Image = uim,
+                                       him: Image = uim): DecorButton
 ```
 Arguments:
 
-| Name |    Type    |  Treatment   | Description                                                                |
-|:----:|:----------:|:------------:|:---------------------------------------------------------------------------|
-| pos  | (int, int) | **required** | initial position of the button                                             |
-| uim  |   Image    | **required** | Image object representing default state (false) when button is not pressed |
-| aim  |   Image    | **required** | Image object representing pressed state (true)                             |
+| Name |    Type    |         Treatment         | Description                                                                |
+|:----:|:----------:|:-------------------------:|:---------------------------------------------------------------------------|
+| pos  | (int, int) |       **required**        | initial position of the button                                             |
+| uim  |   Image    |       **required**        | Image object representing default state (false) when button is not pressed |
+| aim  |   Image    | default: <br> *uim* value | Image object representing pressed state (true)                             |
+| him  |   Image    | default: <br> *uim* value | Image object representing hovered state                                    |
 
 ### setListener
 Procedure that takes care of rendering updates of DecorButton object.  

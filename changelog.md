@@ -1,5 +1,6 @@
 # Changelog
 - [0.1](#0.1.x)
+  - 0.1.4 `indev`
   - [0.1.3](#0.1.3)
   - [0.1.2](#0.1.2) 
   - [0.1.1](#0.1.1) 
@@ -17,7 +18,12 @@ Soonest todo:
     - Px as separate type, not `utils` thing?
 -->
 
-### 0.1.4
+### 0.1.4 (indev)
+<!--
+Additions:
+  - Added `icon` argument to `initWindow` allowing for customising of window's icon
+-->
+
 Changes:
   - Removed `setPixelRelative` function being deprecated
     (use `setPixel` for its behaviour)
@@ -34,15 +40,11 @@ Additions:
       (`indev` variant will be deprecated by that time)
     - `simpleui` module let you create simple UI
       - currently it handles only `ProgressBar` element
-        - improvements towards range will be introduced soon 
-      - it will be added as non-experimental feature later in 0.1.x
+        - improvements towards range will be introduced soon
     - `decorui` module let you create more advanced UI
       - currently it handles only `DecorButton` element
-      - it will be developed heavily through whole 0.1.x cycle
-      - expected date of releasing it as non-experimental is 0.2.0 
     - `text` module let you render text
       - rendering can be bugged and not work as expected
-      - should be added as non-experimental feature in 0.1.3
 
 Changes:
   - `setPixel` behaviour has been changed to mimic `setPixelRelative` as default

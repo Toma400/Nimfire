@@ -876,15 +876,18 @@ Types:
   - [DecorButton](#decorbutton) : object
     - un_image
     - ac_image
+    - hv_image
     - state
     - pos
+  - [DecorButtonStates](#decorbuttonstates) : enum
   
 Functions:
   - [newDecorButton](#newdecorbutton)
-  - drawDecorButton
-  - [setListener](#setlistener)
+  - [drawDecorButton](#drawdecorbutton)
+  - isHovered
   - [isClicked](#isclicked)
-  - [isClickedListener](#isclickedlistener)
+  - [setListener](#setlistener) `deprecated`
+  - [isClickedListener](#isclickedlistener) `deprecated`
 
 ---
 ### DecorButton
@@ -894,13 +897,19 @@ GUI object which allows creating Image-based buttons.
 
 Fields:
 
-|   Name   |    Type    | Usage details                                          |
-|:--------:|:----------:|:-------------------------------------------------------|
-| un_image |   Image    | Image object that is drawn when button is not pressed  |
-| ac_image |   Image    | Image object that is drawn when button is pressed      |
-| hv_image |   Image    | Image object that is drawn when button is hovered upon |
-|  state   |    bool    | stores information whether button is pressed or not    |
-|   pos    | (int, int) | position of DecorButton                                |
+|   Name   |       Type        | Usage details                                          |
+|:--------:|:-----------------:|:-------------------------------------------------------|
+| un_image |       Image       | Image object that is drawn when button is not pressed  |
+| ac_image |       Image       | Image object that is drawn when button is pressed      |
+| hv_image |       Image       | Image object that is drawn when button is hovered upon |
+|  state   | DecorButtonStates | stores information on current button state             |
+|   pos    |    (int, int)     | position of DecorButton                                |
+
+### DecorButtonStates
+**Type**: enum
+
+It's enum holding button states: `DEFAULT`, `HOVERED` and `CLICKED`.  
+It is used to recognise whether action was performed on button or not.
 
 ---
 ### newDecorButton
@@ -912,14 +921,55 @@ proc newDecorButton* (pos: (int, int), uim: Image,
 ```
 Arguments:
 
-| Name |    Type    |         Treatment         | Description                                                                |
-|:----:|:----------:|:-------------------------:|:---------------------------------------------------------------------------|
-| pos  | (int, int) |       **required**        | initial position of the button                                             |
-| uim  |   Image    |       **required**        | Image object representing default state (false) when button is not pressed |
-| aim  |   Image    | default: <br> *uim* value | Image object representing pressed state (true)                             |
-| him  |   Image    | default: <br> *uim* value | Image object representing hovered state                                    |
+| Name |    Type    |         Treatment         | Description                                                        |
+|:----:|:----------:|:-------------------------:|:-------------------------------------------------------------------|
+| pos  | (int, int) |       **required**        | initial position of the button                                     |
+| uim  |   Image    |       **required**        | Image object representing default state when button is not pressed |
+| aim  |   Image    | default: <br> *uim* value | Image object representing pressed state                            |
+| him  |   Image    | default: <br> *uim* value | Image object representing hovered state                            |
+
+### drawDecorButton
+Let you draw button on canvas and handle its state.
+```nim
+proc drawDecorButton* (w      : var Window,
+                       db     : var DecorButton, 
+                       cond   : bool             = true,
+                       button : MouseButton      = LEFT)
+
+proc drawDecorButton* (w      : var Window,
+                       db     : var DecorButton,
+                       pos    : (int, int),
+                       cond   : bool             = true,
+                       button : MouseButton      = LEFT)
+```
+Each call for drawing also produces check on whether button is hovered or clicked, updating
+its state in case of such activity.
+
+### isClicked
+Proc that checks whether specific DecorButton is being clicked on.
+```nim
+proc isClicked* (w: Window, db: DecorButton): bool
+
+proc isClicked* (w: Window, db: DecorButton, button: MouseButton): bool
+```
+Arguments:
+
+|  Name  |    Type     |  Treatment   | Description                                                              |
+|:------:|:-----------:|:------------:|:-------------------------------------------------------------------------|
+|   w    |   Window    | **required** | Window object being checked on                                           |
+|   db   | DecorButton | **required** | DecorButton object being checked on                                      |
+| button | MouseButton | **required** | mouse action being checked on <br> ✮ Only required in overloaded variant |
+
+If you want to check for mouse button initialised with the DecorButton (default: left mouse click),
+it is recommended to use `isClicked` variant without button, as it performs slightly faster.  
+However, in case you want to check different one, you can include MouseButton to check
+for it, too.
 
 ### setListener
+**Deprecated:** As of 0.1.4, this function is redundant against `drawDecorButton`
+updating DecorButton state. It will be removed in 0.1.5., so please update your code
+accordingly.
+
 Procedure that takes care of rendering updates of DecorButton object.  
 In most cases, it should be used within game loop. 
 ```nim
@@ -947,24 +997,11 @@ while window.tick():
   discard button.setListener(window)
 ```
 
-### isClicked
-Proc that checks whether specific DecorButton is being clicked on.
-```nim
-proc isClicked* (w: Window, db: DecorButton, button: MouseButton = LEFT): bool
-```
-Arguments:
-
-|  Name  |    Type     |     Treatment      | Description                                            |
-|:------:|:-----------:|:------------------:|:-------------------------------------------------------|
-|   w    |   Window    |    **required**    | window being checked on                                |
-|   db   | DecorButton |    **required**    | button being checked on                                |
-| button | MouseButton | default: <br> LEFT | mouse action being checked on (by default: left-click) |
-
-Since `isClicked` performs the same check as `setListener`, you can use [isClickedListener](#isclickedlistener)
-to optimise this action, if you use each of those once.  
-In case you put multiple `isClicked` checks, it is better to keep `setListener` separate.
-
 ### isClickedListener
+**Deprecated:** As of 0.1.4, this function is redundant against `drawDecorButton`
+updating DecorButton state. It will be removed in 0.1.5., so please update your code
+accordingly.
+
 Proc optimising `isClicked` and `setListener` use by performing both tasks in shorter
 manner. Should be used only if `isClicked` is performed once, else it becomes more
 expensive than doing those checks in separation.

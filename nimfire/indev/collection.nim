@@ -5,7 +5,7 @@ import std/tables
 import std/sets
 
 type
-  Collection = object
+  Collection* = object
     elems:   seq[Image]
     fatrix*: HashSet[(int, int)]
 

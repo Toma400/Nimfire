@@ -1,4 +1,5 @@
 from ../nimfire import isWithin, fillBackground
+from colors import TRANSPARENT # Nimfire
 from chroma import ColorRGBX, ColorRGBA, rgbx
 from chroma/transformations import rgba
 from pixie/fileformats/png import Png
@@ -6,6 +7,8 @@ from image import Image, filterMatrix
 import glFB except Window
 from types import Window
 import std/tables
+
+export TRANSPARENT
 
 proc createMatrix* (s: (int, int), e: (int, int), c: ColorRGBX): OrderedTable[(int, int), ColorRGBX]
 

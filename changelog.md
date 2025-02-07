@@ -12,7 +12,7 @@
 Soonest todo:
   - Making `text` reliable on Rect size and more customised
   - Allowing for `icon` on Window (?)
-  - 0.1.4 most probably:
+  - 0.1.5 most probably:
     - adding `simpleui` Button (convertable to DecorButton)
     - Holder for UI elements, Rects and Images?
     - Px as separate type, not `utils` thing?
@@ -25,8 +25,12 @@ Additions:
 -->
 
 Changes:
+  - Rewritten `indev/decorui` module, so now DecorButton element is much more intuitive
+    - `setListener` and `isClickedListener` are now deprecated
+    - `drawDecorButton` holds responsibility for updating the object with user's actions
   - Removed `setPixelRelative` function being deprecated
     (use `setPixel` for its behaviour)
+  - `TRANSPARENT` "colour" is now reachable from `nimfire/draw`
 
 ### 0.1.3
 Additions:

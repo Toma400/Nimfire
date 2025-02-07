@@ -12,6 +12,7 @@
 Soonest todo:
   - Making `text` reliable on Rect size and more customised
   - Allowing for `icon` on Window (?)
+  - Remove deprecated `decorui` procs
   - 0.1.5 most probably:
     - adding `simpleui` Button (convertable to DecorButton)
     - Holder for UI elements, Rects and Images?
@@ -19,8 +20,11 @@ Soonest todo:
 -->
 
 ### 0.1.4 (indev)
-<!--
 Additions:
+  - `TRANSPARENT` "colour" is now reachable from `nimfire/draw`
+  - Added new features for experimental `text` features:
+    - You can now change your text after initialising the object
+<!--
   - Added `icon` argument to `initWindow` allowing for customising of window's icon
 -->
 
@@ -28,9 +32,12 @@ Changes:
   - Rewritten `indev/decorui` module, so now DecorButton element is much more intuitive
     - `setListener` and `isClickedListener` are now deprecated
     - `drawDecorButton` holds responsibility for updating the object with user's actions
+  - Removed option to have default font with `newText`, to make module more readable,
+    solve [#6](https://github.com/Toma400/Nimfire/issues/6) and avoid possible license
+    issues - now all fonts need to be explicit
+    - Also removed font files from repository
   - Removed `setPixelRelative` function being deprecated
     (use `setPixel` for its behaviour)
-  - `TRANSPARENT` "colour" is now reachable from `nimfire/draw`
 
 ### 0.1.3
 Additions:

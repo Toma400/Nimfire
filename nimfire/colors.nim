@@ -113,10 +113,10 @@ proc toTuple* (rgbx: ColorRGBX): (uint8, uint8, uint8, uint8) =
 
 # conversions for uint8/float32 (used by some Pixie/Chroma types)
 proc uintToFloat* (u: uint8): float32 =
-    result = u / 255
+    result = u.float32 / 255.float32
 
 proc floatToUint* (f: float32): uint8 =
-    result = (f * 255).uint8
+    result = (f * 255.float32).uint8
 
 # shorter aliases
 proc uitf* (u: uint8):   float32 = uintToFloat(u)

@@ -19,15 +19,16 @@ proc setText (r: Rect, font: Font, text: string, size: int): Image
 #[ Text constructors. Overload let you either set your own font or pick from one of defaults ]#
 #[ Rect-deriving ]#
 proc newText* (r: Rect, text: string, size: int = 15, font_path: string): Text =
-    result.bg_rect = r
+    result.bg_rect        = r
+    result.bg_rect.colour = TRANSPARENT
     result.text  = text
     result.font  = readFont(font_path)
     result.size  = size
     result.pixmg = setText(r, result.font, text, size)
 
 #[ Rect-creating ]#
-proc newText* (text: string, size: int = 15, font: string, pos: (int, int), bsize: (int, int), colour: ColorRGBX = TRANSPARENT): Text =
-    result.bg_rect = newRect(pos, bsize, colour)
+proc newText* (text: string, size: int = 15, font: string, pos: (int, int), bsize: (int, int)): Text =
+    result.bg_rect = newRect(pos, bsize, TRANSPARENT)
     result.text  = text
     result.font  = readFont(font)
     result.size  = size
@@ -41,6 +42,13 @@ proc drawText* (w: var Window, t: Text, pos: (int, int) = t.bg_rect.pos, cond: b
 proc setText* (t: var Text, text: string = t.text) =
     t.text  = text
     t.pixmg = setText(t.bg_rect, t.font, t.text, t.size)
+
+# sets non-transparent background on request
+proc setBackground* (t: var Text, hex: string, transparency: uint8 = 255) =
+    t.bg_rect.colour = toRGBX(hex, transparency)
+
+proc setBackground* (t: var Text, rgbx: ColorRGBX) =
+    t.bg_rect.colour = rgbx
 
 # colours the text after initial steps (single colour)
 proc setSingleColor* (t: var Text, hex: string, transparency: uint8 = 255) =

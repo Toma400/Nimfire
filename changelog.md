@@ -17,6 +17,16 @@ Soonest todo:
     - adding `simpleui` Button (convertable to DecorButton)
     - Holder for UI elements, Rects and Images?
     - Px as separate type, not `utils` thing?
+  - 0.1.5 most rationally:
+    - newText from rect = fits the rect
+    - newText from data = goes purely by data
+-->
+<!--
+  - Added `icon` argument to `initWindow` allowing for customising of window's icon
+  - Text
+    - Adding coloured text with borders?
+    - Adding experimental "multiple colours" (experimentators)
+    - Adding experimental "multiple Paints" (Pixie knowers)
 -->
 
 ### 0.1.4 (indev)
@@ -26,15 +36,6 @@ Additions:
     - You can now change your text after initialising the object
     - Text can now have colour set
   - Additional support for transparency and colour hashes in `nimfire/colors`
-<!--
-  - Added `icon` argument to `initWindow` allowing for customising of window's icon
-  - Text
-    - Adding coloured text (one colour)
-    - Adding coloured text with borders?
-    - Transparent Rect by default/only
-    - Adding experimental "multiple colours" (experimentators)
-    - Adding experimental "multiple Paints" (Pixie knowers)
--->
 
 Changes:
   - Rewritten `indev/decorui` module, so now DecorButton element is much more intuitive
@@ -45,6 +46,9 @@ Changes:
     issues - now all fonts need to be explicit
     - Also removed font files from repository
   - Small changes to `newText`, removing redundant overloads
+  - Text now has always transparent background
+    - You can set non-transparent background through `setBackground` function, but
+      it must be called explicitly
   - Removed `setPixelRelative` function being deprecated
     (use `setPixel` for its behaviour)
 

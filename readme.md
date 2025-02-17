@@ -120,6 +120,7 @@ Currently, this is Nimfire's scope:
 - [x] Text management
   - [x] Drawing text on screen
     - [ ] Size properties
+    - [ ] Complex colouring (gradient, border)
     - [ ] More advanced features (multiline text)
   - [x] Font support
 - [ ] QoL

@@ -1037,4 +1037,5 @@ Functions:
   - newText
   - drawText
   - setText
+  - setBackground
   - setSingleColor

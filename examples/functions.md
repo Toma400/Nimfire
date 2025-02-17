@@ -657,6 +657,8 @@ Constants:
 
 Functions:
   - [toRGBX](#torgbx)
+  - uintToFloat
+  - floatToUint
 
 ---
 ### toRGBX
@@ -1034,3 +1036,5 @@ Types:
 Functions:
   - newText
   - drawText
+  - setText
+  - setSingleColor

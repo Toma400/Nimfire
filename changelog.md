@@ -24,8 +24,16 @@ Additions:
   - `TRANSPARENT` "colour" is now reachable from `nimfire/draw`
   - Added new features for experimental `text` features:
     - You can now change your text after initialising the object
+    - Text can now have colour set
+  - Additional support for transparency and colour hashes in `nimfire/colors`
 <!--
   - Added `icon` argument to `initWindow` allowing for customising of window's icon
+  - Text
+    - Adding coloured text (one colour)
+    - Adding coloured text with borders?
+    - Transparent Rect by default/only
+    - Adding experimental "multiple colours" (experimentators)
+    - Adding experimental "multiple Paints" (Pixie knowers)
 -->
 
 Changes:
@@ -36,6 +44,7 @@ Changes:
     solve [#6](https://github.com/Toma400/Nimfire/issues/6) and avoid possible license
     issues - now all fonts need to be explicit
     - Also removed font files from repository
+  - Small changes to `newText`, removing redundant overloads
   - Removed `setPixelRelative` function being deprecated
     (use `setPixel` for its behaviour)
 

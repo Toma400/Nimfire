@@ -2,8 +2,8 @@ from chroma import rgbx, ColorRGBX, parseHexAlpha
 from chroma/transformations import asRgbx
 
 # utility procedure for colours below
-proc r(r: uint8, g: uint8, b: uint8): ColorRGBX =
-    return rgbx(r, g, b, 255)
+proc r(r: uint8, g: uint8, b: uint8, a: uint8 = 255): ColorRGBX =
+    return rgbx(r, g, b, a)
 #[ terminology used for colours:
    - colours are categorised, and each category have '--' section to signify attributes
    - most colours take name from -encycolorpedia.com- or other source
@@ -104,5 +104,9 @@ proc toRGBX* (tup: (uint8, uint8, uint8, uint8)): ColorRGBX =
 proc toRGBX* (r: uint8, g: uint8, b: uint8, a: uint8): ColorRGBX =
     result = rgbx(r, g, b, a)
 
-proc toRGBX* (hex: string): ColorRGBX =
-    result = parseHexAlpha(hex).asRgbx()
+proc toRGBX* (hex: string, transparency: uint8 = 255): ColorRGBX =
+    result   = parseHexAlpha(hex).asRgbx()
+    result.a = transparency
+
+proc toTuple* (rgbx: ColorRGBX): (uint8, uint8, uint8, uint8) =
+    result = (rgbx.r, rgbx.g, rgbx.b, rgbx.a)

@@ -1,6 +1,7 @@
 from pixie/fileformats/png import convertToImage, decodePng, encodePng
 from pixie import Font, readFont, fillText
 from chroma import ColorRGBX
+import ../colors
 import ../types
 import ../image
 import ../draw
@@ -38,12 +39,19 @@ proc drawText* (w: var Window, t: Text, pos: (int, int) = t.bg_rect.pos, cond: b
 
 # edits the text after initial steps
 proc setText* (t: var Text, text: string = t.text) =
-    t.text = text
+    t.text  = text
     t.pixmg = setText(t.bg_rect, t.font, t.text, t.size)
 
-# colours the text after initial steps
-proc colourText* (t: var Text) =
-    discard # t.font.paints = @[(R, G, B, A), ...]
+# colours the text after initial steps (single colour)
+proc setSingleColor* (t: var Text, rgba: (uint8, uint8, uint8, uint8)) =
+    t.font.paints = @[rgba]
+    t.pixmg       = setText(t.bg_rect, t.font, t.text, t.size)
+
+proc setSingleColor* (t: var Text, hex: string, transparency: uint8 = 255) =
+    setSingleColor(t, toTuple(toRGBX(hex, transparency)))
+
+proc setSingleColor* (t: var Text, rgbx: ColorRGBX) =
+    setSingleColor(t, toTuple(rgbx))
 
 #[ Helper proc: makes once-performed Pixie operation that binds text to Rect ]#
 proc setText (r: Rect, font: Font, text: string, size: int): Image =

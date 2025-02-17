@@ -1,6 +1,6 @@
 from pixie/fileformats/png import convertToImage, decodePng, encodePng
 from pixie import Font, readFont, fillText
-from chroma import ColorRGBX
+from chroma import ColorRGBX, color
 import ../colors
 import ../types
 import ../image
@@ -43,15 +43,21 @@ proc setText* (t: var Text, text: string = t.text) =
     t.pixmg = setText(t.bg_rect, t.font, t.text, t.size)
 
 # colours the text after initial steps (single colour)
-proc setSingleColor* (t: var Text, rgba: (uint8, uint8, uint8, uint8)) =
-    t.font.paints = @[rgba]
+proc setSingleColor* (t: var Text, hex: string, transparency: uint8 = 255) =
+    var paint_sol = newPaint(PaintKind.SolidPaint)
+    block properties:
+      paint_sol.color   = toRGBX(hex, transparency).color
+      paint_sol.opacity = uintToFloat(transparency)
+    t.font.paints = @[paint_sol]
     t.pixmg       = setText(t.bg_rect, t.font, t.text, t.size)
 
-proc setSingleColor* (t: var Text, hex: string, transparency: uint8 = 255) =
-    setSingleColor(t, toTuple(toRGBX(hex, transparency)))
-
 proc setSingleColor* (t: var Text, rgbx: ColorRGBX) =
-    setSingleColor(t, toTuple(rgbx))
+    var paint_sol = newPaint(PaintKind.SolidPaint)
+    block properties:
+      paint_sol.color   = rgbx.color
+      paint_sol.opacity = uintToFloat(rgbx.a)
+    t.font.paints = @[paint_sol]
+    t.pixmg       = setText(t.bg_rect, t.font, t.text, t.size)
 
 #[ Helper proc: makes once-performed Pixie operation that binds text to Rect ]#
 proc setText (r: Rect, font: Font, text: string, size: int): Image =

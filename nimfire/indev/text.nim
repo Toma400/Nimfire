@@ -1,5 +1,5 @@
 from pixie/fileformats/png import convertToImage, decodePng, encodePng
-from pixie import Font, readFont, fillText
+from pixie import Font, readFont, fillText, newPaint
 from chroma import ColorRGBX, color
 import ../colors
 import ../types

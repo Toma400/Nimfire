@@ -21,8 +21,11 @@ Soonest todo:
     - rework text:
       - newText from rect = fits the rect, doesn't have size
       - newText from data = goes purely by data
+        - with 'text from rect', make borders so it can be Rect within the rect?
     - moveText proc
     - ability to colour the text from the start
+    - make button with text?
+      - using 'text from rect' borders
 -->
 <!--
   - Added `icon` argument to `initWindow` allowing for customising of window's icon
@@ -30,18 +33,18 @@ Soonest todo:
     - Adding coloured text with borders?
     - Adding experimental "multiple colours" (experimentators)
     - Adding experimental "multiple Paints" (Pixie knowers)
+  - Check if docs are up-to-date and if examples work (and if there's no need for new
+    examples with new features added)
 -->
-<!--
 ### 0.1.5 (indev)
--->
 
 ### 0.1.4
 Additions:
-  - `TRANSPARENT` "colour" is now reachable from `nimfire/draw`
   - Added new features for experimental `text` features:
     - You can now change your text after initialising the object
     - Text can now have colour set
-  - Additional support for transparency and colour hashes in `nimfire/colors`
+  - Additional support for transparency in `nimfire/colors`
+    - `TRANSPARENT` "colour" is now reachable from `nimfire/draw`
 
 Changes:
   - Rewritten `indev/decorui` module, so now DecorButton element is much more intuitive
@@ -51,7 +54,7 @@ Changes:
     solve [#6](https://github.com/Toma400/Nimfire/issues/6) and avoid possible license
     issues - now all fonts need to be explicit
     - Also removed font files from repository
-  - Small changes to `newText`, removing redundant overloads
+  - Small changes to `newText`, removed redundant overloads
   - Text now has always transparent background
     - You can set non-transparent background through `setBackground` function, but
       it must be called explicitly

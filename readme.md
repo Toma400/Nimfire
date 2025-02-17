@@ -146,6 +146,8 @@ Currently, this is Nimfire's scope:
 - [ ] QoL abstractions
   - [ ] Delta clock object
   - [ ] Optional Event system
+  - [ ] "Areas" letting you split the window into separately maintained objects
+- [ ] Multiple windows
 
 Look at [changelog](changelog.md) if you want to see details.
 

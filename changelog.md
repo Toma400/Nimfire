@@ -18,8 +18,11 @@ Soonest todo:
     - Holder for UI elements, Rects and Images?
     - Px as separate type, not `utils` thing?
   - 0.1.5 most rationally:
-    - newText from rect = fits the rect
-    - newText from data = goes purely by data
+    - rework text:
+      - newText from rect = fits the rect, doesn't have size
+      - newText from data = goes purely by data
+    - moveText proc
+    - ability to colour the text from the start
 -->
 <!--
   - Added `icon` argument to `initWindow` allowing for customising of window's icon
@@ -28,8 +31,11 @@ Soonest todo:
     - Adding experimental "multiple colours" (experimentators)
     - Adding experimental "multiple Paints" (Pixie knowers)
 -->
+<!--
+### 0.1.5 (indev)
+-->
 
-### 0.1.4 (indev)
+### 0.1.4
 Additions:
   - `TRANSPARENT` "colour" is now reachable from `nimfire/draw`
   - Added new features for experimental `text` features:

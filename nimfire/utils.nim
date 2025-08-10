@@ -1,8 +1,9 @@
-from winim/inc/winuser import GetSystemMetrics, SM_CXSCREEN, SM_CYSCREEN
+when hostOS == "windows":
+  from winim/inc/winuser import GetSystemMetrics, SM_CXSCREEN, SM_CYSCREEN
 from types import Window, Axis
 
 proc getScreenRes* (): (int, int) =
-    if hostOS == "windows":
+    when hostOS == "windows":
       return (GetSystemMetrics(SM_CXSCREEN).int, GetSystemMetrics(SM_CYSCREEN).int)
     else:
       raise newException(Exception, "Non-Windows OS does not support -getScreenRes- proc yet")

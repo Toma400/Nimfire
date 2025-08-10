@@ -2,7 +2,7 @@ from pixie/fileformats/png import decodePng, encodePng, Png
 from pixie import autoPremultipliedAlpha
 from chroma import ColorRGBA, ColorRGBX
 from ../nimfire import isWithin
-import glFB except Window
+import tinyfb
 from types import Window
 import std/tables
 import std/syncio

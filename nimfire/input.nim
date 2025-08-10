@@ -225,9 +225,9 @@ const
 
 #[ Returns whether specific key is pressed or not. Takes Key enum or string representation ]#
 proc getKeyPressed* (w: Window, k: Key): bool =
-    return getKey(w.scr.win.ct, k.cint) == 1         # uses nglfw, ref path: Nimfire.Window > glFB.Screen > glFB.Window > glfw.Window
+    return getKey(w.scr.window, k.cint) == 1         # uses nglfw, ref path: Nimfire.Window > tinyfb.Screen > glfw.Window
 proc getKeyPressed* (w: Window, k: string): bool =
-    return getKey(w.scr.win.ct, keys[k].cint) == 1   # uses nglfw, ref path: Nimfire.Window > glFB.Screen > glFB.Window > glfw.Window
+    return getKey(w.scr.window, keys[k].cint) == 1   # uses nglfw, ref path: Nimfire.Window > tinyfb.Screen > glfw.Window
 
 #[ Returns whether any of keys listed is pressed or not. Takes Key enum or string representation ]#
 proc anyKeysPressed* (w: Window, k: varargs[Key]): bool =
@@ -251,13 +251,13 @@ proc allKeysPressed* (w: Window, k: varargs[string]): bool =
 
 #[ Returns whether specific button was pressed ]#
 proc getMousePressed* (w: Window, button: MouseButton = LEFT): bool =
-    return getMouseButton(w.scr.win.ct, button.cint - 1) == 1
+    return getMouseButton(w.scr.window, button.cint - 1) == 1
 proc getMousePressed* (w: Window, button: string): bool =
-    return getMouseButton(w.scr.win.ct, mouse[button].cint - 1) == 1
+    return getMouseButton(w.scr.window, mouse[button].cint - 1) == 1
 
 #[ Returns position of a mouse. Uses (-1, -1) as special coordinates of bug ]#
 proc getMousePos* (w: Window): (int, int) =
     var cx: cdouble
     var cy: cdouble
-    getCursorPos(w.scr.win.ct, addr cx, addr cy)
+    getCursorPos(w.scr.window, addr cx, addr cy)
     return (int(cx), int(cy))

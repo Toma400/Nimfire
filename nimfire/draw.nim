@@ -4,7 +4,7 @@ from chroma import ColorRGBX, ColorRGBA, rgbx
 from chroma/transformations import rgba
 from pixie/fileformats/png import Png
 from image import Image, filterMatrix
-import glFB except Window
+import tinyfb
 from types import Window
 import std/tables
 

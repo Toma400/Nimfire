@@ -3,7 +3,7 @@ from nglfw import GlfwImage, setWindowIcon
 from nimfire/types import Window
 from nimfire/colors import BLACK
 from chroma import ColorRGBX
-import glFB except Window
+import tinyfb
 import vmath
 
 #[ Forward functions]#
@@ -15,13 +15,17 @@ proc initWindow* (res: (int, int), title: string, resizable: bool = false, bg_co
     - title     : string     | required        >> Title of the window
     - resizable : bool       | default = false >> Whether window should be resizeable
     - bg_colour : ColorRGBX  | default = BLACK >> Colour of the background            ]#
-    result.scr = Screen.new(res[0], res[1], title, resizable)
+    result.scr = tinyfb.init(
+      size      = tinyfb.Size(x: res[0].int32, y: res[1].int32),
+      title     = title,
+      resizable = resizable )
     result.bg_colour = bg_colour
     result.fillBackground()
 
 #[ Returns tuple with current window size (using GLFW function). Use over `res` field ]#
-proc getRes* (w: Window): (int, int) =
-    return (w.scr.win.getSize()[0].int, w.scr.win.getSize()[1].int)
+proc getRes* (w: var Window): (int, int) =
+    w.scr.size_update()
+    return (w.scr.size.width, w.scr.size.height)
 
 #[ Checks whether specific coordinates are within window ]#
 proc isWithin* (w: var Window, pos: (int, int)): bool =
@@ -31,7 +35,7 @@ proc isWithin* (w: var Window, pos: (int, int)): bool =
 
 #[ Draws one colour on whole screen ]#
 proc fillBackground* (w: var Window, colour: ColorRGBX = w.bg_colour) =
-    for pix in w.scr.pixels(): pix = colour
+    for pix in w.scr: pix = colour
 
 #[ Draws on specific coordinates - alias for gl*FB <scr[x, y] = c> ]#
 proc fillPos* (w: var Window, pos: (int, int), colour: ColorRGBX) =
@@ -50,7 +54,13 @@ proc tick* (w: var Window): bool =
     - manual : bool | default = false >> Decide on whether you control clearing
                                          of window by yourself or this proc     ]#
 proc update* (w: var Window, manual: bool = false) =
-    w.scr.update()
+    w.scr.events()
+    #     ^^^ FIX: Input polling shouldn't be here.
+    #     Input updates should happen before the logic of this frame, like so:
+    #     `screen.events()` -> `all pixel drawing` -> `screen.present()`
+    #     This makes it such that the inputs are delayed by 1 frame, because they update after drawing. Like so:
+    #     `all pixel drawing` -> `screen.events()` -> `screen.present()`
+    w.scr.present()
     if not manual:
       w.clear()
 

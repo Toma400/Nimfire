@@ -1,5 +1,5 @@
 from chroma import ColorRGBX
-from glFB import Screen
+from tinyfb import Screen
 
 type
   Window* = object
